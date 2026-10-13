@@ -5,12 +5,31 @@ no database, no subscription to anything.
 
 Pick whichever route matches where you use Claude.
 
+## First, check you got the file we built
+
+Download `startup-board-pro.zip` from the link in your purchase receipt, then
+confirm it is the file we shipped. One line in a terminal:
+
+- **Mac or Linux:** `shasum -a 256 startup-board-pro.zip`
+- **Windows (PowerShell):** `Get-FileHash startup-board-pro.zip -Algorithm SHA256`
+
+It should print the checksum published next to your download link. The value
+is not repeated here on purpose: this file ships inside the archive, and a
+checksum printed inside an archive can never be that archive's own checksum —
+writing it in would change the file it describes. So the value travels with
+the link, and with the release notes outside the archive.
+
+If it does not match, stop and ask us for a fresh link rather than installing
+it. A mismatch means the file changed somewhere between us and you, and this
+is a skill a model reads as instructions.
+
+Ten seconds, and worth it on any route you did not get the file from directly.
+
 ## Route 1 — the Claude app (easiest)
 
 1. Open Claude and go to **Settings**.
 2. Open **Capabilities**, then **Skills**.
-3. Upload `startup-board-pro.zip` exactly as you downloaded it. Do not unzip
-   it first.
+3. Upload `startup-board-pro.zip` as it downloaded. Do not unzip it first.
 4. Start a new conversation and type: *roast my startup idea*.
 
 If the advisor replies with one question and no enthusiasm, it is working.

@@ -262,3 +262,59 @@ wrote a rule telling it to check whether a founder's dates were possible — pha
 figures against the calendar. The transcript is kept at
 `evals/transcripts/s27-flat-retention-measured.md`, dated 2026-10-13, so the finding
 survives the re-run that replaces it.
+
+## 2026-10-13 — the checksum, and two things it cannot be
+
+**A checksum cannot live inside the file it describes.** The first attempt wrote the
+archive's SHA-256 into `pro/INSTALL.md` and `pro/CHANGELOG.md`. Both are payload, so
+writing the value changed the archive and invalidated the value — a fixed point with no
+solution. The literal now lives only in `pro/dist/CHANGELOG.md`, which is excluded from
+the payload, and must travel next to the download link. `INSTALL.md` keeps the
+verification commands and says plainly why the value is not printed there, because a
+buyer verifies before extracting and could not read an in-archive value anyway.
+Verified: zero 64-hex strings remain in any payload file.
+
+**The archive is not byte-reproducible, so the checksum identifies a build and not a
+content.** Two consecutive builds with no source edit produced
+`f363b61a…` and `4a3ec350…`. Per-file mtimes are stable in the archive listing
+(`SKILL.md 2026-10-12 23:24`), so the variance comes from the archive container rather
+than the payload. The operational consequence is a rule, not a bug: build once at
+release, publish that file's sum, ship that exact file, and if you rebuild for any
+reason you must republish the sum. A buyer's mismatch therefore means "this is not the
+file we published", which is the question worth answering, and not "the contents
+differ", which it cannot answer. Making the build reproducible is possible — bsdtar can
+clamp mtimes — and is deliberately not done here, because it is a change to the build's
+contract and nobody asked for it. Cost if wrong: anyone who rebuilds and forgets to
+republish hands buyers a checksum that fails on a good file, which trains them to skip
+the check.
+
+## 2026-10-13 — the four deferred minors, cleared or re-deferred
+
+**Cleared: ROOT resolution hardening.** `build-zip.sh` now sets `CDPATH=` before the
+`cd` that resolves `ROOT`, so a set `CDPATH` cannot print a directory and corrupt it,
+and the failure path names what went wrong instead of a bare `exit 1`. The symlink half
+is unchanged and does not need to change: invoked through a symlink the script resolves
+`pro/` beside the link rather than the target, and the member-presence loop then fails
+loudly with the missing file named. Loud and wrong beats silent and wrong.
+
+**Cleared: the duplicate version spawn.** The libarchive probe captured the banner it
+was already reading, so `--version` runs once instead of twice. The probe also moved
+from `grep -qiE` to a POSIX `case`, which drops a second subprocess per candidate.
+
+**Re-deferred: the Info-ZIP `zip` fallback is still never exercised.** There is no `zip`
+binary on this machine, so the branch cannot be reached without installing one, and the
+refusal test only reaches the no-writer arm *because* `zip` is absent — on a host that
+has it, the same test would take the fallback instead and the refusal would go untested.
+The branch is correct by construction (Info-ZIP writes `/` separators) and the builder's
+own final guard would catch a bad archive from it. Re-deferred rather than cleared, with
+the environment-dependence now stated, because the honest fix is a CI lane with `zip`
+installed and that is infrastructure nobody has asked for.
+
+**Cleared by context: the "buyer sends back" framing.** `evals/RUNBOOK.md:35` offers to
+check "an archive you did not just build, including one a buyer sends back". When that
+was flagged there was no download source, so the sentence described a buyer who could
+not exist. Two things changed: `RUNBOOK.md` is no longer in the payload, so it addresses
+the maintainer rather than the buyer, and the recommended channel now puts the archive
+in buyers' hands with a published checksum, which is exactly the situation where someone
+mails a file back and asks whether it is the right one. The capability is real —
+`check.sh zip <path>` takes any archive — so the line is now accurate as written.

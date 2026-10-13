@@ -2,6 +2,20 @@
 
 ## v2.0.0 — 2026-10-12
 
+### Verifying this download
+
+SHA-256 of `startup-board-pro.zip` for v2.0.0:
+
+```
+4a3ec3505596c86f1c42e34c8fdb60bda7760fd375efdc22b9ddb69502d9c0c4
+```
+
+`shasum -a 256 startup-board-pro.zip` on Mac or Linux, or
+`Get-FileHash startup-board-pro.zip -Algorithm SHA256` in PowerShell. The
+checksum also travels next to the download link, because you cannot read it
+out of the archive before opening the archive. A mismatch means the file
+changed in transit: ask for a fresh link rather than installing it.
+
 The first paid edition. Same conversation shape as the free version, same
 0 to 10 phases, same six fit stages — different enforcement.
 

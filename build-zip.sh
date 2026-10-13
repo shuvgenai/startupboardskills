@@ -11,7 +11,10 @@
 # refuses: a wrong archive is worse than no archive.
 set -u
 # This script sits at the repo root; the folder it packages is pro/.
-ROOT="$(cd "$(dirname "$0")/pro" && pwd)" || exit 1
+# CDPATH= so `cd` cannot print a directory and corrupt ROOT. A set CDPATH is
+# rare, but it only has to bite once and the failure would be silent.
+CDPATH=
+ROOT="$(cd "$(dirname "$0")/pro" && pwd)" || { echo "FAIL: cannot resolve pro/ beside $0 — the builder must sit next to the folder it packages" >&2; exit 1; }
 OUT="$ROOT/dist/startup-board-pro.zip"
 
 # Top-level members of the skill folder. What is left out inside them is
@@ -34,7 +37,9 @@ done
 TAR=""
 for _c in bsdtar tar /c/Windows/System32/tar.exe /usr/bin/bsdtar; do
   command -v "$_c" >/dev/null 2>&1 || continue
-  if "$_c" --version 2>/dev/null | grep -qiE 'bsdtar|libarchive'; then TAR="$_c"; break; fi
+  # Capture the banner once: the probe needs it, and so does the build line.
+  _ver=$("$_c" --version 2>/dev/null | head -1)
+  case "$_ver" in *[Bb]sdtar*|*libarchive*) TAR="$_c"; TAR_VER="$_ver"; break ;; esac
 done
 
 mkdir -p "$ROOT/dist" || exit 1
@@ -44,7 +49,7 @@ rm -f "$OUT"
 
 cd "$ROOT" || exit 1
 if [ -n "$TAR" ]; then
-  echo "building with $("$TAR" --version 2>/dev/null | head -1 | cut -d' ' -f1-2)"
+  echo "building with $(printf '%s' "$TAR_VER" | cut -d' ' -f1-2)"
   set --
   while IFS= read -r _p; do set -- "$@" "--exclude=$_p"; done <<EOF_PATTERNS
 $PATTERNS
