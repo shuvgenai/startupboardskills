@@ -20,6 +20,13 @@ elif [ -f "$PKG/README.md" ]; then SALES="README.md"
 else SALES=""; fi
 FAIL=0
 BT=$(printf '\140')
+# Pick an interpreter that actually runs. On Windows, python3 is commonly a
+# Microsoft Store stub: it is on PATH, prints an install notice, and exits
+# non-zero. Probing is the only way to tell a name apart from an interpreter.
+PY=""
+for _c in python3 python py; do
+  if command -v "$_c" >/dev/null 2>&1 && "$_c" -c 'pass' >/dev/null 2>&1; then PY="$_c"; break; fi
+done
 fail() { echo "FAIL: $*"; FAIL=1; }
 ok()   { echo "ok:   $*"; }
 
@@ -156,6 +163,26 @@ check_artifacts() {
 
 check_skill() {
   has_file SKILL.md
+  # The frontmatter must be valid YAML, not merely delimited. A colon followed
+  # by a space inside an unquoted scalar silently terminates the value, which
+  # would truncate the trigger description and is invisible to a behavioural
+  # run, because a role-play reads the file as prose and never parses it.
+  fm=$(awk 'NR==1&&/^---$/{f=1;next} f&&/^---$/{exit} f{print}' "$ROOT/SKILL.md" 2>/dev/null)
+  if printf '%s' "$fm" | grep -qE '^description:.*: '; then
+    fail "SKILL.md frontmatter has a colon-space inside the description, which breaks YAML parsing"
+  else ok "SKILL.md description has no YAML-breaking colon"; fi
+  if printf '%s' "$fm" | grep -qE '^name: *[a-z0-9-]+$'; then
+    ok "SKILL.md name is a bare slug"
+  else fail "SKILL.md name is missing or not a bare slug"; fi
+  if [ -n "$PY" ] && "$PY" -c 'import yaml' 2>/dev/null; then
+    if printf '%s' "$fm" | "$PY" -c 'import sys,yaml;d=yaml.safe_load(sys.stdin.read());assert isinstance(d,dict) and d.get("name") and d.get("description")' 2>/dev/null; then
+      ok "SKILL.md frontmatter parses as YAML with name and description"
+    else
+      fail "SKILL.md frontmatter does not parse as YAML"
+    fi
+  else
+    ok "SKILL.md YAML parse skipped (no interpreter with pyyaml); the colon check above still applies"
+  fi
   n=$(wc -l < "$ROOT/SKILL.md" 2>/dev/null || echo 9999)
   n=${n:-9999}
   [ "$n" -lt 500 ] && ok "SKILL.md is $n lines (<500)" || fail "SKILL.md is $n lines, must be under 500"
@@ -173,6 +200,14 @@ check_skill() {
 
 check_plugin() {
   pkg_file .claude-plugin/plugin.json
+  for _f in .claude-plugin/plugin.json .claude-plugin/marketplace.json; do
+    [ -f "$PKG/$_f" ] || continue
+    if [ -n "$PY" ]; then
+      if "$PY" -c 'import json,sys;json.load(sys.stdin)' < "$PKG/$_f" 2>/dev/null; then
+        ok "$_f is valid JSON"
+      else fail "$_f is not valid JSON"; fi
+    else ok "$_f JSON parse skipped (no interpreter found)"; fi
+  done
   pkg_file .claude-plugin/marketplace.json
   pkg_str  .claude-plugin/plugin.json '"name": "startup-board-pro"'
   pkg_str  .claude-plugin/plugin.json '"version": "2.0.0"'
