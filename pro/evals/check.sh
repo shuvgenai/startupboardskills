@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # Startup Board Pro static checks.
-# Usage: evals/check.sh <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|all>
+# Usage: evals/check.sh <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|zip|all>
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # The plugin manifests, CHANGELOG and sales page sit beside the skill folder in
@@ -285,6 +285,73 @@ check_cases() {
   done
 }
 
+# The installable zip for routes 1 and 2. It is a build artifact: gitignored,
+# absent from a fresh clone and from a buyer's install, so an absent zip is a
+# skip and a present one is asserted hard.
+#
+# Windows PowerShell 5.1 Compress-Archive stored 107 of 112 entries with "\"
+# separators, against ZIP spec 4.4.17.1, which requires "/". Info-ZIP unzip
+# silently repairs that on read and macOS Archive Utility does not: there it
+# extracts one flat file named "references\fit-ladder.md", and every link in
+# SKILL.md resolves to nothing. The original build verified the zip with
+# PowerShell Expand-Archive, the same pair that wrote the bug, so the verify
+# could never see it. Hence this group reads the stored names, not an extract.
+check_zip() {
+  _zip="${1:-$PKG/dist/startup-board-pro.zip}"
+  if [ ! -f "$_zip" ]; then
+    ok "no zip at dist/startup-board-pro.zip (build artifact; run ./build-zip.sh to make one)"
+    return
+  fi
+  _names=""
+  if command -v unzip >/dev/null 2>&1; then
+    _names=$(unzip -Z1 "$_zip" 2>/dev/null)
+  fi
+  if [ -z "$_names" ] && [ -n "$PY" ]; then
+    _names=$("$PY" -c 'import sys,zipfile;print("\n".join(zipfile.ZipFile(sys.argv[1]).namelist()))' "$_zip" 2>/dev/null)
+  fi
+  if [ -z "$_names" ]; then
+    fail "cannot read zip entry names from $_zip (no unzip and no working interpreter, or the archive is corrupt)"
+    return
+  fi
+
+  _bs=$(printf '%s\n' "$_names" | grep -c '[\]' || true)
+  if [ "$_bs" -eq 0 ]; then
+    ok "zip stores no backslash path separators"
+  else
+    fail "zip stores $_bs entries with backslash separators (ZIP spec 4.4.17.1 requires /); rebuild with ./build-zip.sh"
+  fi
+
+  # Entries ending in / are directory records. bsdtar writes them and
+  # Compress-Archive did not, so compare files only.
+  _zip_files=$(printf '%s\n' "$_names" | sed 's|\\|/|g' | grep -v '/$' | LC_ALL=C sort)
+  _src_files=$(cd "$ROOT" && find . -type f -not -path './dist/*' -not -name AUDIT.md | sed 's|^\./||' | LC_ALL=C sort)
+  if [ "$_zip_files" = "$_src_files" ]; then
+    ok "zip payload matches the source tree ($(printf '%s\n' "$_src_files" | grep -c .) files, nothing missing, nothing extra)"
+  else
+    fail "zip payload differs from the source tree; rebuild with ./build-zip.sh"
+    printf '%s\n' "$_src_files" > "${TMPDIR:-/tmp}/sbp-src.$$"
+    printf '%s\n' "$_zip_files" > "${TMPDIR:-/tmp}/sbp-zip.$$"
+    diff "${TMPDIR:-/tmp}/sbp-src.$$" "${TMPDIR:-/tmp}/sbp-zip.$$" | sed 's/^/      /'
+    rm -f "${TMPDIR:-/tmp}/sbp-src.$$" "${TMPDIR:-/tmp}/sbp-zip.$$"
+  fi
+
+  for _x in AUDIT.md dist/ _reference/ .git/; do
+    if printf '%s\n' "$_zip_files" | grep -q "^$_x"; then
+      fail "zip leaks $_x"
+    else
+      ok "zip excludes $_x"
+    fi
+  done
+
+  if command -v unzip >/dev/null 2>&1; then
+    if unzip -p "$_zip" SKILL.md 2>/dev/null | head -1 | grep -q '^---'; then
+      ok "zip SKILL.md opens with a frontmatter fence"
+    else
+      fail "zip SKILL.md has no opening frontmatter fence"
+    fi
+  fi
+}
+
 case "${1:-all}" in
   contract)  check_contract ;;
   state)     check_state ;;
@@ -295,9 +362,11 @@ case "${1:-all}" in
   plugin)    check_plugin ;;
   sweeps)    check_sweeps ;;
   cases)     check_cases ;;
+  zip)       check_zip "${2:-}" ;;
   all) check_contract; check_state; check_advisors; check_phases
-       check_artifacts; check_skill; check_plugin; check_sweeps; check_cases ;;
-  *) echo "usage: $0 <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|all>"; exit 2 ;;
+       check_artifacts; check_skill; check_plugin; check_sweeps; check_cases
+       check_zip ;;
+  *) echo "usage: $0 <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|zip|all>"; exit 2 ;;
 esac
 
 [ "$FAIL" -eq 0 ] && echo "PASS" || echo "FAILED"
