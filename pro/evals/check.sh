@@ -298,6 +298,10 @@ check_cases() {
 # could never see it. Hence this group reads the stored names, not an extract.
 check_zip() {
   _zip="${1:-$PKG/dist/startup-board-pro.zip}"
+  if [ ! -f "$_zip" ] && [ -n "${1:-}" ]; then
+    fail "no zip at $_zip (an explicit path was given and does not exist)"
+    return
+  fi
   if [ ! -f "$_zip" ]; then
     ok "no zip at dist/startup-board-pro.zip (build artifact; run ./build-zip.sh to make one)"
     return
@@ -307,7 +311,7 @@ check_zip() {
     _names=$(unzip -Z1 "$_zip" 2>/dev/null)
   fi
   if [ -z "$_names" ] && [ -n "$PY" ]; then
-    _names=$("$PY" -c 'import sys,zipfile;print("\n".join(zipfile.ZipFile(sys.argv[1]).namelist()))' "$_zip" 2>/dev/null)
+    _names=$("$PY" -c 'import sys,zipfile;print("\n".join(zipfile.ZipFile(sys.argv[1]).namelist()))' "$_zip" 2>/dev/null | tr -d '\r')
   fi
   if [ -z "$_names" ]; then
     fail "cannot read zip entry names from $_zip (no unzip and no working interpreter, or the archive is corrupt)"
@@ -336,7 +340,7 @@ check_zip() {
   fi
 
   for _x in AUDIT.md dist/ _reference/ .git/; do
-    if printf '%s\n' "$_zip_files" | grep -q "^$_x"; then
+    if printf '%s\n' "$_zip_files" | grep -q "^$(printf '%s' "$_x" | sed 's/[.]/[.]/g')"; then
       fail "zip leaks $_x"
     else
       ok "zip excludes $_x"
@@ -349,6 +353,8 @@ check_zip() {
     else
       fail "zip SKILL.md has no opening frontmatter fence"
     fi
+  else
+    ok "zip SKILL.md frontmatter check skipped (no unzip found)"
   fi
 }
 
