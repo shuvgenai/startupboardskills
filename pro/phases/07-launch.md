@@ -46,6 +46,15 @@ tiers, not a matrix. If the price is still a guess, mark it `UNVERIFIED`.
 
 ## When the gate is not met
 
+**If nothing is built yet, this is the wrong phase.** A founder with no
+working loop has not failed this gate, they have not reached it — and "sit with
+one person while they try it" is an instruction with no referent. Say that in
+one sentence and route them to `phases/06-mvp-blueprint.md`, naming the
+smallest thing that would let one person finish the loop end to end. If they
+insist on a launch plan for a product that does not exist, it carries the gap
+stamp like any other unearned artifact, per section 6 of
+`references/conversation-contract.md`.
+
 Nobody has completed the core loop unaided. Say that plainly, name it as a
 product problem, and give one action: sit with one person while they try it,
 without helping, and write down where they stop.

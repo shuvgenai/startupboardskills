@@ -37,6 +37,15 @@ sources over aggregator blogspam. Paraphrase rather than reproducing text.
 
 ## When the gate is not met
 
+**Medium at score 1, and any tier at score 0, inherit the contract rule.**
+Light is earned at 1; medium is not. A founder at 1 asking for the positioning
+map hears what is missing — a map drawn against a problem nobody confirmed is
+decoration — and is offered the interview test instead, with the map produced
+stamped if they insist. A founder at 0 has earned no tier at all: name the
+conversations that are missing, offer three of them, stamp on insist. Do not
+hand over light mode as the consolation tier. See section 6 of
+`references/conversation-contract.md`.
+
 **Heavy mode below the gate is refused.** Say why in one sentence: a market
 size for an unvalidated problem is a number that makes the idea feel real
 without making it more likely to work. Then offer the bottom-up count instead

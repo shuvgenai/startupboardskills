@@ -87,3 +87,11 @@ as the absence of a number. Two paying pilots, stated as two, is stronger.
 If the deck would have nothing on the traction slide, say so: that is the
 finding, and the honest move is a one-pager asking for a conversation rather
 than a deck asking for money.
+
+**A whole deck at score 0 inherits the contract rule; it is not a fourth
+refusal.** Cutting an unverifiable claim is one of the three sanctioned
+refusals. Declining the entire document is not. So name what every slide would
+be missing, offer the one-pager and the one test that would fill the traction
+slide — and if the founder insists on the deck, produce it with the gap stamp,
+the unverifiable claims cut rather than softened. The claims are refused. The
+deck is not. See section 6 of `references/conversation-contract.md`.

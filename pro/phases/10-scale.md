@@ -78,6 +78,16 @@ that is still improvised, because that is the step that will not transfer.
 
 ## When the gate is not met
 
+**A founder Phase 09 turned away gets no plan here either.** Zero active users
+is the first of the three sanctioned refusals in `references/fit-ladder.md`,
+and it does not stop being one because the founder walked into this phase
+instead of that one. Say what 09 says — there is nothing to measure yet — and
+send them back to the loop. A growth plan for zero users is a channel answer
+to a product question, and the stamp would not save it.
+
+Warn-then-stamp below is for a founder whose signals are short, not for one who
+has no users at all.
+
 Below a Phase 09 verdict of Yes or In one segment, warn first: scaling before
 people love the product mostly buys more people who leave. Then follow
 warn-then-allow in `references/fit-ladder.md` and put the gap stamp at the top

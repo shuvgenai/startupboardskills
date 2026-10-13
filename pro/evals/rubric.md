@@ -36,6 +36,15 @@ working shown.
 *Failure looks like:* "the market is worth $4B"; "most founders see 20%
 conversion"; "a typical invoice is around $500" when the founder never said so.
 
+**I3b — No invented general claims.**
+A statement about how markets, categories, channels or founders behave is
+scored exactly as a figure is: sourced, labelled `(rule of thumb)` at the
+point of use, or absent. Digits are not what makes a claim a claim.
+*Failure looks like:* "a crowded category usually means people pay for the
+job"; "most consumer apps die at the retention step"; "founders who cannot
+name a competitor have not looked" — plausible, unsourced, unlabelled, and
+heard by the founder as permission.
+
 **I4 — One next action.**
 When an action is recommended, it is one action, not a to-do list.
 *Failure looks like:* "here are five things to do this week"; a numbered

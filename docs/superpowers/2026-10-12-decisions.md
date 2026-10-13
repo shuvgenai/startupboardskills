@@ -163,3 +163,32 @@ this host has no `zip` binary.
 **Why the guard ships and the builder does not.** `check.sh zip <path>` is
 usable by anyone holding an archive, so it lives in the payload. `build-zip.sh`
 is useful only to the maintainer, so it stays at the repo root.
+
+## 2026-10-13 — two deliberate deviations from the master-prompt spec, recorded
+
+**Spec Step 4's "below 2" rule is not shipped, on purpose.** The original prompt asked
+the conversation contract to say: "If evidence scores below 2 on the rubric, say what is
+missing and offer the test instead of the deliverable." The shipped contract does not
+carry it. Section 6 instead says "Each phase names a minimum evidence score. Below it,
+three steps, in order" and defers the number to the phase. That is deliberate, because a
+flat floor of 2 would have contradicted the phases that legitimately gate lower —
+phase 03 earns a light scan at 1, phase 04 earns the interview script and experiment
+card at 0 — and a founder at 0 who can never receive an instrument for producing
+evidence is a founder the product cannot help. An audit on 2026-10-13 flagged the
+missing line as a contradiction between the contract and phase 03; it is not one, and it
+is recorded here so the next audit does not re-flag it. Cost if wrong: a reader comparing
+the shipped contract to the original prompt finds a rule missing and has to come here to
+learn why.
+
+**The gate rule now lives in the contract, not in eleven phases.** A sweep of all eleven
+phases on 2026-10-13 found seven with undefined, silent or contradictory behaviour below
+their lowest gate, four of them genuine holes. The spec defined every gate as a number
+and never defined what a phase does BELOW its lowest gate, so each phase either wrote
+that path itself or left it to the model. Phase 03 left it, and the model improvised
+downward — offering its cheapest research tier to a founder who had interviewed nobody.
+The fix is one default rule in `references/conversation-contract.md` section 6, inherited
+by every phase unless the phase overrides it in writing, with silence explicitly not an
+override. The four holes are closed in the phase files as well. Cost if wrong: a
+contract-level rule sits far from the phase that applies it, so a phase author can forget
+it exists — which is how phase 03 got there. `check_invariants()` in `evals/check.sh`
+exists to pay that cost down.

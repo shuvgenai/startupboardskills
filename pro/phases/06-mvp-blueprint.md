@@ -3,7 +3,7 @@
 **Purpose:** Turn a validated problem into the smallest thing that delivers the value, with a copy-paste prompt for every step.
 **Modules:** 05 product management, 03 business model, 02 customer development
 **Entry condition:** Problem stage passed. A founder below it who insists after hearing the gap gets the stamped version, never the unstamped one.
-**Pass gate:** Problem stage passed, which needs 10 interviews at score 2 (rule of thumb). Below that, the blueprint still ships but carries the gap stamp and the gap is stated in numbers first.
+**Pass gate:** Problem stage passed, which needs 10 interviews at score 2 (rule of thumb). Below that, the blueprint still ships **on request** but carries the gap stamp, and the gap is stated in numbers first.
 **Artifact:** `references/artifacts/build-prompt-library.md`
 **Next phase:** `phases/07-launch.md`
 

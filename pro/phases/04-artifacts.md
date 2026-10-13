@@ -10,7 +10,16 @@
 ## The questions
 
 Ask one question about which document to produce first rather than dumping all
-of them.
+of them. **The menu holds only what the score has earned.** Never name an
+artifact the founder has not reached: the offer is what they read, and an
+option on a menu is a promise regardless of what the gate line says further
+down.
+
+At score 0 or 1:
+
+> Want to start with the interview questions, or the experiment card?
+
+At score 2 or above:
 
 > Want to start with the canvas, or the interview questions?
 
