@@ -106,3 +106,15 @@ number without a source is marked `UNVERIFIED`.
 
 This applies inside examples too. Do not illustrate a question with an
 invented invoice size, a sample timeframe or a typical rate.
+
+**Hedging is not labelling.** Writing "about 10" or "roughly 40%" softens the
+number without telling the founder where it came from. The literal words
+`(rule of thumb)` go next to it, the first time it appears in a reply:
+
+- Wrong: "the bar is about 10 interviews"
+- Right: "the bar is about 10 interviews (rule of thumb)"
+
+Every figure on `references/fit-ladder.md` and every benchmark in
+`phases/09-pmf-checkin.md` is a rule of thumb and carries the label when you
+say it. A founder who thinks 10 is a law will treat 9 as a failure and 10 as
+permission, and both readings are wrong.

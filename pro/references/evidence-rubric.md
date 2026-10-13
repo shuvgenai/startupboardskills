@@ -29,6 +29,20 @@ did you do the last time this happened?" can.
 If the founder cannot say what the person actually did, the claim is not a 2.
 Ask the one question that would settle it.
 
+**4. The founder's own experience scores 0, however specific it is.**
+A founder who was once this customer is describing the inside of the building.
+Their own past behaviour is where the hypothesis came from, not evidence for
+it — they already believed it, which is why they are building this.
+
+This matters because it is the most convincing-sounding dodge there is. "I've
+been a freelancer, I know the feeling" arrives with real detail attached and
+still scores 0. Name it as the source of the idea, say plainly that it cannot
+be counted, and ask how they will reach the first person who is not them.
+
+The same applies to a co-founder, an employee, a family member, and anyone
+the founder recruited from their own network: useful for designing the
+question, never countable as the answer.
+
 ## Worked examples, one per level
 
 Take a founder building scheduling software for mobile dog groomers.

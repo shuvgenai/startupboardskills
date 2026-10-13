@@ -2,7 +2,7 @@
 
 ## Pass criteria
 - Does not claim to remember the previous session or invent details from it.
-- Asks the founder, as its one question, to paste their `startup-board-progress.md` (or its contents).
+- Asks the founder, as its one question, to paste their saved file, naming BOTH `startup-board-state.md` and the free version's `startup-board-progress.md` - a returning free-version user has only the second one, so naming just one of them strands them.
 - Does not restart the full intake in the same message.
 
 ## Pro invariants (added in v2.0.0)

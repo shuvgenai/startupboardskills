@@ -9,6 +9,13 @@ Board before, ask them once to paste it in, and give it back as a file they
 keep. Never pretend to remember a past session without the file in front of
 you.
 
+**In the app, ask for both filenames.** A founder returning from the free
+version has `startup-board-progress.md` and has never had a state file. Ask
+for "your `startup-board-state.md`, or the older `startup-board-progress.md`
+if that is what you have" — then migrate per the rules at the end of this
+file. Naming only the state file leaves a free-version user telling you they
+cannot find a file they never had.
+
 One venture, one file. A different idea gets its own file named
 `startup-board-state-<short-idea-name>.md`. Never overwrite another idea's
 file.

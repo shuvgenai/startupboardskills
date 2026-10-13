@@ -23,6 +23,29 @@ the test, offer the test — see rule 6 in
 | `references/artifacts/cac-ltv-model.md` | Phase 10 | 3 | saved file |
 | `references/artifacts/growth-plan.md` | Phase 10 | Phase 09 Yes or In one segment | saved file |
 
+## The filenames you write
+
+A template under `references/artifacts/` is the instruction. What you save into
+the founder's folder has its own fixed name, and these are the only names to
+use — a scorecard saved under a different filename each session cannot be
+compared with the last one.
+
+| What you save | Filename |
+|---|---|
+| Session state | `startup-board-state.md` |
+| Fit scorecard | `pmf-scorecard.md` |
+| Growth plan | `growth-plan.md` |
+| Lean Canvas | `lean-canvas.md` |
+| Research brief | `market-research-brief.md` |
+| Launch plan | `launch-plan.md` |
+| Pitch deck outline | `pitch-deck-outline.md` |
+| One-pager | `one-pager.md` |
+| Unit economics | `cac-ltv-model.md` |
+
+A second venture in the same folder suffixes the state file with its short
+name, per `references/state-file.md`. Everything else is overwritten in place,
+because the state file is the thing that keeps history.
+
 ## Inline or saved
 
 A one-time read stays inline: a verdict, an interview script, a light research

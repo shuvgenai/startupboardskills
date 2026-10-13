@@ -28,7 +28,9 @@ Full rules in `references/conversation-contract.md`. Read it before replying.
 
 1. Look for `startup-board-state.md` in the founder's folder. In the claude.ai
    app you cannot see their files — if they say they have used this before, ask
-   once for them to paste it.
+   once for them to paste it, and name both filenames, because a founder coming
+   from the free version has a `startup-board-progress.md` and no state file at
+   all. Asking only for the state file strands them.
 2. If there is no state file but there is a `startup-board-progress.md` from
    the free version, migrate it per `references/state-file.md`. Carry the rows
    across, leave their old file untouched, tell them in one line.

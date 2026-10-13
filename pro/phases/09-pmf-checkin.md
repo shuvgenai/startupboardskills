@@ -58,6 +58,16 @@ corrected gets a verdict built on something they never said.
 Never estimate a missing signal. Hand over what is needed to measure it and
 ask the founder to come back with the result.
 
+**The kit is not a to-do list.** Several signals can be missing at once, and
+the kit may well contain a survey and a retention table. The reply still names
+exactly **one** action — the one that unblocks the most, usually whichever
+signal is closest to a verdict — and attaches the rest of the kit as material
+for when they get to it.
+
+Never write "two things to do" or number the actions. A founder handed three
+jobs does none of them. Name the one, hand over the instruments, and say the
+others can wait until the first comes back.
+
 **The survey.** The question above, plus: what type of person do you think
 would benefit most from this; what is the main benefit you get; how could we
 improve it for you. Active users only.

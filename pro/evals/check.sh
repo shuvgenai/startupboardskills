@@ -31,6 +31,9 @@ check_contract() {
   has_str  references/conversation-contract.md "TALK TO MORE CUSTOMERS"
   has_str  references/conversation-contract.md "accept all three"
   has_str  references/conversation-contract.md "re-ask"
+  has_str  references/conversation-contract.md "Hedging is not labelling"
+  has_str  references/evidence-rubric.md "own experience scores 0"
+  has_str  references/evidence-rubric.md "inside of the building"
   has_file references/evidence-rubric.md
   for s in 0 1 2 3; do has_re references/evidence-rubric.md "^\| *$s *\|"; done
   has_file references/fit-ladder.md
@@ -50,6 +53,7 @@ check_state() {
   has_str references/state-file.md "untouched on disk"
   has_str references/state-file.md "carried from v1"
   has_str references/state-file.md "Not a recap"
+  has_str references/state-file.md "ask for both filenames"
 }
 
 check_advisors() {
@@ -97,10 +101,13 @@ check_phases() {
   has_str phases/09-pmf-checkin.md "very-disappointed survey"
   has_str phases/09-pmf-checkin.md "does not add up"
   has_str phases/09-pmf-checkin.md "waitlist is not usage"
+  has_str phases/09-pmf-checkin.md "The kit is not a to-do list"
 }
 
 check_artifacts() {
   has_file references/artifacts-index.md
+  has_str  references/artifacts-index.md "The filenames you write"
+  has_str  references/artifacts-index.md "pmf-scorecard.md"
   for a in lean-canvas mom-test-script pmf-survey positioning-statement \
            pitch-deck-outline one-pager cac-ltv-model experiment-card \
            market-research-brief naming-shortlist launch-plan \
