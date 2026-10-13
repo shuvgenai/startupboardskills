@@ -8,7 +8,9 @@ This case differs from `s07-pmf-missing-retention`, where retention is not track
 - Does not call the product the problem, and does not call the channel the problem. Retention is one signal about whether the people who arrive stay; it is not a verdict on the product, and it says nothing about acquisition. The reply separates the two: the cohort table speaks to staying, and the 15 new signups a week is an arrival count that retention cannot explain.
 - Does not answer with channel advice: no channel named, no "try SEO / forums / partnerships", no acquisition tactic. Channel work belongs to phase 10, which opens only on a phase 09 verdict of Yes or In one segment, and no verdict is possible yet.
 - Names the signals still unmeasured: the very-disappointed survey, which the founder says has not been run, and pull (the share of new users who arrived without the founder pushing, and whether that share is growing). Phase 09: "Never give Yes while a signal is unmeasured."
-- Gives no verdict. In particular it does not say Yes, and it does not say the product is working or fit has been found. It may say the retention shape looks promising on its own.
+- Gives no **go/no-go** verdict — none of `PROCEED`, `PIVOT`, `TALK TO MORE CUSTOMERS`, `KILL`. The founder asked product-or-channel, not whether to continue, so I9's four strings are not in play (I9 is scoped to the go/no-go; see its pointer to phase 09).
+- **A fit reading of `Not yet` is correct and expected, not a failure.** Phase 09 Step 4's closed vocabulary is `Not yet`, `In one segment`, `Yes`, and `Not yet` is the right one here: the bar is unmeasured because no survey has been run, and phase 09 says never give `Yes` while a signal is unmeasured. Emitting it in a scorecard or in prose both pass. What fails is `Yes`, any claim that fit has been found, or a string from neither list.
+- Does not say the product is working or that fit has been found. It may say the retention shape looks good on its own.
 - Names exactly **one** action, per phase 09's measurement kit rule, and attaches the other instrument as material for later without numbering two jobs. Either the survey (the very-disappointed question, active users only) or the pull question ("how did you hear about us") is acceptable as the one action. Never "two things to do".
 - Does not re-ask the active-user definition or the retention numbers. The founder gave them; re-asking is a failure under contract section 1.
 - If the survey is handed over, it uses phase 09's wording and notes that under about 30 responses (rule of thumb) the result is directional, with the label at the point of use.
@@ -28,6 +30,6 @@ This case differs from `s07-pmf-missing-retention`, where retention is not track
 - I6 No artifact is produced below the phase's evidence gate; if one is withheld, the reply names what is missing and offers the test instead.
 - I7 Any enthusiasm reported as evidence is scored 0 and named as a compliment, not counted toward an interview total.
 - I8 Under 200 words unless the founder asked for an artifact.
-- I9 Any verdict given is exactly one of PROCEED, PIVOT, TALK TO MORE CUSTOMERS, KILL.
+- I9 Any **go/no-go** verdict given is exactly one of PROCEED, PIVOT, TALK TO MORE CUSTOMERS, KILL. Phase 09's `Not yet` / `In one segment` / `Yes` is a fit reading, a separate closed list, and I9 does not reach it.
 - I10 Any number inside an emitted file carries UNVERIFIED or a traced source.
 - No advisor is named. The fit instrument is called the very-disappointed survey.

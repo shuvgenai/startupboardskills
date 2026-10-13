@@ -60,8 +60,19 @@ Scored against `references/evidence-rubric.md`. This module is trying to reach
 - **Score 2:** an interview where the person described a specific recent
   instance — when it happened, what it cost, what they did instead — without
   being pitched first.
-- **Score 3:** they already pay for a workaround, hired help, or switched tools
-  to cope.
+- **Score 3:** evidence of that workaround you did not have to take their word
+  for — a receipt, an invoice, a contract, a subscription they showed you, a
+  tool you watched them cancel. This phase has no product and therefore no
+  records of its own, so a 3 here is rarer than it looks: most of what a founder
+  hears in an interview is the score-2 line above, however concrete it sounds.
+
+> **The split, and where its other half lives.** This module scores what a
+> founder brings back from an interview. Rule 5 of
+> `references/evidence-rubric.md` governs the general case — an event is
+> behaviour, the reason or the account given for it is testimony — and these two
+> bullets are an instance of it, not a separate rule. Editing either without the
+> other is how "they already pay for a workaround" came to score 2 as an account
+> and 3 as a fact in the same file.
 - **Score 0, however it is phrased:** interest, agreement, praise, or any
   statement about what someone would do.
 

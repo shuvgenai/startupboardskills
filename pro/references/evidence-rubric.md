@@ -78,6 +78,14 @@ second, and never let the second inherit the first's score. This is the same
 shape for every arrival, conversion and churn event, which is why it lives here
 rather than in whichever module reaches it first.
 
+> **Where this rule is applied, and by whom.** This file states the general
+> rule. `references/advisors/01-problem-discovery.md`'s score-2 and score-3
+> bullets are its instance for problem interviews, and
+> `references/advisors/04-product-market-fit.md` is its instance for arrivals.
+> Those modules answer *what does this particular signal score?*; this rule
+> answers *why*. A module that collapses the event into its reason contradicts
+> this file, which is the defect both of those modules carried.
+
 ## Worked examples, one per level
 
 Take a founder building scheduling software for mobile dog groomers.

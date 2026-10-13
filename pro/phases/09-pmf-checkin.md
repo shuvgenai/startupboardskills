@@ -95,6 +95,14 @@ more of that segment.
 | In one segment | A segment meets the bar and its retention is not collapsing | Point product, messaging and outreach at that segment only |
 | Yes | Bar met overall, retention levels off, pull present or growing | Offer `phases/10-scale.md` |
 
+> **These three are the fit reading, not the go/no-go.** `Not yet`,
+> `In one segment` and `Yes` answer "do I have product-market fit" and feed
+> `phases/10-scale.md`'s entry condition. The founder-facing go/no-go verdict is
+> a different question with its own closed list — `PROCEED`, `PIVOT`,
+> `TALK TO MORE CUSTOMERS`, `KILL` — in section 5 of
+> `references/conversation-contract.md` and invariant I9 of `evals/rubric.md`.
+> Never substitute one list for the other, and never emit a string from neither.
+
 **Never give Yes while a signal is unmeasured.** Say the signals so far look
 promising, name the missing one, hand over the kit.
 

@@ -78,9 +78,19 @@ validation; counting it toward the Problem stage interview total.
 **I8 — Under 200 words unless an artifact was requested.**
 *Failure looks like:* a 400-word synthesis in a question turn.
 
-**I9 — A verdict is one of four exact strings.**
+**I9 — A go/no-go verdict is one of four exact strings.**
 `PROCEED`, `PIVOT`, `TALK TO MORE CUSTOMERS`, `KILL`. Always one of them when
-a verdict is asked for; never a fifth, never a refusal to answer.
+the founder asks for a verdict on the venture; never a fifth, never a refusal
+to answer.
+
+> **This governs the go/no-go, not the fit reading.**
+> `phases/09-pmf-checkin.md` Step 4 emits `Not yet`, `In one segment` or `Yes`
+> — a reading of product-market fit that feeds phase 10's entry condition. That
+> is a different question from "should I keep going", so it has its own closed
+> vocabulary and this invariant does not reach it. Forcing it onto the four
+> strings would make `KILL` the answer to "your retention levels off but you
+> have not run the survey", which is dishonest. Four strings here, three there,
+> and neither list borrows from the other.
 *Failure looks like:* "it's promising but needs work"; "I'd lean toward
 continuing"; "I can't give a verdict yet".
 

@@ -453,3 +453,47 @@ file rather than per block, so a second unrelated split-block in the target woul
 satisfy it. Assertion 2 from the recommendation — gate versus the score its named test
 produces — was deliberately not built, because it needs a keyword map from test phrasing
 to evidence score, which encodes judgement the files state only in prose.
+
+## 2026-10-13 — rulings C and D: two collapsed distinctions, split and pointed
+
+**C. `advisors/01:63` scored an account as a fact.** Its score-3 bullet read "they
+already pay for a workaround, hired help, or switched tools to cope", while the score-2
+bullet one line above covers an interview where someone describes a recent instance.
+The same sentence therefore scored 2 as testimony and 3 as behaviour in one file. Phase
+01 has no product and so no records of its own, so nearly every instance there is
+testimony. The score-3 bullet now names evidence the founder did not have to take
+anyone's word for — a receipt, an invoice, a contract, a subscription shown, a tool
+watched being cancelled — and says a 3 is rarer here than it looks. Both bullets now
+carry a pointer naming rubric rule 5 as the general case they instance.
+
+**D. I9 said "never a fifth" while phase 09 emitted three strings of its own.** Rubric
+I9 listed `PROCEED` / `PIVOT` / `TALK TO MORE CUSTOMERS` / `KILL` for "a verdict",
+unqualified; `phases/09` Step 4 emits `Not yet` / `In one segment` / `Yes`. Two
+different questions shared one word. I9 is now scoped to the founder-facing go/no-go,
+and phase 09's three are named as a distinct closed vocabulary for the fit reading,
+with reciprocal pointers both ways. Forcing phase 09 onto the four strings was rejected
+as dishonest: `KILL` is not the answer to "your retention levels off but you have not
+run the survey". Cost if wrong: two closed lists exist and an author could invent a
+string from neither, which both pointers now warn against explicitly.
+
+**The s27 key asserted the dodge rather than the rule, and now asserts the rule.** It
+had demanded no verdict at all, because the conflict made any verdict ambiguous. With
+I9 scoped, it states that a fit reading of `Not yet` is correct and expected, that
+`Yes` is the failure, and that I9's four strings are out of scope. Re-run blind: it
+separated the founder's product theory from the co-founder's channel theory, scored
+both 0, gave no `Yes`, named one action. The transcript's standing note about the
+conflict is marked resolved rather than deleted.
+
+**D is the seventh instance of the day's cross-file defect, and neither new assertion
+catches it** — it is a conflict between two closed vocabularies, not between two gate
+numbers. That is recorded as the headline blind spot in
+`docs/superpowers/2026-10-13-structural-recommendation.md`, which also accounts for how
+many of the seven the assertions would have caught: two, plus regression cover on a
+third, with four invisible.
+
+**Drafted, not run:** `sync-dist.sh` at the repo root. Refuses on a dirty tree either
+side, refuses on a red suite, builds its file list from the same `payload-exclude.txt`
+the builder and the guard read, asserts every shipped file is byte-identical to `pro/`
+and that nothing extra is present, refuses a `marketplace.json` found inside the
+payload, and warns if one is missing at the distribution root. It stages and stops: no
+commit, no push, no release, no collaborator add.

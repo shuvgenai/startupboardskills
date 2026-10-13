@@ -34,7 +34,9 @@ Scorecard: retention "40% / 25% / 24% (wk1/wk4/wk8, of 240)" marked "levels off"
 very-disappointed share and pull both "not measured"; `**Verdict:** Not yet`; one next
 action naming the survey.
 
-NOTE for grading: the scorecard's "Not yet" is phase 09's own verdict vocabulary, not one
-of rubric I9's four strings (PROCEED / PIVOT / TALK TO MORE CUSTOMERS / KILL). That
-conflict is pre-existing between `phases/09-pmf-checkin.md` and `evals/rubric.md`, not
-introduced by this run.
+RESOLVED 2026-10-13: the I9-versus-phase-09 conflict this note flagged is fixed. I9 is
+now scoped to the founder-facing go/no-go, and phase 09's `Not yet` / `In one segment` /
+`Yes` is named as a separate closed vocabulary for the fit reading, with reciprocal
+pointers both ways. The case was re-run blind against the corrected key and passes: it
+separated the founder's product theory from the co-founder's channel theory, scored both
+0, gave no `Yes`, and named one action.
