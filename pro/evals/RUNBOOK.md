@@ -1,7 +1,8 @@
 # Eval runbook
 
-Two layers. Both must pass before a release. Build the zip first — the build
-runs the zip assertions itself, so a broken archive stops there.
+Three layers. All three must pass before a release. Layer 0 comes first: it
+builds the zip, and the build runs the zip assertions itself, so a broken
+archive stops there.
 
 ## Layer 0 — build the installable zip
 

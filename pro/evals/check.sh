@@ -296,6 +296,8 @@ check_cases() {
 # SKILL.md resolves to nothing. The original build verified the zip with
 # PowerShell Expand-Archive, the same pair that wrote the bug, so the verify
 # could never see it. Hence this group reads the stored names, not an extract.
+# The Python fallback must read orig_filename: namelist() normalizes backslash to
+# slash on read, which would repair the very defect this group exists to catch.
 check_zip() {
   _zip="${1:-$PKG/dist/startup-board-pro.zip}"
   if [ ! -f "$_zip" ] && [ -n "${1:-}" ]; then
@@ -303,7 +305,7 @@ check_zip() {
     return
   fi
   if [ ! -f "$_zip" ]; then
-    ok "no zip at dist/startup-board-pro.zip (build artifact; run ./build-zip.sh to make one)"
+    ok "no zip at dist/startup-board-pro.zip (build artifact; run sh build-zip.sh (from the repo root) to make one)"
     return
   fi
   _names=""
@@ -311,7 +313,7 @@ check_zip() {
     _names=$(unzip -Z1 "$_zip" 2>/dev/null)
   fi
   if [ -z "$_names" ] && [ -n "$PY" ]; then
-    _names=$("$PY" -c 'import sys,zipfile;print("\n".join(zipfile.ZipFile(sys.argv[1]).namelist()))' "$_zip" 2>/dev/null | tr -d '\r')
+    _names=$("$PY" -c 'import sys,zipfile;print("\n".join(i.orig_filename for i in zipfile.ZipFile(sys.argv[1]).infolist()))' "$_zip" 2>/dev/null | tr -d '\r')
   fi
   if [ -z "$_names" ]; then
     fail "cannot read zip entry names from $_zip (no unzip and no working interpreter, or the archive is corrupt)"
@@ -322,7 +324,7 @@ check_zip() {
   if [ "$_bs" -eq 0 ]; then
     ok "zip stores no backslash path separators"
   else
-    fail "zip stores $_bs entries with backslash separators (ZIP spec 4.4.17.1 requires /); rebuild with ./build-zip.sh"
+    fail "zip stores $_bs entries with backslash separators (ZIP spec 4.4.17.1 requires /); rebuild with sh build-zip.sh (from the repo root)"
   fi
 
   # Entries ending in / are directory records. bsdtar writes them and
@@ -332,12 +334,36 @@ check_zip() {
   if [ "$_zip_files" = "$_src_files" ]; then
     ok "zip payload matches the source tree ($(printf '%s\n' "$_src_files" | grep -c .) files, nothing missing, nothing extra)"
   else
-    fail "zip payload differs from the source tree; rebuild with ./build-zip.sh"
+    fail "zip payload differs from the source tree; rebuild with sh build-zip.sh (from the repo root)"
     printf '%s\n' "$_src_files" > "${TMPDIR:-/tmp}/sbp-src.$$"
     printf '%s\n' "$_zip_files" > "${TMPDIR:-/tmp}/sbp-zip.$$"
     diff "${TMPDIR:-/tmp}/sbp-src.$$" "${TMPDIR:-/tmp}/sbp-zip.$$" | sed 's/^/      /'
     rm -f "${TMPDIR:-/tmp}/sbp-src.$$" "${TMPDIR:-/tmp}/sbp-zip.$$"
   fi
+
+  # Names alone cannot see a stale archive: a payload file edited after the
+  # build keeps its name. Extract to a scratch dir outside the repo and diff
+  # the contents against the source tree.
+  _tmp=""; _ex=""
+  if command -v unzip >/dev/null 2>&1; then
+    _tmp=$(mktemp -d "${TMPDIR:-/tmp}/sbp-ex.XXXXXX" 2>/dev/null) && unzip -q "$_zip" -d "$_tmp" >/dev/null 2>&1 && _ex="$_tmp"
+  elif [ -n "$PY" ]; then
+    _tmp=$(mktemp -d "${TMPDIR:-/tmp}/sbp-ex.XXXXXX" 2>/dev/null) && "$PY" -c 'import sys,zipfile;zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])' "$_zip" "$_tmp" >/dev/null 2>&1 && _ex="$_tmp"
+  fi
+  if [ -n "$_ex" ]; then
+    _drift=$(diff -r -x dist -x AUDIT.md "$ROOT" "$_ex" 2>&1)
+    if [ -z "$_drift" ]; then
+      ok "zip contents are identical to the source tree"
+    else
+      fail "zip contents differ from the source tree (stale archive?); rebuild with sh build-zip.sh (from the repo root)"
+      printf '%s\n' "$_drift" | sed 's/^/      /'
+    fi
+  elif command -v unzip >/dev/null 2>&1 || [ -n "$PY" ]; then
+    fail "could not extract $_zip to compare its contents against the source tree"
+  else
+    ok "zip content comparison skipped (no unzip, no working interpreter): file names were checked, file contents were NOT"
+  fi
+  [ -n "$_tmp" ] && rm -rf "$_tmp"
 
   for _x in AUDIT.md dist/ _reference/ .git/; do
     if printf '%s\n' "$_zip_files" | grep -q "^$(printf '%s' "$_x" | sed 's/[.]/[.]/g')"; then

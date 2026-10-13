@@ -105,8 +105,9 @@ entries with `\` as the path separator, and none with `/`. Windows PowerShell
 5.1 `Compress-Archive` wrote them that way, against ZIP spec section
 4.4.17.1. Info-ZIP `unzip` silently repairs the separators on read, and macOS
 Archive Utility does not: there the archive extracts as flat files literally
-named `references\fit-ladder.md`, so `SKILL.md` loads and every one of its
-107 reference and phase links resolves to nothing. Install routes 1 and 2
+named `references\fit-ladder.md`, so `SKILL.md` loads while all 107 of its
+reference and phase files land as flat backslash-named files, and every link in
+the skill resolves to nothing. Install routes 1 and 2
 were broken for every buyer not on Windows.
 
 **Why the build did not catch it.** Task 13's verify step extracted the
@@ -140,3 +141,25 @@ version, and the fix has to ship as 2.0.1 with a note.
 routes 1 and 2. The archive is gitignored, the distribution repo has no
 releases, and route 1 of `INSTALL.md` tells the buyer to upload the zip
 "exactly as you downloaded it". Route 3, the plugin, is unaffected and works.
+
+**Why the guard reads `orig_filename`.** CPython's `zipfile` normalizes `\`
+to `/` when it reads the central directory, so `namelist()` reports a clean
+archive even when the stored names carry backslashes. The Python fallback in
+`check_zip` therefore reads `orig_filename`, the raw stored name. Do not
+simplify it back to `namelist()`: the guard would pass on a defective archive
+on any host without `unzip`. The same normalization happens on write, so a
+test archive with backslashes cannot be built with `zipfile`; byte-patch a
+copy of a real archive instead.
+
+**Contents, not just names.** The payload check extracts the archive to a
+scratch directory outside the repo and runs `diff -r` against the source tree,
+excluding `dist/` and `AUDIT.md`. A name-only comparison passed on an archive
+that was stale by one edited file.
+
+**Known-untested path.** The Info-ZIP `zip` fallback in `build-zip.sh` has
+never been run. The refusal test reaches the no-writer branch only because
+this host has no `zip` binary.
+
+**Why the guard ships and the builder does not.** `check.sh zip <path>` is
+usable by anyone holding an archive, so it lives in the payload. `build-zip.sh`
+is useful only to the maintainer, so it stays at the repo root.
