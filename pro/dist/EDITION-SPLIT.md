@@ -102,9 +102,10 @@ than implied. Without these four lines the claim is self-flattery.
    behaves the way this document claims, that goes in the results rather than
    being quietly patched.
 
-Two of those four existed before this section was written. The re-run trigger
-and the published cadence are what turn an argument into an undertaking, and
-they are the part a copier cannot take.
+All four are now in place. The distribution repository exists and serves the
+plugin route, so point 3 is a mechanism rather than a promise; the re-run
+trigger and the published cadence are what turn the rest from an argument into
+an undertaking, and they are the part a copier cannot take.
 
 One honest caveat on the proof as it stands: the first run is fifteen
 scenarios, one model, one day, graded by the author. That is a real artifact

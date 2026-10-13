@@ -28,12 +28,13 @@ If the advisor replies with one question and no enthusiasm, it is working.
 
 ## Route 3 — Claude Code, as a plugin (updates come to you)
 
-This route needs the files in a git repository, which is set up for you at
-purchase — that is what the placeholder below stands in for. It is the only
-route where you get updates without re-downloading anything.
+This is the only route where you get updates without re-downloading anything.
+It needs read access to the distribution repository, which you are granted at
+purchase — if `gh auth status` shows you logged in to GitHub and you have been
+added, both commands below just work.
 
 ```
-/plugin marketplace add <the repository you were given>
+/plugin marketplace add shuvgenai/startup-board-pro
 /plugin install startup-board-pro
 ```
 
