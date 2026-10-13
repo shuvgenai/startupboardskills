@@ -1,13 +1,41 @@
 # Eval runbook
 
-Two layers. Both must pass before a release.
+Two layers. Both must pass before a release. Build the zip first — the build
+runs the zip assertions itself, so a broken archive stops there.
+
+## Layer 0 — build the installable zip
+
+```
+sh build-zip.sh
+```
+
+Run it from the repo root. The builder sits there, outside `pro/`, because
+anything inside `pro/` ships to the buyer and the builder is maintainer
+tooling.
+
+Writes `pro/dist/startup-board-pro.zip` (gitignored) and then runs
+`evals/check.sh zip` against it. Exit 0 means the archive is spec-compliant
+and its payload matches the source tree.
+
+Never build it with PowerShell `Compress-Archive`. It writes `\` as the entry
+separator, against ZIP spec 4.4.17.1. Info-ZIP `unzip` repairs that on read,
+so the archive looks fine on Windows while macOS Archive Utility extracts one
+flat file named `references\fit-ladder.md` and every link in `SKILL.md` dies.
+`build-zip.sh` uses bsdtar/libarchive, falls back to Info-ZIP `zip`, and
+refuses to build if neither is present.
+
+To check an archive you did not just build, including one a buyer sends back:
+
+```
+sh pro/evals/check.sh zip /path/to/startup-board-pro.zip
+```
 
 ## Layer 1 — static checks
 
 ```
 Everything:  sh pro/evals/check.sh all
 One group:   sh pro/evals/check.sh phases
-Groups:      contract state advisors phases artifacts skill plugin cases all
+Groups:      contract state advisors phases artifacts skill plugin sweeps cases zip all
 ```
 
 Exit 0 means every assertion in the group holds. Exit 1 prints each failure as

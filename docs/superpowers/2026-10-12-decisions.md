@@ -97,3 +97,46 @@ ZIP was built once with `.claude-plugin` inside instead of built and rebuilt.
 - `references/artifacts-index.md` lists `positioning-statement` as Phase 04 or
   07 while phase 04's `Artifact:` line names only two files; it appears in that
   phase's body instead.
+
+## 2026-10-13 — the zip build moved off PowerShell
+
+**What was wrong.** `pro/dist/startup-board-pro.zip` stored 107 of its 112
+entries with `\` as the path separator, and none with `/`. Windows PowerShell
+5.1 `Compress-Archive` wrote them that way, against ZIP spec section
+4.4.17.1. Info-ZIP `unzip` silently repairs the separators on read, and macOS
+Archive Utility does not: there the archive extracts as flat files literally
+named `references\fit-ladder.md`, so `SKILL.md` loads and every one of its
+107 reference and phase links resolves to nothing. Install routes 1 and 2
+were broken for every buyer not on Windows.
+
+**Why the build did not catch it.** Task 13's verify step extracted the
+archive with PowerShell `Expand-Archive` — the other half of the pair that
+wrote the bug. It round-tripped its own convention and reported clean. The
+lesson is narrow and worth keeping: never verify an artifact with the tool
+that produced it.
+
+**What changed.** `build-zip.sh`, at the repo root, now owns the build. It sits
+outside `pro/` on purpose: everything inside `pro/` ships to the buyer, and a
+builder in the folder it packages would have joined its own payload. It uses
+bsdtar/libarchive, which writes `/` and ships with Windows 10+, macOS 10.15+
+and most Linux; falls back to Info-ZIP `zip`; and refuses to build if neither
+is present rather than reaching for PowerShell. It removes the output first,
+because `zip -r` appends and a rebuild would otherwise retain a file deleted
+from the source. Its last step runs the new `zip` group in `evals/check.sh`,
+which reads the archive's stored entry names and fails on any backslash, on
+payload drift from the source tree, on a leaked `AUDIT.md`, `dist/`,
+`_reference/` or `.git/`, and on an archive it cannot read at all. An absent
+zip is a skip, so a buyer's install and a fresh clone stay green.
+
+**Version unchanged, deliberately.** The skill files are byte-identical
+before and after; only the archive container changed. Nothing had reached a
+buyer — the distribution repo is private with no releases, and `**/dist/*.zip`
+is gitignored so no archive was ever committed. So 2.0.0 stands, with no
+CHANGELOG entry and no manifest bump. Cost if wrong: if an archive did leave
+the machine, a buyer cannot tell the broken copy from the fixed one by
+version, and the fix has to ship as 2.0.1 with a note.
+
+**Still open, not part of this change.** There is no download source for
+routes 1 and 2. The archive is gitignored, the distribution repo has no
+releases, and route 1 of `INSTALL.md` tells the buyer to upload the zip
+"exactly as you downloaded it". Route 3, the plugin, is unaffected and works.
