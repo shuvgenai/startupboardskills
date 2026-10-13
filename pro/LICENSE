@@ -1,0 +1,65 @@
+Startup Board Pro — licence
+
+This product has two parts under two different licences. Which applies depends
+on the file.
+
+## 1. Material carried over from Startup Board v1 (MIT)
+
+Startup Board v1 is published at https://github.com/shuvgenai/startup-board
+under the MIT licence, and that licence is irrevocable for anything already
+published there. Where this product carries v1 material forward — the six fit
+stages and their pass conditions, the fit check-in signal logic, the unit
+economics edge cases, the warn-then-allow rule, the interview rules, and the
+Lean Canvas block definitions — the original MIT notice stands:
+
+MIT License
+
+Copyright (c) 2026 shuvgenai
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## 2. New material in this edition (proprietary)
+
+Copyright (c) 2026 shuvgenai. All rights reserved.
+
+The following are new to this edition and are not covered by the MIT licence
+above:
+
+- the evidence rubric and the scoring of claims 0 to 3
+- the conversation contract
+- the nine advisor modules in references/advisors/
+- the state file, its assumption ledger, and the three loops
+- the numeric pass gate on every phase file
+- the verdict-to-score table
+- the artifact templates in references/artifacts/
+- the evaluation suite: check.sh, the rubric, the cases and their criteria
+
+A purchase grants one person the right to use these files, modify them for
+their own ventures, and keep using them indefinitely. It does not grant the
+right to redistribute, resell, sublicense, or publish them, in whole or in
+part, modified or unmodified.
+
+## 3. Honest note on enforcement
+
+These are text files. You can read every line, and nothing here technically
+prevents copying. No licence key, no obfuscation and no phone-home code is
+included, because none of them would work in a Markdown skill and pretending
+otherwise would be dishonest.
+
+The free edition remains free, forever, at the link above.
