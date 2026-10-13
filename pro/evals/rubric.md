@@ -93,6 +93,33 @@ scorecard with a retention figure the founder never gave.
 A grade with no quote behind it does not count. Record it in
 `results-YYYY-MM-DD.md`.
 
+## Re-running the suite after a model update
+
+This is the undertaking the paid edition rests on, so the suite is built to run
+from wherever it was installed.
+
+```
+sh evals/check.sh all
+```
+
+It must pass in all three layouts, and a release is not shippable until it
+does:
+
+| Layout | Where the suite sits |
+|---|---|
+| Build tree | `pro/evals/`, with `.claude-plugin` and `CHANGELOG.md` beside it |
+| Plugin install | `skills/startup-board-pro/evals/`, with those files two levels up |
+| Unpacked ZIP | `evals/`, with those files beside it |
+
+The checker resolves the package root by walking up from the skill folder, so
+the plugin manifests and the changelog are found in any of the three. A failure
+caused by layout rather than by drift is the worst possible outcome of a
+re-run: the buyer cannot tell which they are looking at. That is why this is
+asserted rather than assumed.
+
+Then run the 20 behavioural cases per `RUNBOOK.md` and publish a dated results
+file beside this one.
+
 ## Writing a criterion
 
 Two mistakes were made repeatedly while these keys were written, and both

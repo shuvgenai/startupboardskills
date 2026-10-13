@@ -3,6 +3,21 @@
 # Usage: evals/check.sh <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|all>
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# The plugin manifests, CHANGELOG and sales page sit beside the skill folder in
+# the build tree and one level above it in a buyer's install. Resolve both, so
+# the suite a buyer re-runs reports drift rather than layout.
+PKG="$ROOT"
+_p="$ROOT"
+for _i in 1 2 3; do
+  if [ -d "$_p/.claude-plugin" ]; then PKG="$_p"; break; fi
+  _p="$(cd "$_p/.." 2>/dev/null && pwd)" || break
+  [ -n "$_p" ] || break
+  if [ -d "$_p/.claude-plugin" ]; then PKG="$_p"; break; fi
+done
+# the sales page is README-PRO.md in the build tree and README.md in an install
+if [ -f "$PKG/README-PRO.md" ]; then SALES="README-PRO.md"
+elif [ -f "$PKG/README.md" ]; then SALES="README.md"
+else SALES=""; fi
 FAIL=0
 BT=$(printf '\140')
 fail() { echo "FAIL: $*"; FAIL=1; }
@@ -16,6 +31,13 @@ VERDICTS='PROCEED PIVOT KILL'
 has_file() { [ -f "$ROOT/$1" ] && ok "exists $1" || fail "missing $1"; }
 has_str()  { grep -qF "$2" "$ROOT/$1" 2>/dev/null && ok "$1 has: $2" || fail "$1 missing: $2"; }
 has_re()   { grep -qE "$2" "$ROOT/$1" 2>/dev/null && ok "$1 matches: $2" || fail "$1 missing pattern: $2"; }
+pkg_file() { [ -f "$PKG/$1" ] && ok "exists $1" || fail "missing $1"; }
+pkg_str()  { grep -qF "$2" "$PKG/$1" 2>/dev/null && ok "$1 has: $2" || fail "$1 missing: $2"; }
+pkg_lacks_re() {
+  if [ -f "$PKG/$1" ] && grep -qE "$2" "$PKG/$1" 2>/dev/null; then
+    fail "$1 contains banned text: $(grep -oEm1 "$2" "$PKG/$1")"
+  else ok "$1 clean of banned pattern"; fi
+}
 lacks_re() {
   if [ -f "$ROOT/$1" ] && grep -qE "$2" "$ROOT/$1" 2>/dev/null; then
     fail "$1 contains banned text: $(grep -oEm1 "$2" "$ROOT/$1")"
@@ -113,6 +135,7 @@ check_artifacts() {
   has_str  references/artifacts-index.md "The filenames you write"
   has_str  references/artifacts-index.md "pmf-scorecard.md"
   has_str  references/artifacts-index.md "raise-plan.md"
+  has_str  evals/rubric.md "Re-running the suite after a model update"
   has_str  references/artifacts/raise-plan.md "never produce a valuation"
   has_str  references/artifacts/raise-plan.md "Dilution"
   for a in lean-canvas mom-test-script pmf-survey positioning-statement \
@@ -149,15 +172,15 @@ check_skill() {
 }
 
 check_plugin() {
-  has_file .claude-plugin/plugin.json
-  has_file .claude-plugin/marketplace.json
-  has_str  .claude-plugin/plugin.json '"name": "startup-board-pro"'
-  has_str  .claude-plugin/plugin.json '"version": "2.0.0"'
-  has_str  CHANGELOG.md "2.0.0"
-  lacks_re .claude-plugin/plugin.json "$ADVISOR_NAMES"
-  lacks_re .claude-plugin/plugin.json "$BANNED_STACK"
+  pkg_file .claude-plugin/plugin.json
+  pkg_file .claude-plugin/marketplace.json
+  pkg_str  .claude-plugin/plugin.json '"name": "startup-board-pro"'
+  pkg_str  .claude-plugin/plugin.json '"version": "2.0.0"'
+  pkg_str  CHANGELOG.md "2.0.0"
+  pkg_lacks_re .claude-plugin/plugin.json "$ADVISOR_NAMES"
+  pkg_lacks_re .claude-plugin/plugin.json "$BANNED_STACK"
   d1=$(sed -n 's/^description: *//p' "$ROOT/SKILL.md" 2>/dev/null | head -1 | cut -c1-60)
-  if [ -n "$d1" ] && grep -qF "$d1" "$ROOT/.claude-plugin/plugin.json" 2>/dev/null; then
+  if [ -n "$d1" ] && grep -qF "$d1" "$PKG/.claude-plugin/plugin.json" 2>/dev/null; then
     ok "plugin.json description matches SKILL.md frontmatter"
   else
     fail "plugin.json description does not match SKILL.md frontmatter"
@@ -168,9 +191,9 @@ check_plugin() {
 # These exist because three answer keys shipped demanding retired markers and
 # the v1 filename, and nothing was looking at evals/criteria at all.
 check_sweeps() {
-  for f in "$ROOT"/references/*.md "$ROOT"/evals/criteria/*.md "$ROOT"/evals/rubric.md            "$ROOT"/README-PRO.md "$ROOT"/dist/*.md "$ROOT"/dist/launch/*.md; do
+  for f in "$ROOT"/references/*.md "$ROOT"/evals/criteria/*.md "$ROOT"/evals/rubric.md            ${SALES:+"$PKG/$SALES"} "$PKG"/dist/*.md "$PKG"/dist/launch/*.md; do
     [ -f "$f" ] || continue
-    rel=${f#"$ROOT"/}
+    rel=${f#"$ROOT"/}; rel=${rel#"$PKG"/}
     # retired unverified markers, anywhere a founder or a grader can read them
     if grep -qE "$RETIRED_MARKERS" "$f" 2>/dev/null; then
       fail "$rel uses a retired marker: $(grep -oEm1 "$RETIRED_MARKERS" "$f")"
@@ -189,17 +212,20 @@ check_sweeps() {
     else ok "$rel clean of v1 stage names"; fi
   done
   # advisor names must not appear in anything shipped outside references/advisors
-  for f in "$ROOT"/references/*.md "$ROOT"/README-PRO.md "$ROOT"/dist/*.md "$ROOT"/dist/launch/*.md; do
+  for f in "$ROOT"/references/*.md ${SALES:+"$PKG/$SALES"} "$PKG"/dist/*.md "$PKG"/dist/launch/*.md; do
     [ -f "$f" ] || continue
-    rel=${f#"$ROOT"/}
+    rel=${f#"$ROOT"/}; rel=${rel#"$PKG"/}
     if grep -qE "$ADVISOR_NAMES" "$f" 2>/dev/null; then
       fail "$rel names an advisor: $(grep -oEm1 "$ADVISOR_NAMES" "$f")"
     else ok "$rel names no advisor"; fi
   done
   # README-PRO links must resolve from where a buyer actually unpacks them
-  for lp in $(grep -oE "${BT}(evals|references|phases)/[a-zA-Z0-9./-]+${BT}|${BT}INSTALL\.md${BT}" "$ROOT/README-PRO.md" 2>/dev/null | tr -d "$BT" | sort -u); do
-    [ -f "$ROOT/$lp" ] && ok "README-PRO link resolves: $lp" || fail "README-PRO links missing $lp"
-  done
+  if [ -n "$SALES" ]; then
+    for lp in $(grep -oE "${BT}(evals|references|phases)/[a-zA-Z0-9./-]+${BT}|${BT}INSTALL\.md${BT}" "$PKG/$SALES" 2>/dev/null | tr -d "$BT" | sort -u); do
+      if [ -f "$ROOT/$lp" ] || [ -f "$PKG/$lp" ]; then ok "$SALES link resolves: $lp"
+      else fail "$SALES links missing $lp"; fi
+    done
+  fi
 
   # every rule of thumb carries its label at the point of use
   for f in "$ROOT"/references/fit-ladder.md "$ROOT"/phases/09-pmf-checkin.md "$ROOT"/phases/10-scale.md; do
