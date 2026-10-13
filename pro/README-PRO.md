@@ -112,9 +112,9 @@ not ship.
 
 ## Install
 
-See `INSTALL.md`. Three routes: upload the ZIP in the Claude app, drop
-the folder into `~/.claude/skills/`, or install it as a plugin in Claude Code
-so updates reach you with one command.
+See `INSTALL.md`. Two routes: upload the ZIP in the Claude app, or drop the
+folder into `~/.claude/skills/` for Claude Code. Both give you a frozen copy —
+there is no automatic update path, and `INSTALL.md` says so plainly.
 
 Nothing to run. No account, no API key, no database.
 

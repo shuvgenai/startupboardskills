@@ -318,3 +318,41 @@ the maintainer rather than the buyer, and the recommended channel now puts the a
 in buyers' hands with a published checksum, which is exactly the situation where someone
 mails a file back and asks whether it is the right one. The capability is real —
 `check.sh zip <path>` takes any archive — so the line is now accurate as written.
+
+## 2026-10-13 — three repos became two, and route 3 was dropped
+
+**`shuvgenai/startup-board-pro` is being deleted, and nothing unique dies with it.**
+Its five commits held a copy of `pro/` that was verified byte-identical to the dev
+repo earlier the same day, so the consolidation moved no work: everything already
+lived in `shuvgenai/startupboardskills`. The reason is maintenance cost before
+revenue — two repositories to keep in step, for a buyer list of nobody. Cleanup was
+done while the repository still existed, so references could be checked against it
+rather than guessed at after the fact.
+
+**What it costs: the only automatic update path.** Route 3 was the one route where a
+fix reached a buyer without them re-downloading (`/plugin marketplace add`, then
+`/plugin update`). That is gone. `INSTALL.md` now has two routes and a section that
+tells the buyer plainly there is no automatic update path; `README-PRO.md` says two
+routes rather than three; `EDITION-SPLIT.md`'s price argument was rewritten rather
+than patched, because the old version rested on "a test that catches drift and a
+channel that delivers the correction" and the channel half is no longer true. It now
+says detection is what compounds, delivery is manual, and a buyer who never
+re-downloads is running a version whose drift someone else already found. The
+commitment list's point 3 is marked as the weak one instead of being presented as a
+mechanism.
+
+**Is the price argument weaker? Yes.** Not fatally — the suite, the gates and the
+evidence model are the material a copier cannot reproduce, and those are untouched —
+but the strongest version of the pitch paired detection with delivery, and only
+detection survives. Recorded rather than smoothed over, because a buyer who discovers
+it after paying is a worse outcome than one who reads it first.
+
+**The manifests: `plugin.json` kept and repointed, `marketplace.json` removed.** A
+marketplace listing is inert without a marketplace repository, and the URL it named
+now 404s, so it shipped a false artifact to every buyer. `plugin.json` survives with
+its `homepage` and `repository` pointed at `startupboardskills`, because it is the
+plugin's own identity and `check_plugin` uses its `description` to catch drift against
+`SKILL.md`'s frontmatter — a real assertion worth keeping. `check_plugin` no longer
+requires the deleted file. Cost if wrong: if a marketplace is ever published, a new
+`marketplace.json` has to be written at that repository's root, which is where it
+belonged anyway rather than inside the payload.

@@ -45,28 +45,15 @@ If the advisor replies with one question and no enthusiasm, it is working.
    another folder within it. This is the one thing people get wrong.
 4. Restart Claude Code and type: *roast my startup idea*.
 
-## Route 3 — Claude Code, as a plugin (updates come to you)
+## How updates reach you
 
-This is the only route where you get updates without re-downloading anything.
-It needs read access to the distribution repository, which you are granted at
-purchase — if `gh auth status` shows you logged in to GitHub and you have been
-added, both commands below just work.
+Both routes give you a frozen copy. There is no automatic update path, and
+that is worth saying plainly rather than leaving you to discover it.
 
-```
-/plugin marketplace add shuvgenai/startup-board-pro
-/plugin install startup-board-pro
-```
-
-Later, when a new version ships:
-
-```
-/plugin update startup-board-pro
-```
-
-**The trade-off, plainly.** Routes 1 and 2 work in a minute and give you a
-frozen copy — when a new version ships, you download and install again by
-hand. Route 3 takes a few more minutes to set up and then updates with one
-command.
+When a new version ships, the release notes say what the re-run of the test
+suite found and which file was at fault, and you download and install again by
+hand — the same two minutes as the first time. Nothing phones home, nothing
+checks for updates, and nothing changes under you.
 
 ## Checking it actually loaded
 

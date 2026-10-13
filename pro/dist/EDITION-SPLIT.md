@@ -21,7 +21,7 @@ Date: 2026-10-12
 | Artifact templates | 13 reference files | 14 templates plus an index, with output filenames pinned |
 | MVP stack | Supabase, Zapier optional | Claude Artifact, then Lovable/Bolt/Replit, Airtable with Softr/Glide; 5 ready-to-paste prompts |
 | Tests | 12 role-play scenarios, 5 invariants | 15 scenarios, 10 invariants, a static checker, and a published failure record |
-| Install routes | ZIP, folder, plugin | ZIP, folder, plugin |
+| Install routes | ZIP, folder | ZIP, folder |
 
 ## Why the recommended split cannot be implemented
 
@@ -79,11 +79,18 @@ them can tell you whether their product still behaves the way the sales page
 says.
 
 The eval suite is what detects that: 21 scenarios, blind-graded, run
-against the actual files. It is also why the plugin install route exists, since
-a fix nobody can receive is not a fix. That pairing — a test that catches
-drift and a channel that delivers the correction — is the thing worth paying
-for, and it is the one claim here that gets stronger over time rather than
-weaker.
+against the actual files.
+
+What it does not come with is a channel that pushes the fix to you. There was a
+plugin route that updated with one command; it is gone, dropped before the
+first sale rather than maintained as a second repository for a buyer list of
+nobody. So the claim is narrower than it was: the suite catches the drift, the
+release notes say what it caught and which file was at fault, and you
+re-download. You are told, rather than served.
+
+Stated plainly, because it is the part a buyer should weigh: detection is what
+compounds, delivery is manual, and a buyer who never re-downloads is running a
+version whose drift someone else already found.
 
 The nine modules are the marketing. The eval suite is the product.
 
@@ -97,16 +104,20 @@ than implied. Without these four lines the claim is self-flattery.
 2. **Each release records its re-run.** That version's CHANGELOG entry, which
    ships in the archive, states what the re-run found and which file was at
    fault.
-3. **Fixes reach buyers.** On the plugin route, `/plugin update`. On the ZIP
-   route, a notice that a new version exists.
+3. **Fixes are announced, not pushed.** A new version's release notes name
+   what the re-run found and which file was at fault, and buyers re-download.
+   There is no automatic update path; `INSTALL.md` says so to the buyer too.
 4. **A regression is said out loud.** If a re-run shows the skill no longer
    behaves the way this document claims, that goes in that CHANGELOG entry
    rather than being quietly patched.
 
-All four are now in place. The distribution repository exists and serves the
-plugin route, so point 3 is a mechanism rather than a promise; the re-run
-trigger and the published cadence are what turn the rest from an argument into
-an undertaking, and they are the part a copier cannot take.
+Three of the four are mechanisms rather than promises: the re-run trigger, the
+published results, and saying a regression out loud all happen in files that
+ship or in release notes that do. Point 3 is the weak one. It was a mechanism
+while a distribution repository served the plugin route; that repository is
+gone and the delivery step is now the buyer choosing to re-download. The re-run
+trigger and the published cadence are still the part a copier cannot take, but
+nobody should read point 3 as automatic.
 
 One honest caveat on the proof as it stands: the first run is fifteen
 scenarios, one model, one day, graded by the author. That is a real artifact

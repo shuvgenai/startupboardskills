@@ -202,7 +202,12 @@ check_skill() {
 
 check_plugin() {
   pkg_file .claude-plugin/plugin.json
-  for _f in .claude-plugin/plugin.json .claude-plugin/marketplace.json; do
+  # marketplace.json was removed on 2026-10-13 with the plugin route: a
+  # marketplace listing is inert without a marketplace repository, and the one
+  # it named now 404s. plugin.json stays, because it is the plugin's own
+  # identity and the description assertion below catches drift against
+  # SKILL.md's frontmatter.
+  for _f in .claude-plugin/plugin.json; do
     [ -f "$PKG/$_f" ] || continue
     if [ -n "$PY" ]; then
       if "$PY" -c 'import json,sys;json.load(sys.stdin)' < "$PKG/$_f" 2>/dev/null; then
@@ -210,7 +215,6 @@ check_plugin() {
       else fail "$_f is not valid JSON"; fi
     else ok "$_f JSON parse skipped (no interpreter found)"; fi
   done
-  pkg_file .claude-plugin/marketplace.json
   pkg_str  .claude-plugin/plugin.json '"name": "startup-board-pro"'
   pkg_str  .claude-plugin/plugin.json '"version": "2.0.0"'
   pkg_str  CHANGELOG.md "2.0.0"
