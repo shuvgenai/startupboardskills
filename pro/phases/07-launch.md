@@ -4,7 +4,14 @@
 **Modules:** 07 traction and growth, 06 metrics, 03 business model
 **Entry condition:** Something exists that a person can use end to end.
 **Pass gate:** 1 person has completed the core loop without help. Below that, this is a product problem and not a channel problem.
-**Artifact:** `references/artifacts/launch-plan.md`, `references/artifacts/positioning-statement.md`
+**Artifact:** `references/artifacts/launch-plan.md` — gated on the loop above.
+`references/artifacts/positioning-statement.md` — gated on **evidence score 2**,
+separately and additionally, per `references/artifacts-index.md`. Two artifacts,
+two conditions: the loop gate asks whether the product works, the score gate asks
+whether anyone outside the building has told you who it is for. A founder whose
+one person finished the loop has cleared the first and not the second, and a
+positioning statement written below score 2 asserts a customer and a reason to
+switch that nobody has confirmed.
 **Next phase:** `phases/09-pmf-checkin.md` once there are real users
 
 ## The questions

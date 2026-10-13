@@ -67,7 +67,10 @@ Scored against `references/evidence-rubric.md`. This module works at
 
 - **Score 3:** survey responses from identified active users; a retention
   table built from real sign-up and last-active dates; payment and
-  cancellation records; new users arriving through word of mouth.
+  cancellation records; a count of new users who arrived without being pushed.
+- **Why they arrived is a separate claim at score 2**, per rule 5 of
+  `references/evidence-rubric.md`. The arrival is counted; "word of mouth" is
+  what a user said about why, and it does not inherit the count's score.
 - **Score 2 at best:** what users told the founder in conversation about why
   they stay. Useful for the next product decision, not for the verdict.
 - **Score 0:** any signal the founder estimated rather than measured. Never

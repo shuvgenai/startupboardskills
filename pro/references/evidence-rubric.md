@@ -43,6 +43,41 @@ The same applies to a co-founder, an employee, a family member, and anyone
 the founder recruited from their own network: useful for designing the
 question, never countable as the answer.
 
+**It may shape what you ask. It may never be what you ask for.** Reaching for
+the founder's own story to build a sharper question is right — they are the one
+case whose detail you already have. Making it the turn's question is not: the
+answer cannot move any gate, so the turn buys nothing while feeling like
+progress. Ask it of someone who is not them.
+
+> **Where this rule is split, and why.** This file answers *what does this
+> evidence score?*, so the scoring half lives here: the founder's own experience
+> scores 0, however specific. Section 1 of
+> `references/conversation-contract.md` answers *what may I ask next?*, so the
+> prohibition on making the founder's own behaviour the turn's question lives
+> there, where the question is chosen. Two halves, two questions, one rule.
+> Editing either without the other leaves the product saying one thing and
+> scoring another — which is how this rule was first written here alone, where
+> it read correctly and never fired, because nothing routes to this file at the
+> moment a question is picked.
+
+**5. An event is behaviour. The reason given for it is testimony.**
+
+They score separately, and collapsing them is how a 2 gets paid as a 3.
+
+- The **event** — a sign-up, a purchase, a cancellation, a renewal, a switch,
+  an arrival you counted — is behaviour. **Score 3**, when it is read from the
+  product's own records rather than from someone's memory.
+- The **reason** — "I found you through a friend", "I switched because of the
+  price", "I cancelled because it got slow" — is that person's account of their
+  own motive. **Score 2**, and a good 2: primary, specific, and still a story
+  about why.
+
+"40 users arrived last month" and "they arrived by word of mouth" are two claims
+at two scores, even when one sentence carries both. Count the first, quote the
+second, and never let the second inherit the first's score. This is the same
+shape for every arrival, conversion and churn event, which is why it lives here
+rather than in whichever module reaches it first.
+
 ## Worked examples, one per level
 
 Take a founder building scheduling software for mobile dog groomers.

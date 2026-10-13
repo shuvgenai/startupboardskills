@@ -23,8 +23,9 @@ is the one place in the whole product where the advice is closer to caution
 than to action.
 
 The second job is honest traction. A small real number, stated plainly, is
-stronger than a large vague one, because investors have seen the vague one
-before and know what it hides. Fourteen interviews and two paying pilots is a
+stronger than a large vague one: the small number can be checked and the vague
+one cannot. Experienced readers discount the vague version (rule of thumb),
+which is a working assumption rather than a fact this module can source. Fourteen interviews and two paying pilots is a
 real position. "Significant inbound interest" is a tell.
 
 The third is the asymmetry question again: what breaks first if this works at
@@ -68,8 +69,8 @@ what they are selling.
   it that way too.
 - "We just need the money to start marketing." — Usually means no channel has
   been tested.
-- "The market is worth billions." — A number with no source, and one every
-  investor has heard. Mark it `UNVERIFIED` or cut it.
+- "The market is worth billions." — A number with no source. Common enough to
+  be worth naming as a tell (rule of thumb). Mark it `UNVERIFIED` or cut it.
 - "We have significant inbound interest." — Vague by choice. Ask for the
   count.
 - "I'll figure out the terms with a lawyer later." — The terms are the deal.

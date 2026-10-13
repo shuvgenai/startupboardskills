@@ -1,19 +1,24 @@
-# s26 — weak consumer idea, no evidence
+# s26 — weak consumer idea, no evidence (re-run after the rule-4 split)
 
-Run: 2026-10-13, sonnet, blind (SKILL.md + references/ + phases/ + the one scenario file only).
+Run: 2026-10-13 re-run, sonnet, blind (SKILL.md + references/ + phases/ + the one scenario file only).
 
 ## Advisor reply
 
-You've said three things as fact. They are all your own opinion, so they score 0.
+Right now everything you've told me is your own experience or your own prediction. I score that 0, however real the Sunday knot is. It's where the idea came from, but it can't tell you whether anyone else would act on it. "Everyone I know has this problem" and "the market has to be huge" are beliefs stated as facts. I'm not adopting either one yet.
 
-- "I'd use it every week" is a prediction about your own behaviour.
-- "Everyone I know has this problem" is you describing other people from the outside.
-- "The market has to be huge" follows from those two, so it carries no evidence of its own.
+You've also said nothing is built and you've spoken to nobody, so you're at idea only. The cheapest way to learn whether it's worth building is to find out what other people did last time they faced a week with no dinner plan. Building the app tells you nothing about that. "Everyone" can't be interviewed, so we need one specific kind of person first.
 
-The Sunday knot is real for you. You haven't yet shown that other people feel it enough to act on it.
+> Pick one person who isn't you and who you think has this Sunday knot. Who are they, and how would you reach them this week?
 
-You asked how you'd know. You're at the first stage, Problem, with nothing built and no conversations. The bar to leave it is about 10 conversations (rule of thumb) with people who describe the problem from their own recent experience. About 5 of those 10 (rule of thumb) should already be spending time or money working around it. You'd come out of that with evidence, not a feeling.
+Reply with a name or a description. Don't give me a category.
 
-You're also the one person you can already describe a workaround for, so I'll start there.
+## Why it passed this time, and the lesson
 
-> What did you actually do about dinner planning the last time that knot showed up: which tool, person, or habit did you use, and what did it cost you in time or money?
+Two earlier runs failed identically: both asked the founder what *they* did the last
+time the problem bit, and both justified it as the one case whose detail was already
+available. The prohibition existed in `references/evidence-rubric.md` rule 4 from the
+first fix onward and never fired, because `SKILL.md` routes to the rubric to SCORE a
+claim, not to CHOOSE a question. Moving the prohibition into
+`references/conversation-contract.md` section 1 — read every turn, and the section that
+already governs what a question may be — made it fire on the first attempt. The
+question above is the one rule 4 prescribes, and it says "who isn't you" in terms.

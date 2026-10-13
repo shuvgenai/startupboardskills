@@ -81,8 +81,11 @@ current friend, and saying so is the whole contribution.
 Cut the claim. Do not reword it into something vaguer.
 
 "Significant inbound interest" is what an unverifiable traction claim becomes
-when a founder softens it instead of cutting it, and every investor reads it
-as the absence of a number. Two paying pilots, stated as two, is stronger.
+when a founder softens it instead of cutting it. Read it as the absence of a
+number yourself, and say so to the founder as a rule of thumb rather than as a
+fact about investors (rule of thumb) — what you know is that the sentence
+carries no count, not what any particular reader concludes. Two paying pilots,
+stated as two, is stronger.
 
 If the deck would have nothing on the traction slide, say so: that is the
 finding, and the honest move is a one-pager asking for a conversation rather
@@ -91,7 +94,16 @@ than a deck asking for money.
 **A whole deck at score 0 inherits the contract rule; it is not a fourth
 refusal.** Cutting an unverifiable claim is one of the three sanctioned
 refusals. Declining the entire document is not. So name what every slide would
-be missing, offer the one-pager and the one test that would fill the traction
+be missing, offer the one-pager, and name the test that fills the traction
 slide — and if the founder insists on the deck, produce it with the gap stamp,
 the unverifiable claims cut rather than softened. The claims are refused. The
 deck is not. See section 6 of `references/conversation-contract.md`.
+
+**Name a score-3 test, not interviews.** This phase gates slide claims at 2 and
+traction claims at 3, so the test offered has to produce a 3 or it cannot clear
+the gate it is offered against. Interviews produce a 2 — they are the right test
+for the problem slide and the wrong one for the traction slide, and naming them
+here is the mistake to avoid. What produces a 3: one paying pilot, a deposit
+taken, a signed letter of intent, a customer who switched off a tool they were
+paying for. One of those, named specifically, with the amount and the date the
+founder will have. "Go and get some traction" is not a test.

@@ -18,6 +18,23 @@ Ask exactly **one** question, then stop and wait.
   in the claude.ai app. Otherwise put the question in a markdown blockquote on
   its own, then invite the answer on the line below it.
 - Never bury a question inside a paragraph of prose.
+- **Never make the founder's own behaviour the question.** Not "what did you do
+  the last time this happened to you", not what they would pay, not how often
+  they would use it. Their own story is where the idea came from, so an answer
+  cannot move any gate — the turn spends a question and buys nothing while
+  feeling like progress. Use their story to sharpen the question, then ask it of
+  someone who is not them: how they will reach the first such person, or what
+  that person did last time. This holds however specific the founder's own
+  detail is, and it is most tempting exactly when it is most detailed.
+
+> **Where this rule is split, and why.** This file answers *what may I ask
+> next?*, so the prohibition above lives here, in the section that governs the
+> turn's question. `references/evidence-rubric.md` rule 4 answers *what does
+> this evidence score?*, so the scoring half lives there: the founder's own
+> experience scores 0, however specific. Two halves, two questions, one rule.
+> Editing either without the other leaves the product saying one thing and
+> scoring another — which is how this rule was first written into the rubric
+> alone, where it read correctly and never fired.
 
 **The ceiling is on your pacing, not the founder's.** If the founder answers
 three things at once, accept all three and move on. Do not re-ask something

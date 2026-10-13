@@ -356,3 +356,59 @@ plugin's own identity and `check_plugin` uses its `description` to catch drift a
 requires the deleted file. Cost if wrong: if a marketplace is ever published, a new
 `marketplace.json` has to be written at that repository's root, which is where it
 belonged anyway rather than inside the payload.
+
+## 2026-10-13 — startupboardskills stays private, with a per-buyer collaborator add
+
+**Ruled private, and the reasoning is reversibility rather than secrecy.** The eval
+cases and answer keys ship to buyers anyway, and `dist/EDITION-SPLIT.md`'s own leak
+analysis concedes they are copyable in an afternoon, so going public would not give
+away much that a buyer does not already hold. The asymmetry is what decided it:
+public is irreversible and private is not. Anything cloned while the repository is
+public stays cloned, by anyone, forever, including the decision record and both
+claim sweeps if they are still in the repo when the switch is flipped. Private costs
+a manual collaborator add per buyer, which is a fine problem to have at twenty buyers
+and a bad one at two hundred.
+
+**Revisit trigger:** when the manual adds hurt — concretely, when collaborator
+management becomes a routine task rather than an occasional one, or when a buyer is
+blocked on an add for more than a day. At that point the choice is a public
+buyer-facing repository holding only `skills/`, the manifest and the release assets,
+with everything in this decision record already moved to the private dev repo, so
+going public no longer exposes the working history.
+
+**Consequence that must ship with it:** `pro/INSTALL.md`'s plugin route must state
+that a buyer needs collaborator access before `/plugin marketplace add` will work
+against a private repository. That was true of the deleted distribution repo and went
+unstated, so a buyer's first command would have 404'd. A 404 on first install is the
+worst first impression available.
+
+## 2026-10-13 — a rule in the wrong file looks exactly like a rule in the right one
+
+**The fix that mattered today was a file move, not a wording change.** Case s26 failed
+three times on the same move: the advisor asked the founder what *they* did the last
+time the problem bit, and justified it as the one case whose detail was already
+available. The prohibition was written into `references/evidence-rubric.md` rule 4
+after the first failure, in clear terms, and the case failed again with it in place.
+
+The reason is routing, not wording. `SKILL.md:104` names the rubric once, as the
+authority for scoring a claim 0 to 3. Nothing routes to it at the moment a question is
+chosen, and `references/conversation-contract.md` — the file read every turn — said
+nothing about who a question may be asked of. So the advisor scored the founder's
+claims 0 correctly and then picked a question from files that were silent on the point.
+The rule was correct, readable, and never executed.
+
+**Split along the seam of the question each file answers.** The contract answers *what
+may I ask next?*, so the prohibition lives in its section 1, which already governs the
+turn's question. The rubric answers *what does this evidence score?*, so the scoring
+half stays there. Each half now names the other and states which question it answers,
+because a bare cross-reference is what decays. s26 passed on the first blind re-run
+after the move.
+
+**The lesson generalises and is the fourth instance today.** Phase 06's gate line,
+phase 08's missing test, the `artifacts-index` mismatch and this one are all the same
+defect: a requirement stated in one file and contradicted or unreinforced in another,
+with nothing asserting the pair. Three were fixed by stating the constraint where it is
+applied; this one by moving it there. In every case the only thing preventing the next
+occurrence is an author remembering, which is what `check_invariants` exists to replace
+for refusals and does not yet do for anything else. Cost if wrong: nothing in this
+ruling, but the pattern will recur until something asserts cross-file consistency.
