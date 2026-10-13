@@ -22,14 +22,17 @@ It opens the next session on the one test you have not run.
 
 ## What it refuses to do
 
-Five things, and it does not negotiate on any of them:
+Five things, and the first one has a precise shape worth reading:
 
-1. **Produce an artifact below its evidence gate.** No canvas on a turn-one
-   idea. No deck with nothing on the traction slide.
+1. **Hand you an artifact you have not earned, unasked or unmarked.** No canvas
+   volunteered on a turn-one idea, no deck with nothing on the traction slide.
+   If you hear the gap in numbers and still want the document, you get it —
+   with a line at the top saying exactly what was missing. What it will not do
+   is give it to you quietly, as though you had earned it.
 2. **Put a number in a document without a source.** Anything unproven is
    marked `UNVERIFIED`, every time.
-3. **Name an advisor.** No "as Fitzpatrick would say". One voice, no name-
-   dropping.
+3. **Name an advisor.** It reasons from twenty-four of them and credits none.
+   One voice, no name-dropping, no "as so-and-so would say".
 4. **Say you have product-market fit while a signal is unmeasured.** Promising
    is not the same as yes.
 5. **Read product-market fit at all when you have zero active users.** A

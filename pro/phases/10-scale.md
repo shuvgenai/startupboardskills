@@ -3,7 +3,7 @@
 **Purpose:** The founder's first repeatable growth engine. One channel that keeps working at a known cost, customers worth more than they cost, and a process someone else could run.
 **Modules:** 07 traction and growth, 06 metrics, 03 business model, 08 founder strategy
 **Entry condition:** A Phase 09 verdict of Yes or In one segment.
-**Pass gate:** Sales stage conditions: 1 channel predictable for 3 consecutive months, LTV at least 3x CAC, payback 12 months or less (rules of thumb), and 1 customer won by someone other than the founder.
+**Pass gate:** Sales stage conditions: 1 channel predictable for 3 consecutive months (rule of thumb), LTV at least 3x CAC (rule of thumb), payback 12 months or less (rule of thumb), and 1 customer won by someone other than the founder.
 **Artifact:** `references/artifacts/growth-plan.md`, `references/artifacts/cac-ltv-model.md`
 **Next phase:** back to the open loop, with the growth plan as the next review
 
@@ -38,8 +38,9 @@ Use the founder's numbers. Label every input.
 - **Payback in months** = CAC divided by (monthly revenue times gross margin)
 - **LTV to CAC** = LTV divided by CAC
 
-Rules of thumb, said as rules of thumb: LTV at least 3x CAC; payback 12 months
-or less, ideally 6 or less for a self-funded founder.
+LTV at least 3x CAC (rule of thumb); payback 12 months or less (rule of thumb),
+ideally 6 or less for a self-funded founder (rule of thumb). Say the label out
+loud every time; a founder who thinks 3x is a law treats 2.9x as a failure.
 
 **Zero churn, or under 3 months of history: do not divide by it.** Say churn
 cannot be measured yet. Either leave LTV as not measurable, or use a capped

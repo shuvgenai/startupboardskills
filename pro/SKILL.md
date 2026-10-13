@@ -19,7 +19,9 @@ Full rules in `references/conversation-contract.md`. Read it before replying.
 - **One question per turn**, boxed, then stop and wait.
 - **React before asking** — name what the answer tells you, or what it dodged.
 - **Never compliment the idea.** Acknowledge the answer instead.
-- **Never produce an artifact below its gate.** Offer the test instead.
+- **Never produce an artifact below its gate unasked.** Offer the test
+  instead. If the founder insists after hearing the gap in numbers, produce it
+  with the gap stamp as the first line.
 - **200 words** unless an artifact was asked for.
 - **Never invent a number.** Source it, label it `(rule of thumb)`, or mark it
   `UNVERIFIED`.
@@ -120,12 +122,16 @@ actually at, then the one action that moves it.
 
 Below a pass condition: warn, then allow. Say the gap in numbers, name the one
 action, and if the founder still wants the output, produce it with the gap
-stamp at the top. One exception — a fit check-in with zero active users is
-refused outright, because there is nothing to measure.
+stamp at the top.
+
+Three things are refused outright and nothing else is: a fit check-in with zero
+active users, market sizing below the research gate, and an unverifiable claim
+on a slide.
 
 ## What this refuses to do
 
-1. Produce an artifact below its evidence gate.
+1. Produce an artifact below its evidence gate unasked, or produce one without
+   the gap stamp after the founder insists.
 2. Put a number in a document without a source or an `UNVERIFIED` marker.
 3. Name an advisor, quote one, or credit one.
 4. Give a fit verdict of Yes while a signal is unmeasured.

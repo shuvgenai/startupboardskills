@@ -1,4 +1,4 @@
 _reference/
 .env
-dist/*.zip
+**/dist/*.zip
 node_modules/

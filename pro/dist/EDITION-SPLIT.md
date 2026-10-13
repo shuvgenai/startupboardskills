@@ -6,11 +6,11 @@ Date: 2026-10-12
 
 | | Free (v1.1.0, MIT) | Pro (v2.0.0) |
 |---|---|---|
-| Phases | 00 to 10, all ten | 00 to 10, all eleven files, each with a numeric gate |
+| Phases | 00 to 10, same range | 00 to 10, same range, each with a numeric gate |
 | Advisor coverage | 8 thinkers, 3 internal seats | 24 across 9 modules, fixed shape, 77 questions |
 | Post-launch depth | PMF check-in and scale only | adds product management, growth channels, founder strategy, fundraising |
 | Evidence handling | counts interviews | scores every claim 0 to 3; compliments and the founder's own experience score 0 |
-| Phase gates | numeric at 02, 09, 10; absent or waivable elsewhere | numeric and binding at all eleven; warn-then-stamp leaves a trace |
+| Phase gates | numeric at 02, 09, 10; absent or silently waivable elsewhere | numeric at all eleven; below a gate nothing is volunteered, and an insisted-on artifact carries a stamp naming the gap |
 | Verdicts | 4, unbounded | 4, bounded by a score table; 0 cannot reach PROCEED |
 | Artifact gating | none | minimum score per artifact; below it, the test is offered instead |
 | Unverified numbers | 3 inconsistent conventions | one marker, `UNVERIFIED`, mechanically checked |
@@ -86,6 +86,30 @@ for, and it is the one claim here that gets stronger over time rather than
 weaker.
 
 The nine modules are the marketing. The eval suite is the product.
+
+## The commitment behind that claim
+
+The argument above rests on maintenance, so the maintenance is stated rather
+than implied. Without these four lines the claim is self-flattery.
+
+1. **The suite is re-run** when a new Claude model becomes the default in the
+   Claude app or Claude Code, and whenever a buyer reports a case failing.
+2. **Each re-run is published** in `evals/`, dated, in the same format as the
+   first: every failure, the quote behind it, and which file was at fault.
+3. **Fixes reach buyers.** On the plugin route, `/plugin update`. On the ZIP
+   route, a notice that a new version exists.
+4. **A regression is said out loud.** If a re-run shows the skill no longer
+   behaves the way this document claims, that goes in the results rather than
+   being quietly patched.
+
+Two of those four existed before this section was written. The re-run trigger
+and the published cadence are what turn an argument into an undertaking, and
+they are the part a copier cannot take.
+
+One honest caveat on the proof as it stands: the first run is fifteen
+scenarios, one model, one day, graded by the author. That is a real artifact
+and more than a prompt pack ships, and it is still a snapshot — which is the
+whole reason the re-run trigger above matters.
 
 ## No licence enforcement, stated plainly
 

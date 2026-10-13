@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # Startup Board Pro static checks.
-# Usage: evals/check.sh <contract|state|advisors|phases|artifacts|skill|plugin|cases|all>
+# Usage: evals/check.sh <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|all>
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 FAIL=0
@@ -164,11 +164,54 @@ check_plugin() {
   fi
 }
 
+# Sweeps that apply to whole directories, not one named file.
+# These exist because three answer keys shipped demanding retired markers and
+# the v1 filename, and nothing was looking at evals/criteria at all.
+check_sweeps() {
+  for f in "$ROOT"/references/*.md "$ROOT"/evals/criteria/*.md "$ROOT"/evals/rubric.md            "$ROOT"/README-PRO.md "$ROOT"/dist/*.md "$ROOT"/dist/launch/*.md; do
+    [ -f "$f" ] || continue
+    rel=${f#"$ROOT"/}
+    # retired unverified markers, anywhere a founder or a grader can read them
+    if grep -qE "$RETIRED_MARKERS" "$f" 2>/dev/null; then
+      fail "$rel uses a retired marker: $(grep -oEm1 "$RETIRED_MARKERS" "$f")"
+    else ok "$rel clean of retired markers"; fi
+    # the v1 progress filename is allowed only where migration is the subject
+    case "$rel" in
+      references/state-file.md|evals/criteria/s02-*|evals/criteria/s03-*|evals/criteria/s04-*|dist/INSTALL.md|dist/CHANGELOG.md|dist/EDITION-SPLIT.md|README-PRO.md) ;;
+      *)
+        if grep -qF 'startup-board-progress.md' "$f" 2>/dev/null; then
+          fail "$rel names the v1 progress file outside the migration path"
+        else ok "$rel clean of the v1 filename"; fi ;;
+    esac
+    # v1 stage names were renamed; the keys must not ask for a string the skill never emits
+    if grep -qE 'Problem Fit|Market Fit|Sales Fit|Research Fit|Product Fit|Customer Fit' "$f" 2>/dev/null; then
+      fail "$rel uses a v1 stage name: $(grep -oEm1 'Problem Fit|Market Fit|Sales Fit|Research Fit|Product Fit|Customer Fit' "$f")"
+    else ok "$rel clean of v1 stage names"; fi
+  done
+  # advisor names must not appear in anything shipped outside references/advisors
+  for f in "$ROOT"/references/*.md "$ROOT"/README-PRO.md "$ROOT"/dist/*.md "$ROOT"/dist/launch/*.md; do
+    [ -f "$f" ] || continue
+    rel=${f#"$ROOT"/}
+    if grep -qE "$ADVISOR_NAMES" "$f" 2>/dev/null; then
+      fail "$rel names an advisor: $(grep -oEm1 "$ADVISOR_NAMES" "$f")"
+    else ok "$rel names no advisor"; fi
+  done
+  # every rule of thumb carries its label at the point of use
+  for f in "$ROOT"/references/fit-ladder.md "$ROOT"/phases/09-pmf-checkin.md "$ROOT"/phases/10-scale.md; do
+    rel=${f#"$ROOT"/}
+    n=$(grep -oE '\(rules? of thumb\)' "$f" 2>/dev/null | wc -l)
+    [ "${n:-0}" -ge 3 ] && ok "$rel labels $n rules of thumb"       || fail "$rel labels only ${n:-0} rules of thumb, needs 3 or more inline"
+    if grep -qE '\(rule of$' "$f" 2>/dev/null; then
+      fail "$rel splits a (rule of thumb) label across a line break, so it is not greppable"
+    else ok "$rel has no split rule-of-thumb label"; fi
+  done
+}
+
 check_cases() {
   c=$(ls "$ROOT/evals/cases" 2>/dev/null | wc -l)
   k=$(ls "$ROOT/evals/criteria" 2>/dev/null | wc -l)
-  [ "$c" -eq 17 ] && ok "17 cases" || fail "$c cases, expected 17"
-  [ "$k" -eq 17 ] && ok "17 criteria" || fail "$k criteria, expected 17"
+  [ "$c" -eq 20 ] && ok "20 cases" || fail "$c cases, expected 20"
+  [ "$k" -eq 20 ] && ok "20 criteria" || fail "$k criteria, expected 20"
   for f in "$ROOT/evals/cases/"*.md; do
     [ -e "$f" ] || continue
     b=$(basename "$f")
@@ -184,10 +227,11 @@ case "${1:-all}" in
   artifacts) check_artifacts ;;
   skill)     check_skill ;;
   plugin)    check_plugin ;;
+  sweeps)    check_sweeps ;;
   cases)     check_cases ;;
   all) check_contract; check_state; check_advisors; check_phases
-       check_artifacts; check_skill; check_plugin; check_cases ;;
-  *) echo "usage: $0 <contract|state|advisors|phases|artifacts|skill|plugin|cases|all>"; exit 2 ;;
+       check_artifacts; check_skill; check_plugin; check_sweeps; check_cases ;;
+  *) echo "usage: $0 <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|all>"; exit 2 ;;
 esac
 
 [ "$FAIL" -eq 0 ] && echo "PASS" || echo "FAILED"

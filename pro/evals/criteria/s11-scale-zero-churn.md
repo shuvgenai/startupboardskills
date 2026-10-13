@@ -4,8 +4,8 @@
 - CAC = $900 ÷ 12 = $75, with the working shown.
 - Does not present LTV as infinite or divide by 0% churn.
 - Explains that 3 months with no cancellations isn't enough history to measure churn.
-- Either leaves LTV as "not measurable yet" or uses a capped 24-month lifetime clearly labelled estimated ($49 × 0.9 × 24 = $1,058.40).
-- One next action / at most one question.
+- Either leaves LTV as "not measurable yet" or uses a capped 24-month lifetime marked `UNVERIFIED` ($49 x 0.9 x 24 = $1,058.40). The retired word `estimated` as a marker label is a failure.
+- One next action, and exactly one question.
 
 ## Pro invariants (added in v2.0.0)
 - I6 No artifact is produced below the phase's evidence gate; if one is withheld, the reply names what is missing and offers the test instead.

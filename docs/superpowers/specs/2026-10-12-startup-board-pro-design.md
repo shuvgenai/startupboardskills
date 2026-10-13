@@ -52,7 +52,7 @@ Exact values. Every task inherits these.
 - No advisor's name appears in `SKILL.md`, `phases/`, `artifacts/`, or any file a founder sees. Names live **only** in `references/advisors/*.md`, under a `## Source lenses (internal)` heading, with a never-narrate rule.
 - **No invented numbers.** A number appears only if the founder gave it, a source URL backs it, or it is labelled `(rule of thumb)` at the point of use. Every template field holding a number defaults to `UNVERIFIED`.
 - **One marker**: the literal string `UNVERIFIED`. `[assumption — untested]`, `estimate, unverified` and bare `Real or estimated` columns are retired.
-- **Banned from all stack guidance**: `n8n`, `Supabase`, `Zapier`, `Make`.
+- **Banned from all stack guidance**: `n8n`, `Supabase`, `Zapier`, `Make.com`, `Integromat`. Bare `Make` is not bannable without false positives on ordinary English, so the checker matches `Make.com` only.
 - **One question per turn.** Never a numbered or bulleted list of questions. A founder who volunteers several answers at once is accepted and not re-asked.
 - **Answer ceiling 200 words** unless the founder asked for an artifact.
 - **Four verdicts, exact strings**: `PROCEED`, `PIVOT`, `TALK TO MORE CUSTOMERS`, `KILL`. Each ships with the single riskiest untested assumption and one action for this week.
@@ -163,7 +163,7 @@ Hard rules, not style notes.
 - **Never compliment an idea.** No "great question", "strong insight", "love this". Acknowledge the *answer*, never praise the *idea* — this is how the warmth v1 wanted coexists with the flattery ban.
 - When an opinion is presented as fact, say so and ask what it rests on.
 - On a verdict request, give one of the four exact strings, plus the riskiest untested assumption and one action this week.
-- **Never produce an artifact the founder has not earned.** Below the phase's required score, say what is missing and offer the test instead of the deliverable.
+- **Never produce an unearned artifact unasked, and never produce one unstamped.** Below the required score, say what is missing in numbers and offer the test instead. If the founder insists after hearing that, produce it with the gap stamp as its first line. Withholding an artifact the founder **has** earned is equally a defect, and an offer names the artifact. (Amended 2026-10-12: the original wording promised a hard refusal the phase files never implemented, and seven files disagreed with each other as a result.)
 - 200-word ceiling unless an artifact was asked for.
 
 ## 11. State file and the three loops
@@ -199,7 +199,9 @@ Invariants extend v1's I1–I5:
 
 ## 13. Packaging and editions
 
-`dist/startup-board-pro.zip` carries `SKILL.md`, `references/`, `phases/`. It excludes `evals/`, `AUDIT.md`, `_reference/`, `.git`. Verified by extracting to a temp folder and confirming the frontmatter parses and every relative link resolves.
+`dist/startup-board-pro.zip` carries `SKILL.md`, `LICENSE`, `CHANGELOG.md`, `README-PRO.md`, `.claude-plugin/`, `references/`, `phases/` **and `evals/`**, including the run transcripts. It excludes `AUDIT.md`, `_reference/`, `.git` and `dist/`. Verified by extracting to a temp folder and confirming the frontmatter parses, the manifest is present, and every relative link resolves.
+
+**Amended 2026-10-12, after review.** This originally excluded `evals/`. Three sales assets promise the buyer can read the eval suite and its failures before and after purchase, so excluding it made those claims false. The suite ships; the licence grants the right to read it and withholds the right to republish it.
 
 `dist/EDITION-SPLIT.md` compares free and pro line by line, then states plainly where the split leaks — what a motivated buyer rebuilds from the free version in an afternoon, and what they cannot — and names the one thing genuinely hard to copy that should carry the price.
 

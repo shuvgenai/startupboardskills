@@ -13,7 +13,7 @@ next to the claim it belongs to.
 | 2 | Primary | An interview where the person described a **past behaviour** in their own recent experience: what they did, when, what it cost them, what they used instead. | A hypothetical. An agreement. A described intention. A conversation where you pitched first. |
 | 3 | Behavioural | Someone paid. Someone signed up and used it. Someone booked time. Someone switched away from a tool. Someone referred another person unasked. | A waitlist email on its own. A verbal commitment with no date. A free trial never opened. |
 
-## Three rules that decide most cases
+## Four rules that decide most cases
 
 **1. A compliment scores 0 no matter how many people gave it.**
 "Ten people said they would use it" is one score-0 claim repeated ten times,

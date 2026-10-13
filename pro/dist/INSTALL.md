@@ -28,8 +28,9 @@ If the advisor replies with one question and no enthusiasm, it is working.
 
 ## Route 3 — Claude Code, as a plugin (updates come to you)
 
-This route needs the files in a git repository. It is the only route where you
-get updates without re-downloading anything.
+This route needs the files in a git repository, which is set up for you at
+purchase — that is what the placeholder below stands in for. It is the only
+route where you get updates without re-downloading anything.
 
 ```
 /plugin marketplace add <the repository you were given>

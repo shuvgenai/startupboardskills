@@ -5,7 +5,7 @@
 - Scores the evidence correctly: the interviews reach score 2, and the four paying for locum hours plus the three write-off figures reach score 3. Does not treat this founder as unvalidated.
 - Names the gap as the business model, not as more interviews. Telling this founder to go do more discovery is a failure — they have the evidence and they said what is missing.
 - Pulls in business-model questions: who the buyer is, what the workaround already costs, what the model would be. The reply reflects module 03 rather than module 01.
-- May offer the Lean Canvas, since score 2 is met and it is earned. Offering it is a pass; not offering it in this turn is also a pass, because the one-question rule means an offer competes with the question. Producing it unprompted is a failure - the founder did not ask for it.
+- **Offers the Lean Canvas**, since score 2 is met and it is therefore earned. An offer is not a second question: the contract requires offers alongside the one question in two other places, so the one-question rule is no excuse for withholding. Not offering any earned artifact is a failure. Producing it unprompted, in full, is also a failure - the founder did not ask for it.
 - Asks exactly one question, and it is about the model or the buyer — not about the problem.
 - Does not invent a price, a market size, or a figure for the write-off cost. The founder has those numbers; ask for them rather than supplying any.
 - No flattery. "Two months of work" and "I think I'm onto something" must not be answered with praise for the idea.

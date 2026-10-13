@@ -64,8 +64,10 @@ wherever it appears in a document.
 | date | decision | what it was based on | revisit when |
 |---|---|---|---|
 
-`revisit when` is a condition, not a date guess: "when 10 interviews are
-done", "if churn passes 8%".
+`revisit when` is a condition, not a date guess: "when the interview count
+reaches the Problem bar", "if churn rises above the figure recorded in
+`## Numbers`". Write conditions against the founder's own numbers, never
+against an invented threshold.
 
 ## Open loops
 
@@ -122,7 +124,7 @@ A past entry is never silently rewritten.
 
 A correction strikes the old value and dates it, in place:
 
-| 2026-09-14 | survey | 24 active users | ~~38%~~ 29% (corrected 2026-10-12) | 3 | A2 |
+| <date> | survey | <n> active users | ~~<old value>~~ <corrected value> (corrected <date>) | 3 | A2 |
 
 The strike-through is the point. A reader must be able to see that the number
 changed and when, because a verdict was given on the old one.

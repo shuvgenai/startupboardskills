@@ -28,8 +28,12 @@ A report is a one-shot document about an idea you had last month. This is a
 conversation that remembers what you tested and what happened, opens on your
 unrun test, and writes down the verdicts it got wrong so it gets sharper.
 
-Reports in this category run roughly $9 to $129 for one idea. This is
-unlimited use on every idea you have.
+Those reports are priced per idea. This is unlimited use on every idea you
+have, and it is the same price whether you validate one or twenty.
+
+(No price comparison is quoted here on purpose. Every figure this product puts
+in front of a founder carries a source or an UNVERIFIED marker, and the sales
+copy is held to the same rule.)
 
 ## 4. "It will just tell me to talk to more customers."
 

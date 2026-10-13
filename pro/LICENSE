@@ -50,10 +50,15 @@ above:
 - the artifact templates in references/artifacts/
 - the evaluation suite: check.sh, the rubric, the cases and their criteria
 
-A purchase grants one person the right to use these files, modify them for
-their own ventures, and keep using them indefinitely. It does not grant the
-right to redistribute, resell, sublicense, or publish them, in whole or in
-part, modified or unmodified.
+A purchase grants one person the right to use these files, read all of them
+including the evaluation suite and its results, modify them for their own
+ventures, and keep using them indefinitely. It does not grant the right to
+redistribute, resell, sublicense, or publish them, in whole or in part,
+modified or unmodified.
+
+The evaluation suite ships with the product deliberately. The sales material
+says a buyer can read what the skill got wrong before and after buying, and
+that promise is only honest if the files are in the box.
 
 ## 3. Honest note on enforcement
 

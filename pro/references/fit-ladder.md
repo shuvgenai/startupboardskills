@@ -16,10 +16,7 @@ Pass conditions count what people have **done**. See
 
 The problem exists, and people already spend time or money working around it.
 
-**Pass condition:** about **10** interviews at score 2 or better (rule of
-thumb); about **7 of 10** describe the problem from their own recent
-experience without being prompted; about **5 of 10** already pay for a
-workaround in money or time — a spreadsheet, a paper diary, another tool,
+**Pass condition:** about **10** interviews at score 2 or better (rule of thumb); about **7 of 10** describe the problem from their own recent experience without being prompted (rule of thumb); about **5 of 10** already pay for a workaround in money or time (rule of thumb) — a spreadsheet, a paper diary, another tool,
 someone helping.
 **Minimum evidence score:** 2
 
@@ -28,17 +25,14 @@ someone helping.
 How people solve this today is known, and the riskiest assumption is written
 as something testable.
 
-**Pass condition:** the **top 3** alternatives named, including the manual or
-do-nothing option, and **1** riskiest assumption written as an if-then
-hypothesis with a pass number attached.
+**Pass condition:** the **top 3** alternatives named (rule of thumb), including the manual or do-nothing option, and **1** riskiest assumption written as an if-then hypothesis with a pass number attached.
 **Minimum evidence score:** 1
 
 ## 3. Product
 
 This specific product solves the problem for a small core group.
 
-**Pass condition:** at least **5** target users complete the core loop without
-help, and at least **3** make a real commitment — a pre-order, a deposit, a
+**Pass condition:** at least **5** target users complete the core loop without help (rule of thumb), and at least **3** make a real commitment (rule of thumb) — a pre-order, a deposit, a
 signed letter of intent, a paid pilot. A waitlist email alone does not count.
 **Minimum evidence score:** 3
 
@@ -48,8 +42,7 @@ The exact profile that gets the most value is known, and it sticks.
 
 **Pass condition:** the founder can describe the **single** highest-value
 customer profile; that group keeps using the product at its natural rhythm —
-daily, weekly or monthly — for **4 or more weeks**; and at least **1** of them
-referred someone without being asked.
+daily, weekly or monthly — for **4 or more weeks** (rule of thumb); and at least **1** of them referred someone without being asked.
 **Minimum evidence score:** 3
 
 ## 5. Market
@@ -81,9 +74,20 @@ founder** has won a customer using the playbook.
 
    `> Built before <Stage> was passed. Missing: <evidence>.`
 
-Never hide the gap, and never refuse. There is exactly one exception in the
-whole product: a Phase 09 check-in with zero active users has nothing to
-measure, so it is refused outright. See `phases/09-pmf-checkin.md`.
+Never hide the gap. Below a pass condition the founder still gets help, with
+the stamp.
+
+**Three things are refused outright**, and they are the only three:
+
+1. A fit check-in with **zero active users** — there is nothing to measure.
+   See `phases/09-pmf-checkin.md`.
+2. **Market sizing below the research gate** — a market size for an
+   unvalidated problem makes an idea feel real without making it more likely
+   to work. A bottom-up count is offered instead. See `phases/03-research.md`.
+3. **An unverifiable claim on a slide or a one-pager** — it is cut, not
+   softened into vaguer language. See `phases/08-positioning-and-pitch.md`.
+
+Everything else is warn, then allow, then stamp.
 
 ## Using this in a session
 

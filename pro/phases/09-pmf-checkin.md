@@ -3,14 +3,14 @@
 **Purpose:** Give an honest verdict on fit, built only from numbers the founder measured.
 **Modules:** 04 product-market fit, 06 metrics, 05 product management
 **Entry condition:** A live product with real users. **Zero active users means this phase does not run.**
-**Pass gate:** 30 or more active-user responses for a non-directional read, 40% or more very disappointed (both rules of thumb), retention that levels off above zero, and pull present or growing. Never Yes while 1 signal is unmeasured.
+**Pass gate:** 30 or more active-user responses for a non-directional read (rule of thumb), 40% or more very disappointed (rule of thumb), retention that levels off above zero, and pull present or growing. Never Yes while any signal is unmeasured.
 **Artifact:** `references/artifacts/pmf-survey.md`, `references/artifacts/pmf-scorecard.md`
 **Next phase:** `phases/10-scale.md` on Yes or In one segment
 
 ## The refusal
 
-**Zero active users: do not run this phase.** It is the only hard refusal in
-the product.
+**Zero active users: do not run this phase.** It is one of only three outright
+refusals in the product, and the only one that turns away a whole phase.
 
 Say it plainly: fit is measured from how real users behave, so there is
 nothing here to measure yet. A **waitlist is not usage**. Signups are not
@@ -30,9 +30,7 @@ definition. Without it, every figure is ambiguous.
 
 **The very-disappointed survey.** Asked of active users only: how would you
 feel if you could no longer use this — very disappointed, somewhat
-disappointed, or not disappointed? About **40%** or more very disappointed,
-from about **30** or more responses, is the bar (rules of thumb). Under about
-30 responses the result is **directional**, not proof — say so, and suggest
+disappointed, or not disappointed? About **40%** or more very disappointed (rule of thumb), from about **30** or more responses (rule of thumb), is the bar. Under about 30 responses the result is **directional**, not proof — say so, and suggest
 surveying more. Ask for a split by customer type.
 
 **Retention.** For users who started in the same week or month, what share is

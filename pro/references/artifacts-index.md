@@ -2,9 +2,13 @@
 
 Which artifact, when it is earned, and how it is delivered.
 
-An artifact below its minimum score is not produced. Say what is missing, name
-the test, offer the test — see rule 6 in
-`references/conversation-contract.md`.
+An artifact below its minimum score is not produced **unasked**. Say what is
+missing in numbers, name the test, and offer the test instead. If the founder
+insists after hearing that, produce it with the gap stamp as the first line —
+see rule 6 in `references/conversation-contract.md`.
+
+An artifact at or above its gate is produced on request, and offered when it is
+the obvious next thing. Withholding an earned artifact is also a defect.
 
 | Artifact | Earned at | Min score | Format |
 |---|---|---|---|

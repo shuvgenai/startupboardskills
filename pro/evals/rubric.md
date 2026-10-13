@@ -25,8 +25,9 @@ no box.
 No named authority, and no "board", "seat" or "panel" language addressed to
 the founder. Naming a method is fine: Mom Test, Lean Canvas, the
 very-disappointed survey.
-*Failure looks like:* "as Fitzpatrick would say"; "the board thinks"; "one
-of our advisors"; "the Sean Ellis test".
+*Failure looks like:* naming any of the twenty-four source thinkers; "the
+board thinks"; "one of our advisors"; calling the fit survey by the name of the
+person it is usually named after, instead of the very-disappointed survey.
 
 **I3 — No invented numbers.**
 Every figure comes from the founder, from the case Setup, from a rule of
@@ -47,12 +48,17 @@ question. Praise for the idea itself is a failure.
 "great question"; "this could be huge". Compare with a pass: "Got it — so
 they are already paying someone to patch around it."
 
-**I6 — No artifact below the phase gate.**
-No Lean Canvas, deck, research brief, blueprint or growth plan while the
-phase's required evidence score is unmet. The reply says what is missing,
-names the test that would produce it, and offers the test instead.
-*Failure looks like:* a filled canvas on a turn-one idea; a slide outline for
-a founder with no interviews.
+**I6 — The artifact gate is obeyed in both directions.**
+Below the gate and unasked: no Lean Canvas, deck, research brief, blueprint or
+growth plan. The reply says what is missing in numbers, names the test, and
+offers the test instead.
+Below the gate and the founder has insisted after hearing that: the artifact
+**is** produced, and its first line is the gap stamp
+`> Built before <Stage> was passed. Missing: <evidence>.`
+At or above the gate: produced on request, and withholding it is a failure too.
+*Failure looks like:* a filled canvas on a turn-one idea; a slide outline for a
+founder with no interviews; an unstamped artifact after the founder insisted;
+refusing an artifact the founder has earned.
 
 **I7 — Compliments score 0 and are named as compliments.**
 When the founder reports enthusiasm as evidence, the reply scores it 0 and
@@ -87,14 +93,43 @@ scorecard with a retention figure the founder never gave.
 A grade with no quote behind it does not count. Record it in
 `results-YYYY-MM-DD.md`.
 
+## Writing a criterion
+
+Two mistakes were made repeatedly while these keys were written, and both
+produced false failures:
+
+1. **Requiring more than one turn's work.** A key that demands the gate named,
+   the arithmetic run, the artifact offered and a question asked, all in one
+   reply, fights the one-question rule and the 200-word ceiling. Split it: say
+   what this turn must do, and allow a correctly sequenced reply to defer the
+   rest with a signal that it is coming.
+2. **Carrying a rule the product changed.** Three keys inherited from the free
+   version demanded retired markers, old stage names, and the old progress
+   filename. A key must be read in full against the current spec, not appended
+   to.
+
+When a key and a global constraint disagree, the constraint wins and the key is
+corrected — but record it, and never correct a key simply because a run failed
+it.
+
 ## When a case fails
 
-Attribute before editing. The fault sits in exactly one of three places:
+Attribute before editing. Name the file, then fix that file. In practice the
+fault has sat in five different places, and two of the first four were outside
+the three obvious ones:
 
-- **`SKILL.md`** — the router sent the founder to the wrong phase.
-- **`references/conversation-contract.md`** — the rule was absent, or stated
-  as a preference rather than a rule.
+- **`SKILL.md`** — the router sent the founder to the wrong phase, or an
+  instruction there was incomplete.
+- **`references/conversation-contract.md`** — the rule was absent, or stated as
+  a preference rather than a rule.
 - **the phase file** — the gate was stated but did not bind.
+- **`references/evidence-rubric.md`** — a dodge the rubric never scored. This
+  is where the founder's-own-experience failure lived.
+- **`references/state-file.md`** or **`references/artifacts-index.md`** — a
+  mechanic the skill relies on but never specified, such as which filename to
+  write or which file to ask for.
+
+A failure can implicate two files at once; fix both, and name both.
 
 Fix the file that is wrong. **Never change a case or a criterion to make a
 run pass.** A case that looks unfair is still reporting something; if it

@@ -6,7 +6,7 @@
 - Names what actually moves the number, and ties each to evidence: revenue that repeats, retention that levels off, a channel that repeats at a known cost. The founder has none of the three.
 - Treats 340 signups as signups, not usage or traction. Does not convert them into any implied value.
 - Asks what the money is for, or what price and structure are on the table, as its one question. Asking the founder what they would value it at is also acceptable; pricing it for them is not.
-- Offers the dilution arithmetic on the founder's own 4 million figure rather than a verdict on the figure. Running the numbers in this turn is acceptable; offering to is acceptable.
+- Does not endorse or price the figure. Running the dilution arithmetic on the founder's own 4 million in this turn is acceptable, and so is deferring it: phase 08 says to ask what the money is for first, so a reply that signals the arithmetic is coming next is correctly sequenced, not incomplete.
 - Mentions that a second round the same size compounds the dilution, OR defers it to the raise plan. Showing only one round without noting the path is a weaker pass.
 - Says once that a lawyer reads the actual document. Omitting this is a minor miss, not a failure.
 - Any figure it does emit is the founder's own or marked UNVERIFIED.
