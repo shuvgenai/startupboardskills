@@ -7,7 +7,7 @@
 SHA-256 of `startup-board-pro.zip` for v2.0.0:
 
 ```
-7c984471ed648fcf62d59898674b722c682b6ab8a9100ff0af39afd4e8efc1cc
+150cc97b595a60c796a9b1766bbfb975063792102fcd5b7cd298abccf539eaea
 ```
 
 `shasum -a 256 startup-board-pro.zip` on Mac or Linux, or
@@ -92,7 +92,7 @@ mechanically.
 
 `evals/check.sh` asserts the mechanical rules — the line ceiling, no advisor
 named in anything the founder sees, a numeric gate on every phase file, no
-banned stack, the marker present in every numeric template. Plus fifteen
+banned stack, the marker present in every numeric template. Plus twenty-eight
 role-play cases graded blind against criteria the model under test cannot
 read.
 

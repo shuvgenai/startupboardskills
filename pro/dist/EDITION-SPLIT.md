@@ -20,7 +20,7 @@ Date: 2026-10-12
 | Flattery | "warmth matters" | banned by name |
 | Artifact templates | 13 reference files | 14 templates plus an index, with output filenames pinned |
 | MVP stack | Supabase, Zapier optional | Claude Artifact, then Lovable/Bolt/Replit, Airtable with Softr/Glide; 5 ready-to-paste prompts |
-| Tests | 12 role-play scenarios, 5 invariants | 15 scenarios, 10 invariants, a static checker, and a published failure record |
+| Tests | 12 role-play scenarios, 5 invariants | 28 scenarios, 11 invariants, a static checker, and a published failure record |
 | Install routes | ZIP, folder | ZIP, folder |
 
 ## Why the recommended split cannot be implemented
@@ -60,7 +60,7 @@ a pass number decided afterwards voids the test. Each of those came from
 watching a run fail.
 
 What cannot be copied in an afternoon is proof that any of it works. A copy
-has files. It does not have fifteen graded runs, four documented failures, and
+has files. It does not have twenty-eight graded runs, seven documented failures, and
 the record of which instruction was at fault each time.
 
 ## The one thing that carries the price
@@ -78,7 +78,7 @@ warn you. Every competitor selling a prompt pack has this problem and none of
 them can tell you whether their product still behaves the way the sales page
 says.
 
-The eval suite is what detects that: 21 scenarios, blind-graded, run
+The eval suite is what detects that: 28 scenarios, blind-graded, run
 against the actual files.
 
 What it does not come with is a channel that pushes the fix to you. There was a

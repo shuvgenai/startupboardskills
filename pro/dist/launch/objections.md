@@ -5,7 +5,7 @@
 You can. The graded eval suite ships with it, so you can read the cases and
 the answer keys and see how it is judged. What you are paying for is not secrecy, it is the work: the evidence
 rubric that stops ten compliments counting as validation, nine modules of
-questions, 21 test scenarios with answer keys, and the
+questions, 28 test scenarios with answer keys, and the
 updates when something is found to be wrong.
 
 The free version is still MIT-licensed and still free. If it is enough, use

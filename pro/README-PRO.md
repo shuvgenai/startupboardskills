@@ -100,12 +100,12 @@ Same advisor, opposite answer, because the evidence was different.
 
 ## How it was tested
 
-21 scenarios, each played by a separate model that could read the skill
+28 scenarios, each played by a separate model that could read the skill
 and nothing else — not the pass criteria, not the design notes. Of the 15 in
 the first graded run, on 2026-10-12, four failed and were fixed at source
 rather than in the test.
 
-The graded suite ships with the product: 21 scenarios and 21 answer keys, each
+The graded suite ships with the product: 28 scenarios and 28 answer keys, each
 key naming the failure modes it watches for, plus `evals/rubric.md`. You can
 read every case and audit how it is graded. The record of the first run does
 not ship.
