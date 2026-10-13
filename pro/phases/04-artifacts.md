@@ -4,7 +4,13 @@
 **Modules:** 03 business model, 01 problem discovery, 05 product management
 **Entry condition:** Phase 02 done.
 **Pass gate:** Minimum evidence score 2 for any artifact that asserts something about customers or the model. Score 0 or 1 earns the interview script and the experiment card only.
-**Artifact:** `references/artifacts/lean-canvas.md`, `references/artifacts/mom-test-script.md`
+**Artifact:** `references/artifacts/mom-test-script.md` and
+`references/artifacts/experiment-card.md` — earned at score 0 or 1.
+`references/artifacts/lean-canvas.md` and
+`references/artifacts/positioning-statement.md` — **evidence score 2**, per the
+gate above and `references/artifacts-index.md`. Each artifact carries its own
+condition here rather than only in the index: the index is a lookup table, and
+the founder-facing decision is made in this file.
 **Next phase:** `phases/05-verdict.md`
 
 ## The questions

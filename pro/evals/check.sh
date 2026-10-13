@@ -645,6 +645,109 @@ check_invariants() {
     _n2=$(basename "$_f2" .md)
     has_str "phases/$_n2.md" "## When the gate is not met"
   done
+
+  # 5. An artifact's gate agrees across its homes. WHY: on 2026-10-13 five
+  # defects shared one shape, a requirement stated in one file and contradicted
+  # or unreinforced in another with nothing asserting the pair; three surfaced
+  # only when a blind eval failed. Defect #3: artifacts-index.md demanded score 2
+  # for positioning-statement.md while phases/07-launch.md's gate named no score.
+  # The index table is parsed, never listed here, so the check follows the file.
+  # Per row: the artifact file exists; every phase in column 2 exists; each
+  # phase's **Artifact:** block names the artifact; and the integers in column 3
+  # (after dropping "Phase NN" references) do not exceed the highest integer in
+  # the owning phase's **Pass gate:** line or **Artifact:** block. A score stated
+  # on the Artifact block counts, because phase 07 states a per-artifact condition
+  # there. A column-3 minimum of 0 demands nothing. BLIND SPOTS: integers are
+  # matched as digits, so "3x CAC" or "12 months" in a gate can satisfy a
+  # smaller demanded score; "highest integer" is a proxy for "states that score";
+  # prose gates ("Problem passed") are skipped, not interpreted.
+  _ix=references/artifacts-index.md
+  _rows=$(grep -E '^\| `references/artifacts/[^`]+\.md` \|' "$ROOT/$_ix" 2>/dev/null)
+  if [ -z "$_rows" ]; then
+    fail "$_ix: no artifact table rows found (header '| Artifact | Earned at | Min score | Format |')"
+  fi
+  while IFS='|' read -r _e1 _c1 _c2 _c3 _rest; do
+    [ -n "$_c1" ] || continue
+    _art=$(printf '%s' "$_c1" | tr -d '` ')
+    _abase=${_art##*/}
+    if [ -f "$ROOT/$_art" ]; then ok "$_ix row $_abase: artifact file exists"
+    else fail "$_ix row names $_art but that file does not exist"; fi
+    _want=$(printf '%s' "$_c3" | sed -E 's/Phase [0-9]+//g' | grep -oE '[0-9]+' | sort -n | tail -1)
+    _nums=$(printf '%s' "$_c2" | grep -oE '[0-9]{2}')
+    if [ -z "$_nums" ]; then fail "$_ix row $_abase: column 2 '$(printf '%s' "$_c2" | sed 's/^ *//; s/ *$//')' names no phase"; continue; fi
+    for _pn in $_nums; do
+      set -- "$ROOT"/phases/"$_pn"-*.md
+      _pf=$1
+      if [ ! -f "$_pf" ]; then fail "$_ix row $_abase: names Phase $_pn but phases/$_pn-*.md does not exist"; continue; fi
+      _prel=phases/${_pf##*/}
+      _ablk=$(awk '/^\*\*Artifact:\*\*/ {on=1; print; next} on { if ($0 ~ /^[ \t]*$/ || $0 ~ /^\*\*/ || $0 ~ /^#/) exit; print }' "$_pf")
+      _gate=$(grep -E '^\*\*Pass gate:\*\*' "$_pf" | head -1)
+      case $_ablk in
+        *"$_abase"*) ok "$_prel: Artifact line names $_abase" ;;
+        *) fail "$_prel: Artifact line does not mention $_abase (the $_ix row says Phase $_pn earns it)" ;;
+      esac
+      if [ -z "$_want" ] || [ "$_want" -eq 0 ]; then
+        ok "$_ix row $_abase vs $_prel: score comparison skipped, column 3 '$(printf '%s' "$_c3" | sed 's/^ *//; s/ *$//')' demands no integer score"
+        continue
+      fi
+      _have=$(printf '%s\n%s\n' "$_gate" "$_ablk" | sed -E 's/Phase [0-9]+//g' | grep -oE '[0-9]+' | sort -n | tail -1)
+      if [ -z "$_have" ]; then
+        fail "$_ix row $_abase demands score $_want ('$(printf '%s' "$_c3" | sed 's/^ *//; s/ *$//')') but $_prel's Pass gate and Artifact lines state no score. gate: $_gate"
+      elif [ "$_want" -gt "$_have" ]; then
+        fail "$_ix row $_abase demands score $_want but $_prel states at most $_have. gate: $_gate"
+      else
+        ok "$_ix row $_abase demands $_want, $_prel states up to $_have"
+      fi
+    done
+  done <<EOF
+$_rows
+EOF
+
+  # 6. A rule split across files declares both halves. WHY: the same 2026-10-13
+  # defects; the rule-4 split (conversation-contract.md section 1 and
+  # evidence-rubric.md) was specified with each half naming the other because a
+  # one-way pointer is what decays. Every block opening with the marker phrase,
+  # in any file under references/ or phases/, must name at least one other file
+  # that exists and carries the marker itself. Blocks are the marker line plus the
+  # consecutive '>' lines after it. BLIND SPOT: reciprocity is per file, not per
+  # block, so a second, unrelated block in the target would satisfy the pointer.
+  _mk='Where this rule is split, and why.'
+  _mf=$(grep -rlF -- "$_mk" "$ROOT/references" "$ROOT/phases" 2>/dev/null | sort)
+  if [ -z "$_mf" ]; then
+    fail "no file under references/ or phases/ carries the '$_mk' marker"
+  fi
+  for _f3 in $_mf; do
+    _r3=${_f3#"$ROOT"/}
+    _bl=$(awk -v mk="$_mk" '
+      function flush(  t) {
+        if (!inb) return
+        t = txt; found = 0
+        while (match(t, /(references|phases)\/[A-Za-z0-9_\/.-]+\.md/)) {
+          print start, substr(t, RSTART, RLENGTH); found = 1; t = substr(t, RSTART + RLENGTH)
+        }
+        if (!found) print start, "-"
+        inb = 0
+      }
+      { if (inb && $0 !~ /^>/) flush()
+        if (!inb && $0 ~ /^>/ && index($0, mk)) { inb = 1; start = NR; txt = "" }
+        if (inb) txt = txt " " $0 }
+      END { flush() }
+    ' "$_f3")
+    while read -r _ln _tg; do
+      [ -n "$_ln" ] || continue
+      if [ "$_tg" = "-" ]; then fail "$_r3:$_ln: split-rule block names no other file"; continue; fi
+      if [ "$_tg" = "$_r3" ]; then continue; fi
+      if [ ! -f "$ROOT/$_tg" ]; then
+        fail "$_r3:$_ln: split-rule block points at $_tg, which does not exist"
+      elif grep -qF -- "$_mk" "$ROOT/$_tg"; then
+        ok "$_r3:$_ln: split-rule block points at $_tg, which carries the reciprocal block"
+      else
+        fail "$_r3:$_ln: dangling pointer, split-rule block points at $_tg, which has no '$_mk' block"
+      fi
+    done <<EOF
+$_bl
+EOF
+  done
 }
 
 case "${1:-all}" in

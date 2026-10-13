@@ -7,7 +7,7 @@
 SHA-256 of `startup-board-pro.zip` for v2.0.0:
 
 ```
-1585aad3de7208faca08a6307132d88b198e2d836b69fe87ef521eefab630ade
+e3231455590b35a64abe3d60a04970ae0774dd68da3e0c622e12e0fd8b598a6d
 ```
 
 `shasum -a 256 startup-board-pro.zip` on Mac or Linux, or

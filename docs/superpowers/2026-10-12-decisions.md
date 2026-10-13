@@ -412,3 +412,44 @@ applied; this one by moving it there. In every case the only thing preventing th
 occurrence is an author remembering, which is what `check_invariants` exists to replace
 for refusals and does not yet do for anything else. Cost if wrong: nothing in this
 ruling, but the pattern will recur until something asserts cross-file consistency.
+
+## 2026-10-13 — the 21 relabels, and a check that found a sixth instance
+
+**Relabelled, never cut.** All 21 S1 unlabelled claims from
+`2026-10-13-claims-and-gates-sweep.md` are closed: 17 edited, 4 already done earlier
+the same day. Three more were added on the controller's ruling — the
+"three things that move the number" duplicate pair in `phases/08` and
+`artifacts/raise-plan.md`, and "the room will find it" in `advisors/09` — because
+leaving in-family claims unlabelled makes the fix internally inconsistent. Cutting was
+refused throughout: it teaches future authors that unlabelled claims get deleted, which
+selects for bland phases, where relabelling teaches them to say where a claim came from.
+
+**Working by duplicate group found two copies the sweep never catalogued:** a third
+copy of the warm-list claim at `phases/07-launch.md:42`, and a copy of the vesting
+claim at `advisors/08-founder-strategy.md:64`. Fixing file-by-file would have left both.
+
+**Three rows were judged method, not claim, and left alone:** "the two conversations
+feel identical", "cumulative counts never go down", and the two-ways-to-run-a-product
+framing. A label on a statement of the product's own method is noise. One further row
+was re-judged by the controller against its own earlier ruling: `advisors/09:78`'s
+"300% month on month from three customers to nine" is an illustration of a framing
+pattern, not an assertion about behaviour, so it stays unlabelled — the line below it,
+which asserted how a room behaves, was labelled instead.
+
+**Two cross-file assertions now exist, and the first one worked immediately.**
+`check_invariants` sections 5 and 6: an artifact's gate must agree across the index,
+the owning phase's `**Pass gate:**` and its `**Artifact:**` block; and a rule split
+across files must have both halves naming each other, so a one-way pointer fails as a
+dangling reference. On its first run against the live tree, section 5 found a sixth
+instance of the day's defect class: `phases/04-artifacts.md`'s `**Artifact:**` line
+omitted `positioning-statement.md` while that phase's own body granted it at score 2
+and the index said "Phase 04 or 07". Fixed the same way ruling B fixed phase 07 — each
+artifact states its own condition in the phase, not only in the index.
+
+**Known limits of the assertions, recorded so nobody over-trusts them.** Score matching
+is by digits, so `phases/10`'s "12 months" satisfies a score-3 demand; prose gates such
+as "Problem passed" are skipped rather than interpreted; and reciprocity is checked per
+file rather than per block, so a second unrelated split-block in the target would
+satisfy it. Assertion 2 from the recommendation — gate versus the score its named test
+produces — was deliberately not built, because it needs a keyword map from test phrasing
+to evidence score, which encodes judgement the files state only in prose.

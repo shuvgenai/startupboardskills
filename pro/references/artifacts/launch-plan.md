@@ -43,7 +43,7 @@ Anchored to: <what the current workaround costs this customer>
 - **One channel, one call to action, one metric.** Three of anything here is
   the same as none.
 - The warm list is messaged individually, not blasted. It is the
-  highest-converting list the founder will ever have and it is spent once.
+  highest-converting list the founder will have (rule of thumb) and it is spent once.
 - Do not launch without a feedback path. A launch you cannot hear back from
   produces no evidence at any score.
 - Price anchors to the cost of the current workaround, from interview

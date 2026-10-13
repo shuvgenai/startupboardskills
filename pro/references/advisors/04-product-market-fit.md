@@ -19,7 +19,7 @@ being pleased.
 Before that moment, the honest question is narrower: which underserved need
 does this product actually hit, for whom, better than the alternative they
 already have? A product that is slightly better for everyone is worse than a
-product that is dramatically better for one narrow group, because only the
+product that is dramatically better for one narrow group (rule of thumb), because only the
 second one produces people who would be upset if it vanished.
 
 That gives the measurement its shape. Ask active users how they would feel if

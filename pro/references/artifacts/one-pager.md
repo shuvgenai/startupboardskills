@@ -42,8 +42,9 @@ document for a founder who asked for a deck.
 ## Rules
 
 - **Traction is stated with its denominator.** "2 of 14 interviewed became
-  paying pilots" is strong. "300% growth" from a base of three is a tell, and
-  a reader who has seen a hundred of these will read it that way.
+  paying pilots" is strong. "300% growth" from a base of three hides the base, which is
+  the checkable part. That a reader takes it as a tell (rule of thumb)
+  is not something this document can source.
 - **An unverifiable claim is cut, not reworded.** "Significant interest" is
   what a cut claim becomes when a founder softens it instead. It carries no
   count, which is the checkable part; that a reader treats it as the absence of

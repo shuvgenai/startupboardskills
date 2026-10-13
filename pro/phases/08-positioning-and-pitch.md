@@ -63,9 +63,9 @@ What to do instead, in this order:
    reads better than the path.
 4. Put the terms in plain words, and say once that a lawyer reads the actual
    document.
-5. Name the three things that move the number, all of them evidence: revenue
-   that repeats, retention that levels off, a channel that repeats at a known
-   cost.
+5. Name the three things that move the number, all of them evidence (rule of
+   thumb): revenue that repeats, retention that levels off, a channel that
+   repeats at a known cost.
 
 Use `references/artifacts/raise-plan.md`. With a note or a SAFE, run the table
 twice — at the cap, and at a next-round price the founder names. Never at a
@@ -74,7 +74,7 @@ price invented here.
 Same for equity splits between founders: no recommended percentage. Ask what
 each person is actually committing, in time and money, and whether there is
 vesting in writing. An even split with no vesting is a future argument with a
-current friend, and saying so is the whole contribution.
+current friend (rule of thumb), and saying so is the whole contribution.
 
 ## When the gate is not met
 

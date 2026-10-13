@@ -39,7 +39,7 @@ Sized for one person with no budget.
 1. A page that states the positioning and asks for exactly one thing. One
    call to action, not three.
 2. Direct messages to everyone already interviewed. They get first access.
-   This is the highest-converting list the founder will ever have.
+   This is the highest-converting list the founder will have (rule of thumb).
 3. One post where this buyer actually is — a specific community, not
    everywhere.
 4. A way to hear back from day one: a reply-to address, a form, a channel.

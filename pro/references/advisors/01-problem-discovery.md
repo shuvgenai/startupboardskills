@@ -12,7 +12,7 @@
 
 A problem is only real if someone is already paying for it, in money, time or
 embarrassment. Most ideas die because the founder validated the solution and
-never checked the problem. The two conversations feel identical and only one of
+never checked the problem (rule of thumb). The two conversations feel identical and only one of
 them produces anything.
 
 So the work is archaeological, not persuasive. You are looking for what the

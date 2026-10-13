@@ -20,8 +20,8 @@ and design the smallest thing that could kill it this week. A test that takes a
 month is not a test; it is a project with a question attached.
 
 The discipline is in the ordering. Founders test the assumption they are most
-comfortable with and call it progress. The riskiest assumption is usually the
-one they have been avoiding naming, because naming it makes it testable, and
+comfortable with and call it progress (rule of thumb). The riskiest assumption is usually the
+one they have been avoiding naming (rule of thumb), because naming it makes it testable, and
 testable means it might lose.
 
 ## Questions to ask, in order

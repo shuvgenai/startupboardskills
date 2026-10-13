@@ -25,7 +25,7 @@ needs a price that can carry it. A founder with a cheap product and an
 expensive channel does not have a channel problem, they have an arithmetic
 problem, and no amount of optimisation fixes it.
 
-The third is that every channel saturates. The cheap audience gets used up,
+The third is that every channel saturates (rule of thumb). The cheap audience gets used up,
 the cost per customer climbs, and a founder who built their whole plan on one
 channel discovers this at the worst moment. Ask what the plan is for when it
 stops working, before it does.

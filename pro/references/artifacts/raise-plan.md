@@ -68,13 +68,13 @@ podcast is heard, not seen, and it is marked that way.
 Answer this honestly rather than reaching for a number.
 
 At pre-seed there is no formula. There is no revenue to multiply and no
-profit to discount, so price is set by three things: what comparable deals in
+profit to discount, so price is set by three things (rule of thumb): what comparable deals in
 that market and geography closed at recently, how much the investor wants in,
 and how much the founder needs. The third one is the only one the founder
 controls, which is why the useful question is not "what am I worth" but "how
 little can I raise to reach the next milestone that changes the answer".
 
-Three things that actually move the number, and all of them are evidence:
+Three things that move the number, and all of them are evidence (rule of thumb):
 
 - **Revenue that repeats**, with the months to show it.
 - **Retention that levels off**, which says the product holds.
@@ -98,7 +98,7 @@ paper.
 - **SAFE** — similar in effect to a note without the loan mechanics. Two
   numbers decide almost everything: the **cap**, which sets the worst price the
   investor will pay, and the **discount**. A low cap on a round that goes well
-  is where founders are most often surprised.
+  is where founders are most often surprised (rule of thumb).
 
 With a note or a SAFE, run the dilution table twice: once at the cap, once at
 a plausible next-round price the founder names. Two scenarios the founder

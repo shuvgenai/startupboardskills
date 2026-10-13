@@ -56,7 +56,7 @@ marked `UNVERIFIED` with the assumption written beside it.
 
 Price against the value customers actually name, found in the survey's
 main-benefit answers and in how they use it. Test changes on new customers
-only. If nobody ever pushes back on price, it is probably too low.
+only. If nobody ever pushes back on price, it is probably too low (rule of thumb).
 
 ## 4. The sales playbook
 

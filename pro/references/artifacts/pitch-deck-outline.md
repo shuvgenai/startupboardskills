@@ -41,7 +41,7 @@ harder in the room.
 
 - **Any figure without a source is `UNVERIFIED` or it is cut.** This applies
   hardest to slide 5, where an unsourced market size is the most common thing
-  on the slide and the easiest to disbelieve.
+  on the slide and the easiest to disbelieve (rule of thumb).
 - Never inflate a small number. Never round one up. Never express a small base
   as a percentage.
 - If the traction slide would be empty, say so. The honest move is a one-pager

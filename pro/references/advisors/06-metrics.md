@@ -15,7 +15,7 @@ watching three numbers is watching none of them, because no decision follows
 from a dashboard. The stage decides the number: before there are users it is
 about whether anyone comes back, not about revenue.
 
-Most reported numbers are vanity. Downloads, pageviews, follower counts and
+Most reported numbers are vanity (rule of thumb). Downloads, pageviews, follower counts and
 raw signups all go up with effort and tell you nothing about whether the
 product works. The giveaway is that they never go down, and a number that
 cannot fall cannot inform a decision.

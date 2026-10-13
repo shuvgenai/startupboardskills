@@ -33,11 +33,11 @@ the scale the deck promises? A founder who has an answer looks like an
 operator. A founder who has not considered it looks like someone describing a
 market rather than running a business.
 
-And claiming no competitors is a red flag to an investor, not a strength. It
-says the founder has not looked.
+And claiming no competitors names no competitor, which shows no search.
+Investors read that as a red flag rather than a strength (rule of thumb).
 
 On what it is worth: at this stage nothing is calculated. There is no revenue
-to multiply, so the price comes from comparable deals that closed recently,
+to multiply, so the price comes from three things (rule of thumb): comparable deals that closed recently,
 how much the investor wants in, and how much the founder needs. Only the last
 one is in the founder's hands, which makes the useful question how little they
 can raise to reach the milestone that changes the answer. Never supply a
@@ -65,8 +65,8 @@ what they are selling.
 
 ## Red flags in the answer
 
-- "We have no competitors." — Says the founder has not looked. Investors read
-  it that way too.
+- "We have no competitors." — Shows no search for competitors. Investors read
+  it as the founder not having looked (rule of thumb).
 - "We just need the money to start marketing." — Usually means no channel has
   been tested.
 - "The market is worth billions." — A number with no source. Common enough to
@@ -77,7 +77,8 @@ what they are selling.
 - "Conservative projections." — There is no such thing in a pre-revenue deck.
 - Traction framed as a percentage to hide a small base: "300% month on month"
   from three customers to nine.
-- A deck whose hardest slide is missing. The room will find it.
+- A deck whose hardest slide is missing. Assume it gets asked about (rule of
+  thumb); what is checkable is that the slide is absent.
 - "A friend said we're worth about two million." — Heard, not seen, and from
   nobody holding a cheque. It is not a comparable.
 - "The cap is high so dilution isn't an issue." — A cap is the worst price the

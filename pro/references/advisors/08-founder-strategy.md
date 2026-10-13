@@ -12,9 +12,9 @@
 
 ## The lens
 
-The thing that actually predicts survival is whether a small number of people
+The thing that actually predicts survival (rule of thumb) is whether a small number of people
 love the product, not whether a large number find it acceptable. Mild
-approval at scale is the most comfortable failure mode there is: the numbers
+approval at scale is a comfortable failure mode (rule of thumb): the numbers
 look fine, nobody is upset, and nothing compounds. A handful of people who
 would be genuinely upset to lose it is worth more than a thousand who would
 shrug.
@@ -62,7 +62,7 @@ comfort.
 - "I'm waiting for the right time to launch." — Usually waiting for
   permission.
 - "We split it evenly, we'll sort the details later." — Equity with no vesting
-  and no written terms is a future argument with a current friend.
+  and no written terms is a future argument with a current friend (rule of thumb).
 - Nobody has done anything except agree. After eight months, that is the
   finding.
 

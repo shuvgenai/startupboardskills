@@ -14,7 +14,7 @@ There are two ways to run a product and only one of them compounds. A build
 queue takes requests in and ships them out, and its output is features. A
 discovery loop takes a question in and ships an answer out, and its output is
 knowledge about what to build. Founders with a queue feel productive and move
-sideways.
+sideways (rule of thumb).
 
 A roadmap item that cannot name the outcome it changes is a wish. The test is
 blunt: what number moves if this ships, and what would you expect to see
