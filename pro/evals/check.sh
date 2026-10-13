@@ -98,20 +98,27 @@ check_phases() {
   has_str phases/06-mvp-blueprint.md "Lovable"
   has_str phases/06-mvp-blueprint.md "Built before"
   has_str phases/07-launch.md "product problem"
+  has_str phases/08-positioning-and-pitch.md "never produce a valuation"
+  has_str phases/08-positioning-and-pitch.md "raise-plan.md"
   has_str phases/09-pmf-checkin.md "very-disappointed survey"
   has_str phases/09-pmf-checkin.md "does not add up"
   has_str phases/09-pmf-checkin.md "waitlist is not usage"
   has_str phases/09-pmf-checkin.md "The kit is not a to-do list"
+  has_str references/advisors/09-fundraising.md "dilution"
+  has_str references/advisors/09-fundraising.md "comparable"
 }
 
 check_artifacts() {
   has_file references/artifacts-index.md
   has_str  references/artifacts-index.md "The filenames you write"
   has_str  references/artifacts-index.md "pmf-scorecard.md"
+  has_str  references/artifacts-index.md "raise-plan.md"
+  has_str  references/artifacts/raise-plan.md "never produce a valuation"
+  has_str  references/artifacts/raise-plan.md "Dilution"
   for a in lean-canvas mom-test-script pmf-survey positioning-statement \
            pitch-deck-outline one-pager cac-ltv-model experiment-card \
            market-research-brief naming-shortlist launch-plan \
-           build-prompt-library growth-plan pmf-scorecard; do
+           build-prompt-library growth-plan pmf-scorecard raise-plan; do
     f="references/artifacts/$a.md"
     has_file "$f"
     lacks_re "$f" "$ADVISOR_NAMES"
@@ -119,7 +126,7 @@ check_artifacts() {
     lacks_re "$f" "$BANNED_STACK"
   done
   for a in lean-canvas pmf-survey cac-ltv-model pitch-deck-outline one-pager \
-           experiment-card market-research-brief growth-plan pmf-scorecard; do
+           experiment-card market-research-brief growth-plan pmf-scorecard raise-plan; do
     has_str "references/artifacts/$a.md" "UNVERIFIED"
   done
 }
@@ -160,8 +167,8 @@ check_plugin() {
 check_cases() {
   c=$(ls "$ROOT/evals/cases" 2>/dev/null | wc -l)
   k=$(ls "$ROOT/evals/criteria" 2>/dev/null | wc -l)
-  [ "$c" -eq 15 ] && ok "15 cases" || fail "$c cases, expected 15"
-  [ "$k" -eq 15 ] && ok "15 criteria" || fail "$k criteria, expected 15"
+  [ "$c" -eq 17 ] && ok "17 cases" || fail "$c cases, expected 17"
+  [ "$k" -eq 17 ] && ok "17 criteria" || fail "$k criteria, expected 17"
   for f in "$ROOT/evals/cases/"*.md; do
     [ -e "$f" ] || continue
     b=$(basename "$f")

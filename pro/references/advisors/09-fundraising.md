@@ -35,6 +35,14 @@ market rather than running a business.
 And claiming no competitors is a red flag to an investor, not a strength. It
 says the founder has not looked.
 
+On what it is worth: at this stage nothing is calculated. There is no revenue
+to multiply, so the price comes from comparable deals that closed recently,
+how much the investor wants in, and how much the founder needs. Only the last
+one is in the founder's hands, which makes the useful question how little they
+can raise to reach the milestone that changes the answer. Never supply a
+figure; show the dilution the offered figure produces, and let the founder see
+what they are selling.
+
 ## Questions to ask, in order
 
 1. What do you need the money for, specifically, and what does it unlock?
@@ -47,6 +55,12 @@ says the founder has not looked.
 8. Who are the three closest alternatives a customer would consider?
 9. What is the hardest question you hope nobody asks, and what is the honest
    answer?
+10. What price and structure are on the table, and is it a priced round, a
+    note or a SAFE?
+11. At that price, what share of the company are you selling, and what is left
+    after one more round the same size?
+12. Which comparable deals have you actually seen the terms of, rather than
+    heard about?
 
 ## Red flags in the answer
 
@@ -63,6 +77,14 @@ says the founder has not looked.
 - Traction framed as a percentage to hide a small base: "300% month on month"
   from three customers to nine.
 - A deck whose hardest slide is missing. The room will find it.
+- "A friend said we're worth about two million." — Heard, not seen, and from
+  nobody holding a cheque. It is not a comparable.
+- "The cap is high so dilution isn't an issue." — A cap is the worst price the
+  investor pays, not a ceiling on what the founder gives up. Run the table.
+- "It's only 15%, that's standard." — Standard for whom, and what does the
+  path look like after the next round? Show both rounds.
+- "I'll take whatever terms get it closed." — The terms outlast the money.
+- Asking what the company is worth before naming what the money is for.
 
 ## The evidence this module accepts
 
@@ -81,10 +103,18 @@ on a slide, and traction claims need **score 3**.
 Never inflate a small number and never round one up. State it plainly with its
 denominator.
 
+**A valuation is never produced here, at any score.** Not a figure, not a
+range, not a multiple. A comparable reaches score 1 only with a source URL and
+only when the founder saw the terms; a deal someone described on a podcast is
+hearsay and is marked as heard. What can be produced from the founder's own
+numbers is the dilution arithmetic, with every division shown.
+
 ## Output
 
-`references/artifacts/pitch-deck-outline.md` and
-`references/artifacts/one-pager.md`.
+`references/artifacts/pitch-deck-outline.md`,
+`references/artifacts/one-pager.md`, and
+`references/artifacts/raise-plan.md` for the ask, the use of funds, the
+dilution arithmetic and the terms in plain words.
 
 ## Source lenses (internal)
 

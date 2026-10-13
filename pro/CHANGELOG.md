@@ -51,6 +51,25 @@ Artifact production is gated the same way. A Lean Canvas now needs score 2
 behind it; below that you get the interview script instead, because that is
 the thing that produces the score.
 
+### Valuation, dilution and terms
+
+New in this edition. The free version had nothing to say about a raise.
+
+It will never give you a valuation figure — not a number, not a range, not a
+multiple. At pre-seed, price is negotiated rather than calculated, and an
+invented figure is the most harmful number this product could produce, because
+you would carry it into a room and defend it.
+
+What it does instead: runs the dilution arithmetic on whatever price is on the
+table, with every division shown, and runs it again for one more round the same
+size. Puts SAFE and convertible-note terms in plain words, including why a cap
+is the worst price the investor pays and not a ceiling on what you give up.
+Keeps only comparables you have actually seen the terms of, each with a source.
+And says once that a lawyer reads the actual paper.
+
+Same for co-founder equity: no recommended percentage, just what each person is
+committing and whether vesting is in writing.
+
 ### Verdicts are bounded by evidence
 
 Four verdicts, as before. New: a table saying which ones the evidence allows.

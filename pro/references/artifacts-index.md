@@ -18,6 +18,7 @@ the test, offer the test — see rule 6 in
 | `references/artifacts/naming-shortlist.md` | Phase 08 | on request | inline |
 | `references/artifacts/pitch-deck-outline.md` | Phase 08 | 2, and 3 for traction claims | saved file |
 | `references/artifacts/one-pager.md` | Phase 08 | 2, and 3 for traction claims | saved file |
+| `references/artifacts/raise-plan.md` | Phase 08 | 2, and 3 for traction claims | saved file |
 | `references/artifacts/pmf-survey.md` | Phase 09 | live active users | inline |
 | `references/artifacts/pmf-scorecard.md` | Phase 09 | signals measured | saved file |
 | `references/artifacts/cac-ltv-model.md` | Phase 10 | 3 | saved file |
@@ -41,6 +42,7 @@ compared with the last one.
 | Pitch deck outline | `pitch-deck-outline.md` |
 | One-pager | `one-pager.md` |
 | Unit economics | `cac-ltv-model.md` |
+| Raise plan | `raise-plan.md` |
 
 A second venture in the same folder suffixes the state file with its short
 name, per `references/state-file.md`. Everything else is overwritten in place,
