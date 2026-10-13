@@ -23,7 +23,7 @@
 
 ## Review Focus
 
-- **Neither bsdtar nor Info-ZIP `zip` on the machine.** The builder must stop with a named error and a hint, never silently emit nothing and never fall back to PowerShell. Test in Task 2, Step 4.
+- **Neither bsdtar nor Info-ZIP `zip` on the machine.** The builder must stop with a named error and a hint, never silently emit nothing and never fall back to PowerShell. Test in Task 2, Step 4 — against a narrowed copy of the script in a sandbox, because the probe's absolute candidates resolve past any stubbed `PATH` and bsdtar is genuinely installed here. Amended 2026-10-13: the original step stubbed `PATH` against the shipped script, which could never reach the branch.
 - **A stale archive already at the output path.** `zip -r` appends to an existing archive, so a rebuild after a source file is deleted would keep the deleted file in the zip. The builder must remove the output first. Test in Task 2, Step 6.
 - **A fresh clone or a buyer's install, where no zip exists.** `check_zip` must report a skip, not a failure, or the suite a buyer re-runs reports a defect that is not there. Test in Task 1, Step 4.
 - **No `unzip` and no working Python.** The guard has no way to read entry names and must fail saying so. Printing `ok` with no reader would be the original bug wearing a green shirt. Test in Task 1, Step 5.
@@ -305,24 +305,28 @@ Expected: `backslash: 0`, a forward-slash count above 100, and the first entries
 
 - [ ] **Step 4: Verify the refusal when no writer exists**
 
+Read this before running it. The probe deliberately includes absolute candidates (`/c/Windows/System32/tar.exe`, `/usr/bin/bsdtar`) because Git Bash's `tar` is GNU tar 1.35, which cannot write zip at all, while the real bsdtar sits at the Windows system path. `command -v` on a path containing a slash tests that file directly and ignores `PATH`. So on this host the no-writer branch **cannot** be reached by stubbing `PATH` — verified: under a stubbed `PATH`, `command -v /c/Windows/System32/tar.exe` still prints the path and that binary still answers `bsdtar 3.8.8`. The candidates are load-bearing; keep them and test the branch against a narrowed copy, in a sandbox that cannot touch the real archive.
+
 ```sh
 cd /e/Projects/Startupboards_SKills/Startupboardskills_pro
 D="$(mktemp -d)"
 printf '#!/bin/sh\nexit 1\n' > "$D/tar"; printf '#!/bin/sh\nexit 1\n' > "$D/bsdtar"
 chmod +x "$D/tar" "$D/bsdtar"
-env PATH="$D:/usr/bin:/bin" sh build-zip.sh; echo "exit=$?"
-```
-
-Expected: exit 1 and the three-line refusal starting `FAIL: no spec-compliant zip writer found.` The stub `tar` answers `--version` with nothing, so the libarchive probe rejects it, and there is no `zip` on that PATH.
-
-Then confirm the refusal did not leave a stale archive behind, and rebuild:
-
-```sh
+# A copy whose candidate list holds only the two PATH-resolved names, so the
+# stub PATH actually bites. Everything else in the script is byte-identical.
+sed 's|^for _c in bsdtar tar /c/Windows/System32/tar.exe /usr/bin/bsdtar; do|for _c in bsdtar tar; do|' build-zip.sh > "$D/build-zip-nowriter.sh"
+grep -n '^for _c in' "$D/build-zip-nowriter.sh"
+cp -R pro "$D/pro"
+env PATH="$D:/usr/bin:/bin" sh "$D/build-zip-nowriter.sh"; echo "exit=$?"
+ls "$D/pro/dist/startup-board-pro.zip" 2>&1 | head -1
 ls pro/dist/startup-board-pro.zip 2>&1 | head -1
-sh build-zip.sh | tail -2
 ```
 
-Expected: the first command reports the file is absent (the `rm -f` ran before the writer check — correct, a refusal must not leave an archive that looks fresh), and the rebuild ends `PASS`.
+Expected, in order: the `grep` prints `for _c in bsdtar tar;` (proving the narrowing took, and that the shipped file's line was the one matched); exit 1 with the three-line refusal starting `FAIL: no spec-compliant zip writer found.`; the sandbox archive reported absent, because the `rm -f` runs before the writer check — a refusal must not leave an archive that looks fresh; and the real archive still present and untouched.
+
+Record plainly in the report what this proves and what it does not. It proves the refusal branch's message, its exit code, and that a failed build removes its output. It does not prove the shipped candidate list can reach that branch on this host, because on this host bsdtar genuinely is installed — that is the correct outcome, not a gap.
+
+If the `grep` prints nothing, the `sed` did not match: the candidate line in `build-zip.sh` differs from the brief's. STOP and report that, rather than editing the shipped script to fit the test.
 
 - [ ] **Step 5: Verify directory entries do not break the payload comparison**
 
