@@ -67,7 +67,7 @@ the record of which instruction was at fault each time.
 
 **The eval suite, and the update cadence it makes possible.**
 
-Not because it is secret — it ships with the product, failures included — but
+Not because it is secret — it ships with the product, answer keys and the failure modes they watch for included — but
 because it is the only asset here that a copier cannot produce without redoing
 the work, and the only one that compounds.
 
@@ -78,7 +78,7 @@ warn you. Every competitor selling a prompt pack has this problem and none of
 them can tell you whether their product still behaves the way the sales page
 says.
 
-The eval suite is what detects that: fifteen scenarios, blind-graded, run
+The eval suite is what detects that: 21 scenarios, blind-graded, run
 against the actual files. It is also why the plugin install route exists, since
 a fix nobody can receive is not a fix. That pairing — a test that catches
 drift and a channel that delivers the correction — is the thing worth paying
@@ -94,13 +94,14 @@ than implied. Without these four lines the claim is self-flattery.
 
 1. **The suite is re-run** when a new Claude model becomes the default in the
    Claude app or Claude Code, and whenever a buyer reports a case failing.
-2. **Each re-run is published** in `evals/`, dated, in the same format as the
-   first: every failure, the quote behind it, and which file was at fault.
+2. **Each release records its re-run.** That version's CHANGELOG entry, which
+   ships in the archive, states what the re-run found and which file was at
+   fault.
 3. **Fixes reach buyers.** On the plugin route, `/plugin update`. On the ZIP
    route, a notice that a new version exists.
 4. **A regression is said out loud.** If a re-run shows the skill no longer
-   behaves the way this document claims, that goes in the results rather than
-   being quietly patched.
+   behaves the way this document claims, that goes in that CHANGELOG entry
+   rather than being quietly patched.
 
 All four are now in place. The distribution repository exists and serves the
 plugin route, so point 3 is a mechanism rather than a promise; the re-run

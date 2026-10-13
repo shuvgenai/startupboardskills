@@ -192,3 +192,47 @@ override. The four holes are closed in the phase files as well. Cost if wrong: a
 contract-level rule sits far from the phase that applies it, so a phase author can forget
 it exists — which is how phase 03 got there. `check_invariants()` in `evals/check.sh`
 exists to pay that cost down.
+
+## 2026-10-13 — the payload split, and why evals/ still ships
+
+**Shipping `evals/` is a deliberate deviation from spec Step 9.** The spec said the
+archive contains "SKILL.md plus references, phases and artifacts — no evals, no
+AUDIT.md, no _reference". The cases, the answer keys and `rubric.md` ship anyway,
+because three sales claims rest on a buyer being able to audit the suite, and
+`EDITION-SPLIT.md` names it as the one asset carrying the price. Spec section 13 was
+amended to match on 2026-10-12. Cost if wrong: a buyer holds the test suite, which the
+leak analysis already concedes is copyable in an afternoon.
+
+**Three things inside `evals/` do not ship:** `RUNBOOK.md` (maintainer instructions),
+`transcripts/` and `results-*.md`. They are maintainer artifacts, and they are what made
+the archive go stale on every eval run — the payload changed whenever the suite was
+exercised, which is a build that invalidates itself by being tested. Payload is now 105
+files, down from 114 before the split and up from 91 by the seven cases added the same
+day. `evals/cases/`, `evals/criteria/` and `evals/rubric.md` stay: they are what "the
+eval suite is the product" actually refers to.
+
+**Publishing `results-*.md` publicly was considered and rejected.** The plan was to put
+it in the public free repo so "you can read what it got wrong before you buy it" would
+be true for the first time — an in-archive file is only readable after purchase, so that
+clause had been false since it was written. The rejection: the results file's `Fix
+applied` column names rules inside the paid contract ("hedging-is-not-labelling rule",
+"kit is not a to-do list"), and `EDITION-SPLIT.md` builds the price argument on a copier
+not having "the record of which instruction was at fault each time". Publishing it hands
+a non-buyer exactly that record. So the claim was cut instead of relocated: the suite
+ships and the buyer can audit it, with no before-you-buy promise.
+
+**One commitment changed mechanism.** `EDITION-SPLIT.md`'s promise that each re-run is
+published in `evals/` had no delivery location once `results-*.md` stopped shipping. It
+now says each release's CHANGELOG entry records what the re-run found and which file was
+at fault — a mechanism that already exists and ships inside the archive. Known gap: a
+re-run that ships no release records nothing, and nothing is built for that case.
+
+**Builder and guard read one exclusion list.** `payload-exclude.txt` at the repo root,
+one glob per line, read by `build-zip.sh` (via `--exclude`) and by `check_zip()` (which
+filters the source tree with it). Two lists agreeing by coincidence is the shape of the
+original defect — a PowerShell build verified by PowerShell extraction. A new assertion
+in `check_sweeps` fails if the sales page references any path the list excludes, so copy
+and payload cannot drift apart silently again. The content comparison is CRC-32 by
+default (3.6s for the zip group, down from 23s) with full byte comparison behind
+`SBP_ZIP_FULL=1` for release builds; the comment states plainly that a CRC match catches
+accidental drift, not tampering.

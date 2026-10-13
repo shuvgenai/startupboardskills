@@ -1,0 +1,19 @@
+# Payload exclusions for the Startup Board Pro zip.
+#
+# Both build-zip.sh (the builder) and pro/evals/check.sh check_zip() (the
+# guard) read THIS file. Neither carries its own list. Two lists that drift
+# apart is the bug class this prevents: a builder and a verifier silently
+# disagreeing is how a broken archive once passed its own check.
+#
+# Format: one glob pattern per line, relative to pro/. "#" starts a comment;
+# blank lines are ignored. In a pattern, * also matches "/".
+#
+# This file sits at the repo root, not under pro/, because everything under
+# pro/ is payload and a list inside the thing it describes would have to
+# exclude itself.
+
+dist/*
+AUDIT.md
+evals/RUNBOOK.md
+evals/transcripts/*
+evals/results-*.md

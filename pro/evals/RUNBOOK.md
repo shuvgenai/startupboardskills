@@ -18,6 +18,13 @@ Writes `pro/dist/startup-board-pro.zip` (gitignored) and then runs
 `evals/check.sh zip` against it. Exit 0 means the archive is spec-compliant
 and its payload matches the source tree.
 
+What the archive leaves out is listed in `payload-exclude.txt` at the repo
+root: `dist/`, `AUDIT.md`, this `evals/RUNBOOK.md`, `evals/transcripts/` and
+`evals/results-*.md`. The builder and the zip guard both read that one file.
+The buyer gets the skill and the test material (`evals/check.sh`,
+`evals/cases/`, `evals/criteria/`, `evals/rubric.md`), but not this runbook
+and not the recorded run results. `RUNBOOK.md` therefore does not ship.
+
 Never build it with PowerShell `Compress-Archive`. It writes `\` as the entry
 separator, against ZIP spec 4.4.17.1. Info-ZIP `unzip` repairs that on read,
 so the archive looks fine on Windows while macOS Archive Utility extracts one

@@ -2,10 +2,10 @@
 
 ## 1. "I can read the Markdown. Why would I pay for text files?"
 
-You can, and you should before you buy — that is why the eval results ship
-with it. What you are paying for is not secrecy, it is the work: the evidence
+You can. The graded eval suite ships with it, so you can read the cases and
+the answer keys and see how it is judged. What you are paying for is not secrecy, it is the work: the evidence
 rubric that stops ten compliments counting as validation, nine modules of
-questions, fifteen test scenarios with the failures documented, and the
+questions, 21 test scenarios with answer keys, and the
 updates when something is found to be wrong.
 
 The free version is still MIT-licensed and still free. If it is enough, use

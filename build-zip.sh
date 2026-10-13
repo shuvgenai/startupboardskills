@@ -14,9 +14,16 @@ set -u
 ROOT="$(cd "$(dirname "$0")/pro" && pwd)" || exit 1
 OUT="$ROOT/dist/startup-board-pro.zip"
 
-# Everything in the skill folder except the dist/ output directory and the
-# internal audit. Matches the payload assertion in evals/check.sh.
+# Top-level members of the skill folder. What is left out inside them is
+# decided by payload-exclude.txt (below), which evals/check.sh also reads.
 MEMBERS="SKILL.md INSTALL.md LICENSE CHANGELOG.md README-PRO.md .claude-plugin evals phases references"
+
+# The one exclusion list, shared with the guard. Missing or empty means refuse:
+# building with a different list than the guard uses is the bug it prevents.
+EXCLUDE_FILE="$(cd "$(dirname "$0")" && pwd)/payload-exclude.txt"
+[ -f "$EXCLUDE_FILE" ] || { echo "FAIL: exclusion list $EXCLUDE_FILE is missing; nothing was built" >&2; exit 1; }
+PATTERNS=$(sed 's/#.*//; s/^[[:space:]]*//; s/[[:space:]]*$//' "$EXCLUDE_FILE" | grep -v '^$')
+[ -n "$PATTERNS" ] || { echo "FAIL: $EXCLUDE_FILE holds no patterns; nothing was built" >&2; exit 1; }
 
 for _m in $MEMBERS; do
   [ -e "$ROOT/$_m" ] || { echo "FAIL: $_m is missing from $ROOT; nothing was built" >&2; exit 1; }
@@ -38,10 +45,18 @@ rm -f "$OUT"
 cd "$ROOT" || exit 1
 if [ -n "$TAR" ]; then
   echo "building with $("$TAR" --version 2>/dev/null | head -1 | cut -d' ' -f1-2)"
-  "$TAR" -a -c -f "$OUT" $MEMBERS || { echo "FAIL: archive write failed; removing partial output" >&2; rm -f "$OUT"; exit 1; }
+  set --
+  while IFS= read -r _p; do set -- "$@" "--exclude=$_p"; done <<EOF_PATTERNS
+$PATTERNS
+EOF_PATTERNS
+  "$TAR" -a -c -f "$OUT" "$@" $MEMBERS || { echo "FAIL: archive write failed; removing partial output" >&2; rm -f "$OUT"; exit 1; }
 elif command -v zip >/dev/null 2>&1; then
   echo "building with Info-ZIP zip"
-  zip -q -r -X "$OUT" $MEMBERS || { echo "FAIL: archive write failed; removing partial output" >&2; rm -f "$OUT"; exit 1; }
+  set --
+  while IFS= read -r _p; do set -- "$@" "$_p"; done <<EOF_PATTERNS
+$PATTERNS
+EOF_PATTERNS
+  zip -q -r -X "$OUT" $MEMBERS -x "$@" || { echo "FAIL: archive write failed; removing partial output" >&2; rm -f "$OUT"; exit 1; }
 else
   echo "FAIL: no spec-compliant zip writer found. Need bsdtar (libarchive) or Info-ZIP zip." >&2
   echo "      Windows 10+ ships bsdtar at C:\\Windows\\System32\\tar.exe; macOS 10.15+ ships it as tar." >&2

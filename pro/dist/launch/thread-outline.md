@@ -1,7 +1,8 @@
 # Thread outline — ten things it refuses to do
 
 Each post is one refusal. Every claim here traces to a file in the repo or to
-a graded run in `evals/results-2026-10-12.md`.
+the graded run of 2026-10-12, recorded in `evals/results-2026-10-12.md` in the
+repo. That file is not in the shipped archive.
 
 ## 1. It won't build your pitch deck
 
@@ -66,5 +67,5 @@ likes everything is not advising.
 
 Closing post: the free version is MIT and stays free forever. The paid edition
 adds the evidence scoring, the memory between sessions, the binding gates and
-the test suite. You can read every line before you buy, which is why the test
-failures ship with it.
+the test suite. The test suite ships with it, so you can read every case and
+answer key.

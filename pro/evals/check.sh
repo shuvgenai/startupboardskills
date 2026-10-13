@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 # Startup Board Pro static checks.
 # Usage: evals/check.sh <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|zip|invariants|all>
+# Release builds: SBP_ZIP_FULL=1 sh evals/check.sh zip   (byte-for-byte zip comparison;
+# the default zip comparison is a fast CRC-32 check, see check_zip)
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # The plugin manifests, CHANGELOG and sales page sit beside the skill folder in
@@ -262,6 +264,32 @@ check_sweeps() {
     done
   fi
 
+    # The sales page must not point at anything the zip leaves out. The
+    # exclusion list is the one build-zip.sh and check_zip() share; it lives in
+    # the build tree only, so a buyer's install skips this (and cannot have the
+    # problem: the page there was already checked against the archive).
+    _xl="$ROOT/../payload-exclude.txt"
+    if [ -f "$_xl" ]; then
+      _xpats=$(sed 's/#.*//; s/^[[:space:]]*//; s/[[:space:]]*$//' "$_xl" | grep -v '^$')
+      if [ -z "$_xpats" ]; then
+        fail "payload-exclude.txt at $_xl holds no patterns; cannot check $SALES against it"
+      else
+        for lp in $(grep -oE "${BT}(evals|references|phases)/[a-zA-Z0-9./-]+${BT}|${BT}INSTALL\.md${BT}" "$PKG/$SALES" 2>/dev/null | tr -d "$BT" | sort -u); do
+          _hit=""
+          while IFS= read -r _p; do
+            case "$lp" in $_p) _hit="$_p"; break ;; esac
+            case "$lp/" in $_p) _hit="$_p"; break ;; esac
+          done <<EOF_XPATS
+$_xpats
+EOF_XPATS
+          if [ -n "$_hit" ]; then fail "$SALES references $lp, which payload-exclude.txt excludes (pattern: $_hit)"
+          else ok "$SALES does not reference excluded path: $lp"; fi
+        done
+      fi
+    else
+      ok "sales-page vs payload-exclude.txt check skipped (no payload-exclude.txt beside the skill folder; build tree only): $SALES was NOT checked against the exclusions"
+    fi
+
   # every rule of thumb carries its label at the point of use
   for f in "$ROOT"/references/fit-ladder.md "$ROOT"/phases/09-pmf-checkin.md "$ROOT"/phases/10-scale.md; do
     rel=${f#"$ROOT"/}
@@ -274,10 +302,14 @@ check_sweeps() {
 }
 
 check_cases() {
+  # The expected total, defined once. Adding a case is a one-line change here.
+  # Two literals drifting apart is how this count went stale twice in one day
+  # (21 -> 28 on 2026-10-13).
+  _expect=28
   c=$(ls "$ROOT/evals/cases" 2>/dev/null | wc -l)
   k=$(ls "$ROOT/evals/criteria" 2>/dev/null | wc -l)
-  [ "$c" -eq 21 ] && ok "21 cases" || fail "$c cases, expected 21"
-  [ "$k" -eq 21 ] && ok "21 criteria" || fail "$k criteria, expected 21"
+  [ "$c" -eq "$_expect" ] && ok "$_expect cases" || fail "$c cases, expected $_expect"
+  [ "$k" -eq "$_expect" ] && ok "$_expect criteria" || fail "$k criteria, expected $_expect"
   for f in "$ROOT/evals/cases/"*.md; do
     [ -e "$f" ] || continue
     b=$(basename "$f")
@@ -330,7 +362,29 @@ check_zip() {
   # Entries ending in / are directory records. bsdtar writes them and
   # Compress-Archive did not, so compare files only.
   _zip_files=$(printf '%s\n' "$_names" | sed 's|\\|/|g' | grep -v '/$' | LC_ALL=C sort)
-  _src_files=$(cd "$ROOT" && find . -type f -not -path './dist/*' -not -name AUDIT.md | sed 's|^\./||' | LC_ALL=C sort)
+  # The exclusion list is shared with build-zip.sh and lives only in the build
+  # tree, next to it. We reach here only when an archive exists, which means a
+  # build tree. Never fall back to a built-in list: that is the bug this prevents.
+  _xl="$ROOT/../payload-exclude.txt"
+  if [ ! -f "$_xl" ]; then
+    fail "payload-exclude.txt not found at $_xl; the zip guard and build-zip.sh share that one list and the guard will not guess one"
+    return
+  fi
+  _pats=$(sed 's/#.*//; s/^[[:space:]]*//; s/[[:space:]]*$//' "$_xl" | grep -v '^$')
+  if [ -z "$_pats" ]; then
+    fail "payload-exclude.txt at $_xl holds no patterns"
+    return
+  fi
+  _src_files=$(cd "$ROOT" && find . -type f | sed 's|^\./||' | while IFS= read -r _f; do
+    _skip=0
+    while IFS= read -r _p; do
+      case "$_f" in $_p) _skip=1; break ;; esac
+    done <<EOF_PATTERNS
+$_pats
+EOF_PATTERNS
+    [ "$_skip" -eq 0 ] && printf '%s
+' "$_f"
+  done | LC_ALL=C sort)
   if [ "$_zip_files" = "$_src_files" ]; then
     ok "zip payload matches the source tree ($(printf '%s\n' "$_src_files" | grep -c .) files, nothing missing, nothing extra)"
   else
@@ -342,28 +396,86 @@ check_zip() {
   fi
 
   # Names alone cannot see a stale archive: a payload file edited after the
-  # build keeps its name. Extract to a scratch dir outside the repo and diff
-  # the contents against the source tree.
-  _tmp=""; _ex=""
-  if command -v unzip >/dev/null 2>&1; then
-    _tmp=$(mktemp -d "${TMPDIR:-/tmp}/sbp-ex.XXXXXX" 2>/dev/null) && unzip -q "$_zip" -d "$_tmp" >/dev/null 2>&1 && _ex="$_tmp"
-  elif [ -n "$PY" ]; then
-    _tmp=$(mktemp -d "${TMPDIR:-/tmp}/sbp-ex.XXXXXX" 2>/dev/null) && "$PY" -c 'import sys,zipfile;zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])' "$_zip" "$_tmp" >/dev/null 2>&1 && _ex="$_tmp"
-  fi
-  if [ -n "$_ex" ]; then
-    _drift=$(diff -r -x dist -x AUDIT.md "$ROOT" "$_ex" 2>&1)
-    if [ -z "$_drift" ]; then
-      ok "zip contents are identical to the source tree"
-    else
-      fail "zip contents differ from the source tree (stale archive?); rebuild with sh build-zip.sh (from the repo root)"
-      printf '%s\n' "$_drift" | sed 's/^/      /'
+  # build keeps its name. Two ways to compare contents.
+  #
+  # DEFAULT, fast: compare CRC-32. The zip stores a CRC-32 for every entry, so
+  # each shipped source file's CRC-32 is compared with the stored one and
+  # nothing is extracted. (The old extract-and-cmp path took about 23 seconds
+  # and pushed `check.sh all` past a 120-second timeout.)
+  #   What a CRC match proves: the file has not drifted by accident, such as a
+  #   source file edited after the build or a stale archive.
+  #   What it does NOT prove: it is NOT a byte-for-byte proof and NOT
+  #   tamper-evident. CRC-32 is a checksum, not a cryptographic hash, and
+  #   collisions can be constructed on purpose.
+  # FULL, slow: set SBP_ZIP_FULL=1 to extract the archive and cmp every file
+  #   byte for byte. A release build uses this one:
+  #     SBP_ZIP_FULL=1 sh evals/check.sh zip
+  # The output line says which comparison ran, so read it before trusting it.
+  if [ "${SBP_ZIP_FULL:-}" = "1" ]; then
+    _tmp=""; _ex=""
+    if command -v unzip >/dev/null 2>&1; then
+      _tmp=$(mktemp -d "${TMPDIR:-/tmp}/sbp-ex.XXXXXX" 2>/dev/null) && unzip -q "$_zip" -d "$_tmp" >/dev/null 2>&1 && _ex="$_tmp"
+    elif [ -n "$PY" ]; then
+      _tmp=$(mktemp -d "${TMPDIR:-/tmp}/sbp-ex.XXXXXX" 2>/dev/null) && "$PY" -c 'import sys,zipfile;zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])' "$_zip" "$_tmp" >/dev/null 2>&1 && _ex="$_tmp"
     fi
-  elif command -v unzip >/dev/null 2>&1 || [ -n "$PY" ]; then
-    fail "could not extract $_zip to compare its contents against the source tree"
+    if [ -n "$_ex" ]; then
+      _drift=$(printf '%s\n' "$_src_files" | while IFS= read -r _f; do
+        cmp -s "$ROOT/$_f" "$_ex/$_f" || echo "differs or missing: $_f"
+      done)
+      if [ -z "$_drift" ]; then
+        ok "zip contents are byte-for-byte identical to the source tree (full comparison, SBP_ZIP_FULL=1)"
+      else
+        fail "zip contents differ from the source tree (stale archive?); rebuild with sh build-zip.sh (from the repo root)"
+        printf '%s\n' "$_drift" | sed 's/^/      /'
+      fi
+    elif command -v unzip >/dev/null 2>&1 || [ -n "$PY" ]; then
+      fail "could not extract $_zip to compare its contents against the source tree"
+    else
+      ok "zip full content comparison skipped (no unzip, no working interpreter): file names were checked, file contents were NOT"
+    fi
+    [ -n "$_tmp" ] && rm -rf "$_tmp"
   else
-    ok "zip content comparison skipped (no unzip, no working interpreter): file names were checked, file contents were NOT"
+    _crcdone=0
+    if [ -n "$PY" ]; then
+      _drift=$(printf '%s\n' "$_src_files" | "$PY" -c '
+import sys, zipfile, zlib
+z = zipfile.ZipFile(sys.argv[1])
+stored = {i.orig_filename.replace("\\", "/"): i.CRC for i in z.infolist()}
+for n in sys.stdin.read().split("\n"):
+    if not n:
+        continue
+    if n not in stored:
+        print("differs or missing: " + n)
+        continue
+    with open(sys.argv[2] + "/" + n, "rb") as fh:
+        if zlib.crc32(fh.read()) & 0xFFFFFFFF != stored[n]:
+            print("differs or missing: " + n)
+' "$_zip" "$ROOT" 2>&1) && _crcdone=1
+    elif command -v unzip >/dev/null 2>&1 && command -v gzip >/dev/null 2>&1; then
+      # Source CRC-32 comes from the gzip trailer: the CRC-32 of the
+      # uncompressed data, little-endian, in the last 8 bytes minus the final 4.
+      _tbl=$(unzip -v "$_zip" 2>/dev/null | awk 'NF>=8 && length($7)==8 && $7 ~ /^[0-9a-f]+$/ {n=$0; sub(/^ *([^ ]+ +){7}/,"",n); print $7 " " n}')
+      if [ -n "$_tbl" ]; then
+        _drift=$(printf '%s\n' "$_src_files" | while IFS= read -r _f; do
+          set -- $(gzip -c < "$ROOT/$_f" | tail -c8 | head -c4 | od -An -tx1)
+          _have="$4$3$2$1"
+          _want=$(printf '%s\n' "$_tbl" | awk -v n="$_f" 'substr($0,10)==n {print substr($0,1,8); exit}')
+          [ "$_have" = "$_want" ] || echo "differs or missing: $_f"
+        done)
+        _crcdone=1
+      fi
+    fi
+    if [ "$_crcdone" -eq 1 ]; then
+      if [ -z "$_drift" ]; then
+        ok "zip CRC-32 of every shipped file matches the source tree (checksum comparison: catches accidental drift, NOT byte-for-byte proof, NOT tamper-evident; SBP_ZIP_FULL=1 runs the full comparison)"
+      else
+        fail "zip CRC-32 differs from the source tree (stale archive?); rebuild with sh build-zip.sh (from the repo root)"
+        printf '%s\n' "$_drift" | sed 's/^/      /'
+      fi
+    else
+      ok "zip content comparison skipped (no working interpreter, and no unzip with gzip): file names were checked, file contents were NOT"
+    fi
   fi
-  [ -n "$_tmp" ] && rm -rf "$_tmp"
 
   for _x in AUDIT.md dist/ _reference/ .git/; do
     if printf '%s\n' "$_zip_files" | grep -q "^$(printf '%s' "$_x" | sed 's/[.]/[.]/g')"; then
