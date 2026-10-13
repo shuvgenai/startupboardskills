@@ -236,3 +236,29 @@ and payload cannot drift apart silently again. The content comparison is CRC-32 
 default (3.6s for the zip group, down from 23s) with full byte comparison behind
 `SBP_ZIP_FULL=1` for release builds; the comment states plainly that a CRC match catches
 accidental drift, not tampering.
+
+## 2026-10-13 — the s27 fixture date, and what the advisor caught
+
+**The fixture was arithmetically impossible, and it was corrected rather than tuned.**
+`evals/cases/s27-flat-retention-measured.md` had a cohort starting the week of
+1 September reporting a week-8 retention figure, with a Setup date of 2026-10-13. That
+is 42 days — six weeks; week 8 would fall on 2026-10-27, fourteen days in the future.
+The cohort start is now 4 August, whose week 8 lands on 2026-09-29 and is reachable.
+This is not changing a fixture to make a case pass, which the runbook forbids: a fixture
+that cannot be true tests nothing, because every correct reply is a reply about the
+contradiction rather than about retention. Cost if wrong: one case's numbers differ from
+the first draft, and the retention-versus-channel behaviour it was built for is tested
+for the first time on the re-run.
+
+**What the advisor did with the impossible version is worth keeping.** Run blind against
+the broken fixture, it caught the error unprompted: "A cohort that started the week of
+1 September reaches its eighth week in late October, and today is 13 October. That is
+about six weeks in, so a week 8 figure of 58 can't have been counted yet. I won't build
+on any of the numbers until I know what that 58 is." It then asked what date range the
+figure covered, refused to call product-versus-channel until the very-disappointed
+survey existed, and marked every cohort figure UNVERIFIED in the state file. Nobody
+wrote a rule telling it to check whether a founder's dates were possible — phase 09's
+"numbers that cannot all be true" covers internal contradictions between figures, not
+figures against the calendar. The transcript is kept at
+`evals/transcripts/s27-flat-retention-measured.md`, dated 2026-10-13, so the finding
+survives the re-run that replaces it.
