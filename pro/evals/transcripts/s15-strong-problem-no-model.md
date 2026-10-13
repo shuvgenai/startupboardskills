@@ -75,5 +75,30 @@ choice rather than resolved for them.
 
 The offer is there in substance — option one is the canvas — but the artifact
 is still not named, which is what prompted the contract rule that an offer must
-say which document it is offering. Graded PASS on the restored key, with that
-noted as the weakest line in the suite.
+say which document it is offering. That rule was added after this run, so run 2
+was never tested against it.
+
+## Run 3 — PASS, against the offer-names-artifact rule
+
+Advisor's reply, abbreviated to the part under test:
+
+---
+
+You've also said "I haven't thought about money at all." That's honest, but the
+pharmacies already hold part of your answer. The four paying for extra hours
+show what the workaround costs, and who authorised that spend is likely your
+buyer. **I can build a Lean Canvas now. Buyer and price would be marked
+UNVERIFIED, and it would work as a list of what to test next. The risk is that
+a drawn model becomes something you defend rather than test.**
+
+You haven't given me the three write-off figures yet, and they're the best
+price anchor you have.
+
+> **What were the three write-off figures from those pharmacies' own records?**
+
+---
+
+The artifact is now named, its unverified blocks are flagged before it is
+built, and the tension is stated as a risk the founder can weigh rather than a
+choice the advisor makes for them. This is the delivery-side test the suite
+previously had none of.

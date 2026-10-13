@@ -110,7 +110,7 @@ before you buy it.
 
 ## Install
 
-See `dist/INSTALL.md`. Three routes: upload the ZIP in the Claude app, drop
+See `INSTALL.md`. Three routes: upload the ZIP in the Claude app, drop
 the folder into `~/.claude/skills/`, or install it as a plugin in Claude Code
 so updates reach you with one command.
 

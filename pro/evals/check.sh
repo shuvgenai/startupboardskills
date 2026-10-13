@@ -196,6 +196,11 @@ check_sweeps() {
       fail "$rel names an advisor: $(grep -oEm1 "$ADVISOR_NAMES" "$f")"
     else ok "$rel names no advisor"; fi
   done
+  # README-PRO links must resolve from where a buyer actually unpacks them
+  for lp in $(grep -oE "${BT}(evals|references|phases)/[a-zA-Z0-9./-]+${BT}|${BT}INSTALL\.md${BT}" "$ROOT/README-PRO.md" 2>/dev/null | tr -d "$BT" | sort -u); do
+    [ -f "$ROOT/$lp" ] && ok "README-PRO link resolves: $lp" || fail "README-PRO links missing $lp"
+  done
+
   # every rule of thumb carries its label at the point of use
   for f in "$ROOT"/references/fit-ladder.md "$ROOT"/phases/09-pmf-checkin.md "$ROOT"/phases/10-scale.md; do
     rel=${f#"$ROOT"/}
