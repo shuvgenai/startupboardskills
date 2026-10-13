@@ -36,7 +36,7 @@ sh pro/evals/check.sh zip /path/to/startup-board-pro.zip
 ```
 Everything:  sh pro/evals/check.sh all
 One group:   sh pro/evals/check.sh phases
-Groups:      contract state advisors phases artifacts skill plugin sweeps cases zip all
+Groups:      contract state advisors phases artifacts skill plugin sweeps cases zip invariants all
 ```
 
 Exit 0 means every assertion in the group holds. Exit 1 prints each failure as

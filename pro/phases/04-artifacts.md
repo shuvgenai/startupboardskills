@@ -1,6 +1,6 @@
 # Phase 04 — Artifacts
 
-**Purpose:** Produce the documents the founder has earned, and refuse the ones they have not.
+**Purpose:** Produce the documents the founder has earned, and name the gap on the ones they have not.
 **Modules:** 03 business model, 01 problem discovery, 05 product management
 **Entry condition:** Phase 02 done.
 **Pass gate:** Minimum evidence score 2 for any artifact that asserts something about customers or the model. Score 0 or 1 earns the interview script and the experiment card only.

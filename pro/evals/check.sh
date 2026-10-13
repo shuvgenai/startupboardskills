@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 # Startup Board Pro static checks.
-# Usage: evals/check.sh <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|zip|all>
+# Usage: evals/check.sh <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|zip|invariants|all>
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # The plugin manifests, CHANGELOG and sales page sit beside the skill folder in
@@ -276,8 +276,8 @@ check_sweeps() {
 check_cases() {
   c=$(ls "$ROOT/evals/cases" 2>/dev/null | wc -l)
   k=$(ls "$ROOT/evals/criteria" 2>/dev/null | wc -l)
-  [ "$c" -eq 20 ] && ok "20 cases" || fail "$c cases, expected 20"
-  [ "$k" -eq 20 ] && ok "20 criteria" || fail "$k criteria, expected 20"
+  [ "$c" -eq 21 ] && ok "21 cases" || fail "$c cases, expected 21"
+  [ "$k" -eq 21 ] && ok "21 criteria" || fail "$k criteria, expected 21"
   for f in "$ROOT/evals/cases/"*.md; do
     [ -e "$f" ] || continue
     b=$(basename "$f")
@@ -384,6 +384,153 @@ check_zip() {
   fi
 }
 
+# ---------------------------------------------------------------------------
+# Static invariants. WHY THIS GROUP EXISTS: on 2026-10-13 a phase file was
+# edited to refuse something outright that was NOT one of the three sanctioned
+# refusals, and an eval case written to verify the fix PASSED, because the same
+# agent wrote the fix and the answer key. The eval certified the contradiction.
+# An eval cannot catch an invariant violation when the violator grades it; a
+# static check reading the shipped files can. Do not delete this group as
+# redundant with evals/cases.
+#
+# The invariant, from references/fit-ladder.md ("Three things are refused
+# outright, and they are the only three") and conversation-contract.md
+# ("Never refuse."): everything except the listed refusals is warn, allow, stamp.
+
+# Print each numbered item of the list that follows the first line of file $1
+# matching ERE $2, one item per output line (continuation lines joined). The
+# list ends at the first non-blank line that is neither an item nor indented.
+_list_items() {
+  awk -v pat="$2" '
+    !on && $0 ~ pat { on=1; next }
+    on {
+      if ($0 ~ /^[0-9]+\. /) { if (cur != "") print cur; cur=$0; started=1; next }
+      if (started && $0 ~ /^[ \t]+[^ \t]/) { cur = cur " " $0; next }
+      if ($0 ~ /^[ \t]*$/) { next }
+      if (started) { exit }
+    }
+    END { if (cur != "") print cur }
+  ' "$ROOT/$1" 2>/dev/null
+}
+
+check_invariants() {
+  _fl=references/fit-ladder.md
+  _cc=references/conversation-contract.md
+  _refpat='are refused outright'
+
+  # 1. The refusal list is parsed, never hardcoded: the written count word must
+  # equal the number of items actually listed under it.
+  _word=$(sed -n 's/^\*\*\([A-Za-z]*\) things are refused outright.*/\1/p' "$ROOT/$_fl" 2>/dev/null | head -1)
+  _n=$(_list_items "$_fl" "$_refpat" | grep -c .)
+  case $(printf '%s' "$_word" | tr 'A-Z' 'a-z') in
+    one) _w=1 ;; two) _w=2 ;; three) _w=3 ;; four) _w=4 ;; five) _w=5 ;;
+    six) _w=6 ;; seven) _w=7 ;; *) _w="" ;;
+  esac
+  if [ -z "$_w" ]; then
+    fail "$_fl: cannot find the 'N things are refused outright' count word (found: '${_word}')"
+  elif [ "$_n" -eq "$_w" ]; then
+    ok "$_fl count word '$_word' ($_w) matches the $_n listed refusals"
+  else
+    fail "$_fl says '$_word' ($_w) things are refused outright but lists $_n"
+  fi
+
+  # 2. No phase introduces an unsanctioned refusal.
+  # HEURISTIC (noisy on purpose). Split each phase into blank-line paragraphs.
+  # A paragraph is SUSPECT if it contains outright-refusal vocabulary:
+  #   refus*, "do not run this phase", "turned away".
+  # A suspect paragraph is CLEARED if it also contains any of:
+  #   (a) a pointer to the list: "fit-ladder", "sanctioned", "one of only three",
+  #       "one of the three";
+  #   (b) a negation: "not a refusal", "never a refusal", "not a fourth",
+  #       "never refuse";
+  #   (c) a topic anchor of one of the three: "zero active users",
+  #       "market siz", "unverifiable".
+  # Anything else FAILS with file:line. BLIND SPOTS: (1) it matches vocabulary,
+  # so a refusal worded without it ("will not answer", "never produce X",
+  # "do not produce") is invisible; that wording is also how the legitimate
+  # unasked-below-gate rule reads, so it is deliberately not matched.
+  # (2) clearing is per paragraph, so a new refusal that shares a paragraph with
+  # a cleared phrase, or that merely mentions market sizing, zero users or an
+  # unverifiable claim, passes. (3) a pointer to fit-ladder is not proof the
+  # refusal is one of the three. (4) it cannot tell a refusal from a sentence
+  # that quotes one. Failures are therefore leads for a human, and a pass is not
+  # a proof.
+  _bad=0
+  for _f in "$ROOT"/phases/*.md; do
+    [ -f "$_f" ] || continue
+    _rel=${_f#"$ROOT"/}
+    _hits=$(awk '
+      function flush() {
+        if (para != "" && hit != "") {
+          t = tolower(para)
+          cleared = (t ~ /fit-ladder|sanctioned|one of only three|one of the three/) ||
+                    (t ~ /not a refusal|never a refusal|not a fourth|never refuse/) ||
+                    (t ~ /zero active users|market siz|unverifiable/)
+          if (!cleared) print FILENAME ":" hitline ": " hit
+        }
+        para=""; hit=""; nl=0
+      }
+      /^[ \t]*$/ { if (nl == 1 && para ~ /^ #/) next; flush(); next }
+      { para = para " " $0; nl++
+        if (hit == "" && tolower($0) ~ /refus|do not run this phase|turned away/) { hit=$0; hitline=NR } }
+      END { flush() }
+    ' "$_f")
+    if [ -n "$_hits" ]; then
+      _bad=1
+      fail "$_rel has refusal language outside the three sanctioned refusals:"
+      printf '%s\n' "$_hits" | sed 's/^/      /'
+    else ok "$_rel: every refusal is one of the three, or negated"; fi
+  done
+  [ "$_bad" -eq 0 ] && ok "no phase refuses on its own authority"
+
+  # 3. The contract and fit-ladder agree. PROXY, not a semantic check: (a) the
+  # contract still contains its bare "Never refuse." AND the exception heading
+  # "The three sanctioned refusals are the only exception"; (b) the numbered
+  # block under that heading has the same number of items as fit-ladder's list;
+  # (c) the bold lead phrases of those items are identical between the files.
+  # What it cannot see: a contract paragraph that contradicts the list in prose
+  # without touching these anchors, or items whose bold phrase is unchanged but
+  # whose meaning was rewritten.
+  _exc='sanctioned refusals are the only exception'
+  has_str $_cc "Never refuse."
+  has_str $_cc "$_exc"
+  has_str $_cc "references/fit-ladder.md"
+  _cn=$(_list_items "$_cc" "$_exc" | grep -c .)
+  if [ "$_cn" -eq "$_n" ] && [ "$_n" -gt 0 ]; then
+    ok "contract exception block lists $_cn refusals, same as fit-ladder ($_n)"
+  else
+    fail "contract exception block lists $_cn refusals, fit-ladder lists $_n"
+  fi
+  _bf=$(_list_items "$_fl" "$_refpat" | grep -oE '\*\*[^*]+\*\*' | sed 's/\*\*//g; s/ *$//')
+  _bc=$(_list_items "$_cc" "$_exc"    | grep -oE '\*\*[^*]+\*\*' | sed 's/\*\*//g; s/ *$//')
+  if [ -n "$_bf" ] && [ "$_bf" = "$_bc" ]; then
+    ok "contract and fit-ladder name the same refusals (bold phrases identical)"
+  else
+    fail "contract and fit-ladder refusal phrases differ: fit-ladder=[$(printf '%s' "$_bf" | tr '\n' '|')] contract=[$(printf '%s' "$_bc" | tr '\n' '|')]"
+  fi
+
+  # 4. Every phase states a numeric pass gate.
+  for _f in "$ROOT"/phases/*.md; do
+    [ -f "$_f" ] || continue
+    _rel=${_f#"$ROOT"/}
+    if grep -qE '^\*\*Pass gate:\*\*.*[0-9]' "$_f" 2>/dev/null; then
+      ok "$_rel states a numeric Pass gate"
+    else fail "$_rel has no '**Pass gate:**' line containing a digit"; fi
+  done
+  # Substituted for "no gate lower than the contract permits": the contract sets
+  # no numeric floor, so none is invented here. The checkable neighbour: every
+  # artifact-producing phase has a below-gate path.
+  # Derived from the files, not listed here. A hardcoded list is a second place
+  # to forget: the first draft of this check named seven phases by hand and
+  # missed 01-interrogation.md, which declares an Artifact line too.
+  for _f2 in "$ROOT"/phases/*.md; do
+    [ -e "$_f2" ] || continue
+    grep -q '^\*\*Artifact:\*\* `' "$_f2" || continue
+    _n2=$(basename "$_f2" .md)
+    has_str "phases/$_n2.md" "## When the gate is not met"
+  done
+}
+
 case "${1:-all}" in
   contract)  check_contract ;;
   state)     check_state ;;
@@ -395,10 +542,11 @@ case "${1:-all}" in
   sweeps)    check_sweeps ;;
   cases)     check_cases ;;
   zip)       check_zip "${2:-}" ;;
+  invariants) check_invariants ;;
   all) check_contract; check_state; check_advisors; check_phases
        check_artifacts; check_skill; check_plugin; check_sweeps; check_cases
-       check_zip ;;
-  *) echo "usage: $0 <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|zip|all>"; exit 2 ;;
+       check_zip; check_invariants ;;
+  *) echo "usage: $0 <contract|state|advisors|phases|artifacts|skill|plugin|sweeps|cases|zip|invariants|all>"; exit 2 ;;
 esac
 
 [ "$FAIL" -eq 0 ] && echo "PASS" || echo "FAILED"
