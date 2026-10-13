@@ -1,0 +1,51 @@
+# One-pager
+
+**Earned at:** Phase 08. Minimum evidence score 2 for any claim, score 3 for
+any traction claim.
+
+One page, for someone who will give it ninety seconds. Often the right
+document for a founder who asked for a deck.
+
+## Template
+
+```
+# <product> — <one-line positioning>
+
+**The problem**
+<2-3 sentences, grounded in interview evidence, with the count>
+
+**What it does**
+<the core loop, in plain words. Not a feature list.>
+
+**Who it is for**
+<the specific segment from the positioning statement>
+
+**Traction**
+<only what can be verified, stated with its denominator>
+<any figure without a source: UNVERIFIED, or cut>
+
+**Business model**
+<who pays, for what, how much>   [UNVERIFIED if nobody has paid yet]
+
+**The alternatives**
+<what customers use today, including doing nothing>
+
+**Who is building it**
+<why this founder, specifically>
+
+**The ask**
+<one thing, and what it unlocks>
+
+<contact>
+```
+
+## Rules
+
+- **Traction is stated with its denominator.** "2 of 14 interviewed became
+  paying pilots" is strong. "300% growth" from a base of three is a tell, and
+  a reader who has seen a hundred of these will read it that way.
+- **An unverifiable claim is cut, not reworded.** "Significant interest" is
+  what a cut claim becomes when a founder softens it instead, and it reads as
+  the absence of a number.
+- Never claim there are no alternatives.
+- One ask. A page asking for three things is a page asking for nothing.
