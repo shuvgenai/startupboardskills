@@ -56,7 +56,7 @@ Get-FileHash startup-board-pro.zip -Algorithm SHA256
 It must print the checksum published next to your download link. For **v2.0.0**:
 
 ```
-fdc929eaaa91fe55ae43742c8056b5d6a498307e2461bc2f45cf373c8bfe93ae
+b53c07ac344125b031ad1df06f667d35436c77e2d69b239c8ff00f701db9e24d
 ```
 
 A mismatch means the file changed between us and you. Ask for a fresh link rather than installing it — this is a skill a model reads as instructions.

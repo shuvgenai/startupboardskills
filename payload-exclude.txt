@@ -17,3 +17,7 @@ AUDIT.md
 evals/RUNBOOK.md
 evals/transcripts/*
 evals/results-*.md
+# The Claude app rejects any skill zip containing a plugin manifest:
+# "A skill cannot contain a plugin manifest (.claude-plugin/plugin.json)."
+# The plugin route reads the manifest from the repo, not from the archive.
+.claude-plugin/*

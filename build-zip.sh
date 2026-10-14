@@ -19,7 +19,7 @@ OUT="$ROOT/dist/startup-board-pro.zip"
 
 # Top-level members of the skill folder. What is left out inside them is
 # decided by payload-exclude.txt (below), which evals/check.sh also reads.
-MEMBERS="SKILL.md INSTALL.md LICENSE CHANGELOG.md README-PRO.md .claude-plugin evals phases references"
+MEMBERS="SKILL.md INSTALL.md LICENSE CHANGELOG.md README-PRO.md evals phases references"
 
 # The one exclusion list, shared with the guard. Missing or empty means refuse:
 # building with a different list than the guard uses is the bug it prevents.
