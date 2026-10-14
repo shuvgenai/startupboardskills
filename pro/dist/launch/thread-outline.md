@@ -36,7 +36,7 @@ mouth still got no. Retention was unmeasured, and it won't estimate a signal.
 
 ## 6. It won't read fit for a founder with no users
 
-The only hard refusal in the product. 120 waitlist emails is not usage. There
+One of the three hard refusals in the product, per `references/fit-ladder.md`; the other two are market sizing below the research gate and an unverifiable claim on a slide. 120 waitlist emails is not usage. There
 is nothing to measure, so it returns you to your real stage.
 
 ## 7. It won't fix your numbers for you

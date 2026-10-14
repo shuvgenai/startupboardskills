@@ -22,7 +22,13 @@ It opens the next session on the one test you have not run.
 
 ## What it refuses to do
 
-Five things, and the first one has a precise shape worth reading:
+Three things it refuses outright, and two rules it never bends. The
+distinction matters, and `references/fit-ladder.md` is the file of record: three
+things are refused outright and they are the only three. Everything else is
+warn, then allow, then stamp.
+
+**The two rules it never bends** — these are not refusals; you still get the
+document:
 
 1. **Hand you an artifact you have not earned, unasked or unmarked.** No canvas
    volunteered on a turn-one idea, no deck with nothing on the traction slide.
@@ -33,13 +39,33 @@ Five things, and the first one has a precise shape worth reading:
    marked `UNVERIFIED`, every time.
 3. **Name an advisor.** It reasons from twenty-four of them and credits none.
    One voice, no name-dropping, no "as so-and-so would say".
-4. **Say you have product-market fit while a signal is unmeasured.** Promising
-   is not the same as yes.
-5. **Read product-market fit at all when you have zero active users.** A
+**The three it refuses outright**, per `references/fit-ladder.md`:
+
+4. **Read product-market fit at all when you have zero active users.** A
    waitlist is not usage, so there is nothing to measure.
+5. **Size a market for a problem nobody has confirmed.** You get a bottom-up
+   count instead, with every input labelled.
+6. **Leave an unverifiable claim on a slide or a one-pager.** It is cut, not
+   softened into vaguer language.
+
+It will also not say you have product-market fit while a signal is unmeasured —
+promising is not the same as yes — but that is the gate doing its job, not a
+refusal.
 
 And it will never tell you your idea is interesting. Warmth here comes from
 paying close attention, not from approval.
+
+## Who it is for
+
+- **You have an idea and no evidence yet**, and you would rather find out in a
+  week than in six months. Phases 00 to 05 are built for exactly this.
+- **You have launched and the numbers are flat**, and you cannot tell whether
+  that is the product or the channel. Phases 06 to 10 exist because the free
+  version goes quiet here.
+- **You are about to raise**, and you want the questions a room will ask before
+  the room asks them. The deck gate requires score 3 on traction for a reason.
+- **You come back to the same venture across weeks**, and want it to remember
+  what you tested and what it told you last time.
 
 ## Who should not buy this
 
@@ -47,8 +73,8 @@ paying close attention, not from approval.
   the evidence says. That is the product working, and some people find it
   unpleasant.
 - **You want a report to forward.** This is a conversation. If you want a
-  100-page document with your logo on it, buy one of those instead — they
-  cost about the same and they will not ask you anything.
+  100-page document with your logo on it, buy one of those instead. They will
+  not ask you anything.
 - **You have not spoken to anyone and do not intend to.** Every gate here is
   made of conversations with strangers. Without them it will keep telling you
   the same thing.
@@ -88,32 +114,35 @@ alternative offered, and one question. It still would have built the deck if
 the founder insisted — with a line at the top saying what was missing.
 
 Here is one from the other direction. A founder with 14 cold-called pharmacy
-interviews, 11 raising the problem unprompted and 4 already paying someone to
-work around it, who said they had no idea how to charge for it:
+interviews who said they had no idea how to charge for it:
 
 > You've got the money question ahead of the evidence, so I'll do the evidence
 > first. On your numbers, 14 interviews at score 2 clear the Problem bar of
-> about 10 (rule of thumb)... So on the numbers you are through Problem, and
+> about 10 (rule of thumb). […] So on the numbers you are through Problem, and
 > the open work is the model.
 
 Same advisor, opposite answer, because the evidence was different.
 
 ## How it was tested
 
-28 scenarios, each played by a separate model that could read the skill
-and nothing else — not the pass criteria, not the design notes. Of the 15 in
-the first graded run, on 2026-10-12, four failed and were fixed at source
-rather than in the test.
+28 scenarios, each played by a separate model that could read the skill and
+nothing else — not the pass criteria, not the design notes. In the first graded
+run, on 2026-10-12, 20 scenarios ran and five failed: they were fixed at source
+rather than in the test. That record does not ship, so you are taking this
+paragraph on trust.
 
-The graded suite ships with the product: 28 scenarios and 28 answer keys, each
-key naming the failure modes it watches for, plus `evals/rubric.md`. You can
-read every case and audit how it is graded. The record of the first run does
-not ship.
+What does ship is the thing you can check: 28 scenarios and 28 answer keys, each
+key naming the failure modes it watches for, plus `evals/rubric.md`. Read every
+case, see exactly how a reply is judged, and re-run the suite yourself against
+the files you installed.
 
 ## Install
 
-See `INSTALL.md`. Two routes: upload the ZIP in the Claude app, or drop the
-folder into `~/.claude/skills/` for Claude Code. Both give you a frozen copy —
+See `INSTALL.md`. Two routes: upload the ZIP in the Claude app, or unzip it
+into `~/.claude/skills/startup-board-pro/` for Claude Code — then check that
+`SKILL.md` sits at the top level of that folder and not inside another folder
+within it. That is the one step people get wrong, and the skill will not load if
+it is wrong. Both routes give you a frozen copy —
 there is no automatic update path, and `INSTALL.md` says so plainly.
 
 Nothing to run. No account, no API key, no database.
