@@ -67,10 +67,12 @@ Get-FileHash startup-board-pro.zip -Algorithm SHA256
 For **v2.1.0**:
 
 ```
-1f9aff52f4893b69a204867c12011261fc95fd8bb1bb056be199af12f2c9ae56  startup-board-pro.zip
-a0c72b199ef7b92ec49e59814469a1d97b5b1b0428c6d7ace5d6f90ce4480172  startup-board-pro-plugin.zip
-b036e6d9edf1df8bfe3325950587dbf16c6fc428f089d0aa6e81dd791bea0200  startup-board-pro-gpt.zip
+8b8949079921fefb2b08561fb7572d179d3607e6d7e8b927f7d4299e9e38be25  startup-board-pro.zip
+f2b1b7da976ada336d9ea57ccda84134f04d807a25fa936c2da54332a51ca7bd  startup-board-pro-plugin.zip
+f97566ec33e9bdb7e5c1cd9c1a2a4ac632540bb376c208d72ac1a8ba60f111d3  startup-board-pro-gpt.zip
 ```
+
+The same values are published as [SHA256SUMS.txt](https://github.com/shuvgenai/startupboardskills/releases/download/v2.1.0/SHA256SUMS.txt) on the release, generated from the uploaded files themselves; that list is authoritative if it ever disagrees with this page.
 
 A mismatch means the file changed between us and you. Ask for a fresh link
 rather than installing it - this is a skill a model reads as instructions.
