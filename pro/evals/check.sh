@@ -356,6 +356,24 @@ check_zip() {
     return
   fi
 
+  # The manifest decides which uploader accepts this archive, so assert it
+  # directly rather than inferring it from the payload comparison. Without
+  # this, a plugin build whose source lost .claude-plugin/plugin.json would
+  # match its (equally manifest-less) source tree and pass as a plugin zip.
+  if printf '%s\n' "$_names" | sed 's|\\|/|g' | grep -qx '\.claude-plugin/plugin\.json'; then
+    if [ "${SBP_ZIP_WITH_MANIFEST:-0}" = "1" ]; then
+      ok "zip carries .claude-plugin/plugin.json at the archive root (plugin upload route)"
+    else
+      fail "zip carries .claude-plugin/plugin.json; the Claude app's skill uploader refuses that archive. Build the plugin archive with sh build-zip.sh plugin instead"
+    fi
+  else
+    if [ "${SBP_ZIP_WITH_MANIFEST:-0}" = "1" ]; then
+      fail "zip has no .claude-plugin/plugin.json at the archive root, so the plugin uploader will refuse it"
+    else
+      ok "zip carries no plugin manifest (skill upload route)"
+    fi
+  fi
+
   _bs=$(printf '%s\n' "$_names" | grep -c '[\]' || true)
   if [ "$_bs" -eq 0 ]; then
     ok "zip stores no backslash path separators"
@@ -375,6 +393,15 @@ check_zip() {
     return
   fi
   _pats=$(sed 's/#.*//; s/^[[:space:]]*//; s/[[:space:]]*$//' "$_xl" | grep -v '^$')
+  # The plugin archive is the skill archive plus .claude-plugin/plugin.json.
+  # build-zip.sh plugin sets SBP_ZIP_WITH_MANIFEST=1 so this guard expects the
+  # manifest instead of flagging it as an extra file. The variable drops that
+  # one pattern and nothing else: the two archives are held to the same list,
+  # which is the point of there being only one list.
+  if [ "${SBP_ZIP_WITH_MANIFEST:-0}" = "1" ]; then
+    _pats=$(printf '%s
+' "$_pats" | grep -vxF '.claude-plugin/*')
+  fi
   if [ -z "$_pats" ]; then
     fail "payload-exclude.txt at $_xl holds no patterns"
     return
