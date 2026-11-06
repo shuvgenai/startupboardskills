@@ -4,7 +4,7 @@
 
 Most AI idea-validation tools give you a report. This gives you an interrogation, a score and a verdict — then remembers your venture between sessions and holds you to what you said last time.
 
-It is a Claude Skill: plain Markdown files that Claude reads as instructions. Nothing to run, no API key, no account, no database, no subscription.
+It is an agent skill: plain Markdown files an assistant reads as instructions. It installs in the Claude app, Claude Code, Codex and ChatGPT. Nothing to run, no API key, no account, no database, no subscription.
 
 ---
 
@@ -37,13 +37,24 @@ Everything else is warn, then allow, then stamp: if you insist on a document you
 
 ---
 
-## How to Install
+## Downloads
 
-Two routes. Pick the one matching where you use Claude.
+Four install routes, three files. Pick the row for where you use it.
 
-### Before you start: verify the download
+| Where you use it | Download | What to do with it |
+|---|---|---|
+| **Claude app** | [startup-board-pro.zip](https://github.com/shuvgenai/startupboardskills/releases/download/v2.1.0/startup-board-pro.zip) | Upload as it downloaded, do not unzip |
+| **Claude Code** | [startup-board-pro-plugin.zip](https://github.com/shuvgenai/startupboardskills/releases/download/v2.1.0/startup-board-pro-plugin.zip) | Upload to the plugin page, or unzip into your skills folder |
+| **Codex** | [startup-board-pro.zip](https://github.com/shuvgenai/startupboardskills/releases/download/v2.1.0/startup-board-pro.zip) | Unzip into `~/.agents/skills/startup-board-pro/` |
+| **ChatGPT** | [startup-board-pro.zip](https://github.com/shuvgenai/startupboardskills/releases/download/v2.1.0/startup-board-pro.zip) | Upload to Skills if your plan has it |
+| **A custom GPT** | [startup-board-pro-gpt.zip](https://github.com/shuvgenai/startupboardskills/releases/download/v2.1.0/startup-board-pro-gpt.zip) | Paste the instructions, upload the 4 knowledge files |
 
-Download `startup-board-pro.zip` from the link in your purchase receipt, then confirm it is the file that was built:
+The Claude app and Claude Code files are **not interchangeable**. The app's
+skill uploader refuses any archive containing a plugin manifest; the plugin
+uploader refuses any archive without one. Uploading the wrong one gives you
+`Plugin failed validation with 1 error`.
+
+### Verify the download
 
 ```bash
 # macOS / Linux
@@ -53,32 +64,64 @@ shasum -a 256 startup-board-pro.zip
 Get-FileHash startup-board-pro.zip -Algorithm SHA256
 ```
 
-It must print the checksum published next to your download link. For **v2.0.0**:
+For **v2.1.0**:
 
 ```
-b53c07ac344125b031ad1df06f667d35436c77e2d69b239c8ff00f701db9e24d
+1f9aff52f4893b69a204867c12011261fc95fd8bb1bb056be199af12f2c9ae56  startup-board-pro.zip
+a0c72b199ef7b92ec49e59814469a1d97b5b1b0428c6d7ace5d6f90ce4480172  startup-board-pro-plugin.zip
+b036e6d9edf1df8bfe3325950587dbf16c6fc428f089d0aa6e81dd791bea0200  startup-board-pro-gpt.zip
 ```
 
-A mismatch means the file changed between us and you. Ask for a fresh link rather than installing it — this is a skill a model reads as instructions.
+A mismatch means the file changed between us and you. Ask for a fresh link
+rather than installing it - this is a skill a model reads as instructions.
 
-### Route 1 — the Claude app
+## How to Install
 
-1. Open Claude → **Settings** → **Capabilities** → **Skills**.
+### Route 1 - the Claude app
+
+1. Open Claude, then **Settings**, **Capabilities**, **Skills**.
 2. Upload `startup-board-pro.zip` **as it downloaded**. Do not unzip it first.
 3. Start a new conversation and type: *roast my startup idea*.
 
-### Route 2 — Claude Code
+### Route 2 - Claude Code
+
+**As a plugin:** upload `startup-board-pro-plugin.zip`. It carries
+`.claude-plugin/plugin.json` at the archive root, which is what the uploader
+validates.
+
+**As a folder:**
 
 1. Unzip `startup-board-pro.zip`.
 2. Move the folder to your skills directory, renamed `startup-board-pro`:
    - **Windows:** `C:\Users\<your-name>\.claude\skills\startup-board-pro\`
    - **macOS / Linux:** `~/.claude/skills/startup-board-pro/`
-3. Confirm `SKILL.md` sits at the **top level** of that folder, not inside another folder. This is the one step people get wrong.
+3. Confirm `SKILL.md` sits at the **top level** of that folder, not inside
+   another folder. This is the one step people get wrong.
 4. Restart Claude Code and type: *roast my startup idea*.
+
+### Route 3 - Codex
+
+1. Unzip `startup-board-pro.zip`.
+2. Move the folder, renamed `startup-board-pro`, to `~/.agents/skills/` for
+   yourself, or to `.agents/skills/` inside a single repository.
+3. `SKILL.md` must sit directly inside that folder, not one level deeper.
+4. Run `/skills` inside Codex to confirm it was found. Restart if it is not.
+
+### Route 4 - ChatGPT
+
+**If your plan offers Skills:** upload `startup-board-pro.zip` the same way as
+the Claude app. Availability varies by plan.
+
+**As a custom GPT:** unzip `startup-board-pro-gpt.zip`, paste the whole of
+`instructions.txt` into the GPT builder's **Instructions** box, and upload all
+four files from `knowledge/` as **Knowledge**. That build carries every phase
+and reference but not the eval suite, and it asks you to paste your state file
+in at the start of each session because a GPT cannot see your files.
 
 ### Check it loaded
 
-Type any of these. If the advisor replies with **one** question and no enthusiasm, it is working:
+Type any of these. If the advisor replies with **one** question and no
+enthusiasm, it is working:
 
 - *roast my idea*
 - *do I have product-market fit?*
@@ -87,7 +130,10 @@ Type any of these. If the advisor replies with **one** question and no enthusias
 
 ### Updates
 
-Both routes give you a frozen copy. There is no automatic update path — when a new version ships, the release notes say what the re-run of the test suite found and which file was at fault, and you download and install again. Nothing phones home.
+Every route gives you a frozen copy. There is no automatic update path - when
+a new version ships, the release notes say what the re-run of the test suite
+found and which file was at fault, and you download and install again. Nothing
+phones home.
 
 ---
 
@@ -102,7 +148,7 @@ Both routes give you a frozen copy. There is no automatic update path — when a
 | Evidence rubric | 0–3, with worked examples per level |
 | Fit ladder | six stages, each with a testable pass condition |
 | Test suite | 28 blind-graded scenarios with answer keys |
-| Static checks | 612 assertions over the skill's own files |
+| Static checks | 615 assertions over the skill's own files |
 
 The 9 advisor modules carry the thinking of two dozen operators and writers. **None of them is ever named to you.** The influence shows up as the question you get asked next, not as a quotation.
 
@@ -112,7 +158,7 @@ A Markdown skill is instructions to a model, and the model changes underneath it
 
 That is what the eval suite is for: **28 scenarios, blind-graded** — a separate model plays the advisor with access to the skill files and nothing else, then its reply is graded against an answer key it never saw. The cases and the answer keys ship with the product, so you can read what it is tested against and re-run it yourself.
 
-`check.sh` adds **612 static assertions** over the skill's own files: that every phase states a numeric gate, that no phase invents a refusal the fit ladder does not sanction, that an artifact's required score agrees across every file that mentions it, and that no unsourced claim about markets or investors is stated as fact.
+`check.sh` adds **615 static assertions** over the skill's own files: that every phase states a numeric gate, that no phase invents a refusal the fit ladder does not sanction, that an artifact's required score agrees across every file that mentions it, and that no unsourced claim about markets or investors is stated as fact.
 
 ---
 
@@ -127,8 +173,8 @@ You can, and you should before you buy. What you are paying for is not secrecy, 
 **What is the difference from the free version?**
 The free version validates an idea. This adds the phases after launch — product-market fit, metrics, traction, founder strategy, fundraising — plus the evidence scoring, the memory between sessions, the binding gates and the artifact library. The free version stays free and is not going away.
 
-**Does it work in the Claude app, or only Claude Code?**
-Both. Route 1 is the app, route 2 is Claude Code. The skill detects which environment it is in and adapts how it saves files and asks multiple-choice questions.
+**Where does it run?**
+The Claude app, Claude Code, Codex, and ChatGPT - four routes, three download files. The skill detects which environment it is in and adapts how it saves files and asks multiple-choice questions. The custom GPT build is the one reduced version: it carries every phase and reference but not the eval suite.
 
 **Does it send my idea anywhere?**
 No. There is no telemetry, no phone-home and no server. It is files Claude reads. Your conversation goes wherever your Claude conversations already go.

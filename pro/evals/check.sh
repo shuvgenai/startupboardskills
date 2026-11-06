@@ -216,8 +216,8 @@ check_plugin() {
     else ok "$_f JSON parse skipped (no interpreter found)"; fi
   done
   pkg_str  .claude-plugin/plugin.json '"name": "startup-board-pro"'
-  pkg_str  .claude-plugin/plugin.json '"version": "2.0.0"'
-  pkg_str  CHANGELOG.md "2.0.0"
+  pkg_str  .claude-plugin/plugin.json '"version": "2.1.0"'
+  pkg_str  CHANGELOG.md "2.1.0"
   pkg_lacks_re .claude-plugin/plugin.json "$ADVISOR_NAMES"
   pkg_lacks_re .claude-plugin/plugin.json "$BANNED_STACK"
   d1=$(sed -n 's/^description: *//p' "$ROOT/SKILL.md" 2>/dev/null | head -1 | cut -c1-60)

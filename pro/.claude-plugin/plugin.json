@@ -1,6 +1,6 @@
 {
   "name": "startup-board-pro",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "An evidence-gated startup advisor that runs a one-question-at-a-time session with a founder and remembers the venture between sessions. Use for validating or pressure-testing a startup or product idea, and whenever a founder says roast my idea, someone already built this so is there any point, or is this a business or just a feature. Also for Mom Test interview questions, a Lean Canvas, market and competitor research, an MVP build plan on no-code tools, a launch plan, naming and positioning, a pitch deck or one-pager. Use after launch when a founder says why is nobody coming back, my churn is bad, I have signups but no usage, or do I have product-market fit. Use for fundraising - am I fundable, is this valuation sane. Use for hard decisions - should I pivot, keep going or quit, how do we split equity. Trigger even without the words skill or board - any request to take a product idea from problem through build, launch and growth routes here, and so does any founder describing a problem they are stuck on.",
   "author": {
     "name": "shuvgenai",

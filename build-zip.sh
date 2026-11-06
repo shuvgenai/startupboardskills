@@ -67,6 +67,24 @@ for _m in $MEMBERS; do
   [ -e "$ROOT/$_m" ] || { echo "FAIL: $_m is missing from $ROOT; nothing was built" >&2; exit 1; }
 done
 
+# ---- the archive writer ---------------------------------------------------
+# A libarchive tar, by any of its names. GNU tar is also called "tar" and
+# cannot write zip at all, so check what answers rather than trusting the name.
+# Detected before gpt mode because that mode ships an archive too.
+TAR=""
+for _c in bsdtar tar /c/Windows/System32/tar.exe /usr/bin/bsdtar; do
+  command -v "$_c" >/dev/null 2>&1 || continue
+  # Capture the banner once: the probe needs it, and so does the build line.
+  _ver=$("$_c" --version 2>/dev/null | head -1)
+  case "$_ver" in *[Bb]sdtar*|*libarchive*) TAR="$_c"; TAR_VER="$_ver"; break ;; esac
+done
+if [ -z "$TAR" ] && ! command -v zip >/dev/null 2>&1; then
+  echo "FAIL: no spec-compliant zip writer found. Need bsdtar (libarchive) or Info-ZIP zip." >&2
+  echo "      Windows 10+ ships bsdtar at C:\\Windows\\System32\\tar.exe; macOS 10.15+ ships it as tar." >&2
+  echo "      Do NOT substitute PowerShell Compress-Archive: it writes backslash separators." >&2
+  exit 1
+fi
+
 # ---- gpt mode -------------------------------------------------------------
 # A custom GPT has no filesystem: the phase and reference files it would
 # follow links into have to arrive as uploaded knowledge. ChatGPT caps that at
@@ -151,21 +169,26 @@ EOF_X
     echo "FAIL: $_kn knowledge files; a custom GPT accepts at most 20" >&2
     rm -rf "$OUT"; exit 1
   fi
+  # The folder is what a person uploads file by file in the GPT builder; the
+  # archive is what a download link can point at. Both come out of this one
+  # build, so a link and a folder can never describe different versions.
+  GPTZIP="$ROOT/dist/startup-board-pro-gpt.zip"
+  rm -f "$GPTZIP"
+  if [ -n "$TAR" ]; then
+    ( cd "$OUT" && "$TAR" -a -c -f "$GPTZIP" instructions.txt knowledge ) \
+      || { echo "FAIL: could not write $GPTZIP" >&2; rm -f "$GPTZIP"; rm -rf "$OUT"; exit 1; }
+  else
+    ( cd "$OUT" && zip -q -r -X "$GPTZIP" instructions.txt knowledge ) \
+      || { echo "FAIL: could not write $GPTZIP" >&2; rm -f "$GPTZIP"; rm -rf "$OUT"; exit 1; }
+  fi
+  [ -s "$GPTZIP" ] || { echo "FAIL: the writer exited 0 but $GPTZIP is missing or empty" >&2; rm -f "$GPTZIP"; rm -rf "$OUT"; exit 1; }
+
   echo "wrote $OUT ($_chars characters of instructions, $_kn knowledge files, $_parts parts)"
+  echo "wrote $GPTZIP"
   exit 0
 fi
 
 # ---- zip modes ------------------------------------------------------------
-# A libarchive tar, by any of its names. GNU tar is also called "tar" and
-# cannot write zip at all, so check what answers rather than trusting the name.
-TAR=""
-for _c in bsdtar tar /c/Windows/System32/tar.exe /usr/bin/bsdtar; do
-  command -v "$_c" >/dev/null 2>&1 || continue
-  # Capture the banner once: the probe needs it, and so does the build line.
-  _ver=$("$_c" --version 2>/dev/null | head -1)
-  case "$_ver" in *[Bb]sdtar*|*libarchive*) TAR="$_c"; TAR_VER="$_ver"; break ;; esac
-done
-
 mkdir -p "$ROOT/dist" || exit 1
 # zip -r appends to an existing archive, so a file deleted from the source
 # would survive a rebuild. Remove the output first, on every path.
@@ -186,11 +209,6 @@ elif command -v zip >/dev/null 2>&1; then
 $PATTERNS
 EOF_PATTERNS
   zip -q -r -X "$OUT" $MEMBERS -x "$@" || { echo "FAIL: archive write failed; removing partial output" >&2; rm -f "$OUT"; exit 1; }
-else
-  echo "FAIL: no spec-compliant zip writer found. Need bsdtar (libarchive) or Info-ZIP zip." >&2
-  echo "      Windows 10+ ships bsdtar at C:\\Windows\\System32\\tar.exe; macOS 10.15+ ships it as tar." >&2
-  echo "      Do NOT substitute PowerShell Compress-Archive: it writes backslash separators." >&2
-  exit 1
 fi
 
 # A writer that exits 0 without producing a file would otherwise sail through:

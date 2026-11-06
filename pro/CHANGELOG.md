@@ -1,5 +1,43 @@
 # Changelog
 
+## v2.1.0 - 2026-11-06
+
+Distribution only. Not one word of the advisor's behaviour changed: the
+phases, the gates, the evidence rubric and the refusals are byte-identical
+to v2.0.0. What changed is how many places you can install it.
+
+### Four install routes instead of two
+
+The Claude app's plugin uploader refuses an archive without
+`.claude-plugin/plugin.json` at its root, and its skill uploader refuses any
+archive that contains one. One archive cannot satisfy both, so the build now
+produces each separately. Codex reads a plain folder, so the skill archive
+serves it unzipped. A custom GPT reads neither, and caps instructions at 8000
+characters and knowledge at 20 files, so it gets a condensed instruction file
+plus four bundles merged by directory.
+
+`INSTALL.md` now names which artifact each route needs, and what the error
+message looks like when the wrong one is uploaded.
+
+### The custom GPT route is a reduced build
+
+It carries all 11 phases and all 29 reference files. It does not carry the
+eval suite, which is 90 files a founder never reads and would consume most of
+a GPT's 20-file budget. The behaviour is the same; what you lose is the
+ability to re-run the tests yourself.
+
+Because a custom GPT cannot see your files, that build asks you to paste
+`startup-board-state.md` in at the start and prints the updated file back at
+the end of every session. Without saving that block, the session is lost.
+
+### The build verifies all three artifacts against one list
+
+`payload-exclude.txt` already decided what the archive leaves out. It now
+governs the GPT bundle too, and the guard asserts the plugin manifest is
+present when the plugin archive is built and absent when the skill archive
+is. Uploading the wrong file to the wrong route now fails at build time
+rather than at upload time.
+
 ## v2.0.0 — 2026-10-12
 
 The first paid edition. Same conversation shape as the free version, same

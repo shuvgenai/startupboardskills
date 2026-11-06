@@ -130,6 +130,26 @@ else
   bad "knowledge directory missing; the per-bundle checks cannot run"
 fi
 
+echo "T6 gpt mode also writes a single downloadable archive"
+# The folder is what a person uploads file by file; the archive is what a
+# download link can point at. Both come from the same build so they cannot
+# describe different versions of the bundle.
+GPTZIP="$DIST/startup-board-pro-gpt.zip"
+if [ -s "$GPTZIP" ]; then ok "wrote startup-board-pro-gpt.zip"
+else bad "startup-board-pro-gpt.zip missing or empty"; fi
+if names "$GPTZIP" | grep -qx 'instructions.txt'; then ok "instructions.txt at the archive root"
+else bad "instructions.txt is not at the archive root"; fi
+if listable "$GPTZIP"; then
+  _kz=$(names "$GPTZIP" | grep -c '^knowledge/.*\.md$' || true)
+  if [ "${_kz:-0}" -eq 4 ]; then ok "archive carries all 4 knowledge bundles"
+  else bad "archive carries ${_kz:-0} knowledge bundles, expected 4"; fi
+  if names "$GPTZIP" | grep -q '/evals/'; then bad "gpt archive ships evals/"
+  else ok "gpt archive drops evals/"; fi
+  _gbs=$(names "$GPTZIP" | grep -c '[\]' || true)
+  if [ "${_gbs:-1}" -eq 0 ]; then ok "gpt archive stores no backslash separators"
+  else bad "gpt archive stores $_gbs backslash separators (ZIP spec 4.4.17.1 requires /)"; fi
+fi
+
 echo "T5 a rebuild drops a file that left the source tree"
 # The bug this guards: zip -r appends to an existing archive, so a deleted
 # source file survives a rebuild. Rebuilding an unchanged tree cannot detect
