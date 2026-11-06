@@ -17,7 +17,10 @@ AUDIT.md
 evals/RUNBOOK.md
 evals/transcripts/*
 evals/results-*.md
-# The Claude app rejects any skill zip containing a plugin manifest:
+# The Claude app rejects any SKILL zip containing a plugin manifest:
 # "A skill cannot contain a plugin manifest (.claude-plugin/plugin.json)."
-# The plugin route reads the manifest from the repo, not from the archive.
+# Its PLUGIN uploader requires the opposite: .claude-plugin/plugin.json at
+# the archive root. So this pattern holds for the skill archive only -
+# `sh build-zip.sh plugin` drops this one line, keeps every other exclusion,
+# and the guard matches that when SBP_ZIP_WITH_MANIFEST=1.
 .claude-plugin/*
