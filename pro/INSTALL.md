@@ -25,7 +25,21 @@ is a skill a model reads as instructions.
 
 Ten seconds, and worth it on any route you did not get the file from directly.
 
-## Route 1 — the Claude app (easiest)
+## Which file you need
+
+Three artifacts ship. Which one you want depends on where you are installing.
+
+| Where | File | Why this one |
+|---|---|---|
+| Claude app, ChatGPT, Codex | `startup-board-pro.zip` | `SKILL.md` at the archive root, no plugin manifest |
+| Claude Code | `startup-board-pro-plugin.zip` | carries `.claude-plugin/plugin.json`, which the plugin uploader requires |
+| A custom GPT | `startup-board-pro-gpt/` | condensed instructions plus four merged knowledge files |
+
+The first two differ by one file. Do not rename one into the other: the Claude
+app's skill uploader rejects any archive containing a plugin manifest, and its
+plugin uploader rejects any archive without one.
+
+## Route 1 - the Claude app (easiest)
 
 1. Open Claude and go to **Settings**.
 2. Open **Capabilities**, then **Skills**.
@@ -34,20 +48,61 @@ Ten seconds, and worth it on any route you did not get the file from directly.
 
 If the advisor replies with one question and no enthusiasm, it is working.
 
-## Route 2 — Claude Code, as a folder
+## Route 2 - Claude Code
+
+Two ways in. The plugin archive is the one to use if your Claude Code offers a
+plugin upload; the folder route works everywhere.
+
+**As a plugin:** upload `startup-board-pro-plugin.zip`. It holds
+`.claude-plugin/plugin.json` at the archive root, which is what the uploader
+validates against.
+
+**As a folder:**
 
 1. Unzip `startup-board-pro.zip`.
 2. Move the unzipped folder to your skills directory, renaming it
    `startup-board-pro`:
    - **Windows:** `C:\Users\<your-name>\.claude\skills\startup-board-pro\`
    - **Mac or Linux:** `~/.claude/skills/startup-board-pro/`
-3. Check that `SKILL.md` sits at the top level of that folder — not inside
+3. Check that `SKILL.md` sits at the top level of that folder - not inside
    another folder within it. This is the one thing people get wrong.
 4. Restart Claude Code and type: *roast my startup idea*.
 
+## Route 3 - Codex
+
+Codex reads skills from a folder, not an archive.
+
+1. Unzip `startup-board-pro.zip`.
+2. Move the unzipped folder, renamed `startup-board-pro`, to:
+   - **for yourself, everywhere:** `~/.agents/skills/startup-board-pro/`
+   - **for one repository:** `.agents/skills/startup-board-pro/` inside it
+3. `SKILL.md` must sit directly inside that folder, not one level deeper.
+4. Run `/skills` inside Codex to confirm it was found. If it is missing,
+   restart Codex.
+
+## Route 4 - ChatGPT
+
+**If your plan offers Skills:** upload `startup-board-pro.zip` the same way as
+the Claude app - your profile menu, then Skills, then a new skill. Availability
+varies by plan, so if you cannot find it, use the custom GPT below.
+
+**As a custom GPT:**
+
+1. Create a new GPT in the GPT builder.
+2. Paste the whole of `startup-board-pro-gpt/instructions.txt` into the
+   **Instructions** box. It is sized to fit the builder's limit.
+3. Upload all four files from `startup-board-pro-gpt/knowledge/` as
+   **Knowledge**.
+4. Leave Web Browsing on if you want the research phases to work. Code
+   Interpreter is not used.
+5. Start a conversation and type: *roast my startup idea*.
+
+The custom GPT carries the phases and references but not the test suite. It
+behaves the same way; it just cannot be re-verified by you.
+
 ## How updates reach you
 
-Both routes give you a frozen copy. There is no automatic update path, and
+Every route gives you a frozen copy. There is no automatic update path, and
 that is worth saying plainly rather than leaving you to discover it.
 
 When a new version ships, the release notes say what the re-run of the test
@@ -75,8 +130,8 @@ After a session the advisor writes `startup-board-state.md` into your current
 folder and tells you the path. Keep that file. Next session it picks up from
 the one test you have not run.
 
-In the Claude app it cannot see your files, so it hands the file to you and
-asks you to paste it back next time.
+In the Claude app, in ChatGPT and in a custom GPT it cannot see your files, so
+it hands the file to you and asks you to paste it back next time.
 
 **Coming from the free version?** Keep your `startup-board-progress.md`. Paste
 it in or leave it in the folder, and your history carries across into the new
@@ -84,8 +139,12 @@ file. The old file is left exactly where it is.
 
 ## If something looks wrong
 
-- **No response to the trigger phrases:** the skill did not load. On route 2,
-  check `SKILL.md` is at the top of the folder.
+- **No response to the trigger phrases:** the skill did not load. On any folder
+  route, check `SKILL.md` is at the top of the folder, not one level deeper.
+- **The plugin upload says the manifest is missing:** you uploaded
+  `startup-board-pro.zip`. Claude Code wants `startup-board-pro-plugin.zip`.
+- **The skill upload says a skill cannot contain a plugin manifest:** the
+  reverse. Upload `startup-board-pro.zip`.
 - **It asks several questions at once:** you are probably talking to Claude
   without the skill loaded.
 - **It compliments your idea:** same answer. This one is not supposed to do

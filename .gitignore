@@ -3,3 +3,4 @@ _reference/
 **/dist/*.zip
 node_modules/
 docs/
+**/dist/startup-board-pro-gpt/
